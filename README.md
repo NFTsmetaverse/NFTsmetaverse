@@ -2,7 +2,8 @@
 
 Historical New Testament transmission campaign — UE 5.x C++ project. Full design
 context lives in [`docs/MASTER_PROMPT.md`](docs/MASTER_PROMPT.md); read that
-before starting new work.
+before starting new work. Art direction for the Mode A player character is in
+[`docs/CHARACTER_FRAME_PROTAGONIST.md`](docs/CHARACTER_FRAME_PROTAGONIST.md).
 
 ## Status
 
