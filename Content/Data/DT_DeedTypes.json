@@ -121,6 +121,32 @@
 		"bTravelsByWordOfMouth": true
 	},
 	{
+		"Name": "Deed_WonPublicDisputation",
+		"DeedTypeID": "Deed_WonPublicDisputation",
+		"Summary": "Argued the case in public against a man who knew the objections, and the man conceded.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": 14.0 },
+			{ "FactionID": "Faction_GentileBelievers", "Delta": 12.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": 12.0 }
+		],
+		"WitnessStandingDelta": 12.0,
+		"NewsReachDays": 180,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_LostPublicDisputation",
+		"DeedTypeID": "Deed_LostPublicDisputation",
+		"Summary": "Argued the case in public and could not hold it. People who were undecided went home decided.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": -10.0 },
+			{ "FactionID": "Faction_GentileBelievers", "Delta": -12.0 },
+			{ "FactionID": "Faction_DiasporaSynagogues", "Delta": 6.0 }
+		],
+		"WitnessStandingDelta": -8.0,
+		"NewsReachDays": 180,
+		"bTravelsByWordOfMouth": true
+	},
+	{
 		"Name": "Deed_KeptAConfidence",
 		"DeedTypeID": "Deed_KeptAConfidence",
 		"Summary": "Was asked where a man was hiding, and said he did not know.",

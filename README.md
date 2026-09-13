@@ -6,11 +6,12 @@ before starting new work.
 
 ## Status
 
-Tasks 1, 2, 4, 5 and 6 of the Section 10 task queue are implemented: the
+Tasks 1, 2, 4, 5, 6 and 7 of the Section 10 task queue are implemented: the
 historical timeline as data with the subsystem that gates world state off it, the
 Codex of Witnesses on top of that, dialogue gated on what the player can credibly
-claim, a reputation system whose news travels no faster than a man on a road, and
-the campaign map that road belongs to.
+claim, a reputation system whose news travels no faster than a man on a road, the
+campaign map that road belongs to, and the debates where the Codex is finally put
+under pressure.
 
 Task 3 (the Codex UI) is deliberately out of order — UMG widgets are binary
 assets a designer builds in-editor, so the useful part from here is the data it
@@ -131,9 +132,37 @@ because the second sea leg would be caught by the closing lanes, and takes the
 single direct crossing instead. Insisting on sailing is what `Acts 27` was, and the
 risk multiplier makes the wreck the expected outcome rather than bad luck.
 
-Tasks 3, 7, 8 and 9 (Codex UI, argumentation encounters, Witness Missions, the
-AD 65 vertical slice) are not started — see the task queue in the master prompt
-doc.
+**Task 7 — argumentation encounters**
+
+| Path | What it is |
+|---|---|
+| `Source/ChainOfWitnesses/Public/Debate/DebateTypes.h` | `FDebateObjectionRow`, `FDebateOpponentRow`, `FDebateObjectionView`, `FDebateRoundRecord`, `FDebateOutcomeReport`, `FDebateState`. |
+| `Source/ChainOfWitnesses/Public/Debate/DebateSubsystem.h`, `Private/.../DebateSubsystem.cpp` | `UDebateSubsystem` — objection selection, the three ways to answer, scoring off link strength, and the outcome report. |
+| `Content/Data/DT_DebateObjections.json` | Sixteen real counterarguments, each aimed at a named link. |
+| `Content/Data/DT_DebateOpponents.json` | Six opponents — magistrate, synagogue elder, source-critical scribe, tradition keeper, Gnostic, Marcionite — each attacking a different part of the chain. |
+| `Source/ChainOfWitnesses/Private/Tests/DebateSubsystemTests.cpp` | Weakest-link probing, chain-vs-citation defence, challenge penalties, the defeat report, early wins, era gating, deed recording. |
+
+**The chain is the ammunition, literally.** Every objection attacks a named link of
+the transmission chain, so the link score built in the Codex *is* the defence
+available here. That single decision is what makes Section 8's two requirements —
+"use the player's actual assembled chains" and "the loss is legible" — the same
+mechanism rather than two features.
+
+The opponent is not a random-objection dispenser: each round he leads with whatever
+the chain is worst at, deterministically. Three ways to meet an objection — rest on
+the chain (worth exactly that link's score), cite a source that answers it directly
+(stronger, and each citation carries only once per debate), or concede. Conceding is
+sometimes the correct move: the longer ending of Mark has no evidential answer, and
+pretending otherwise is how a case comes apart later.
+
+A link carrying a challenge the player never answered is worth **half** in debate —
+so Task 2's `ChallengedBy` data is what an opponent reaches for. And a defeat
+returns a transcript naming the link that failed plus the fragments that would have
+met the objections that landed and which the player has not found. That list is the
+next set of missions.
+
+Tasks 3, 8 and 9 (Codex UI, Witness Missions, the AD 65 vertical slice) are not
+started — see the task queue in the master prompt doc.
 
 ## Project layout
 
@@ -157,7 +186,8 @@ Standard UE5 C++ project: `ChainOfWitnesses.uproject`, `Source/`, `Content/`,
    `UCodexSubsystem::RegisterFragmentsFromDataTable`,
    `UDialogueSubsystem::RegisterDialogueTable`, the two
    `UReputationSubsystem::Register*Table` entry points, and the three
-   `UCampaignMapSubsystem::Register*Table` ones at startup (e.g. from your GameMode
+   `UCampaignMapSubsystem::Register*Table` ones, and the two
+   `UDebateSubsystem::Register*Table` ones at startup (e.g. from your GameMode
    `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is built).
    NPCs also need `RegisterNpcProfile` before their city or faction can matter to
    what they have heard. Note that routes now register on the **map**, not on

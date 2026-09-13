@@ -253,8 +253,14 @@ adulterae*, which the game should address rather than avoid.
    The travel graph moved here from `UReputationSubsystem`, which now asks the map
    how far word has travelled: there is one road network in the game, not one per
    system that needs it.
-7. ⬜ Argumentation encounter framework — turn structure, scoring off chain
-   strength, defeat states that surface the broken link.
+7. ✅ **Done.** Argumentation encounter framework — turn structure, scoring off
+   chain strength, defeat states that surface the broken link.
+   → `Source/ChainOfWitnesses/Public/Debate/{DebateTypes,DebateSubsystem}.h`,
+   `Source/ChainOfWitnesses/Private/Debate/DebateSubsystem.cpp`,
+   `Content/Data/{DT_DebateOpponents,DT_DebateObjections}.json`,
+   `Source/ChainOfWitnesses/Private/Tests/DebateSubsystemTests.cpp`.
+   Every objection attacks a named link of the chain, which is what makes Task 2's
+   six-link breakdown the ammunition rather than a separate score.
 8. ⬜ Witness Mission framework: era swap, controller swap, combat retuning,
    return-to-frame transition.
 9. ⬜ Vertical slice: Rome, c. AD 65 — Peter dictates, Mark writes. Full mission,

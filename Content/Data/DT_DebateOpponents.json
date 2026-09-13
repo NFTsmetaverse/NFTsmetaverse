@@ -1,0 +1,120 @@
+[
+	{
+		"Name": "Opp_RomanMagistrate",
+		"OpponentID": "Opp_RomanMagistrate",
+		"DisplayName": "A Roman Magistrate",
+		"Kind": "RomanMagistrate",
+		"FactionID": "Faction_RomanAdministration",
+		"ObjectionIDs": [
+			"Obj_PublicOrderNotTruth",
+			"Obj_NoContemporaryRomanRecord",
+			"Obj_AppearancesWereGriefVisions"
+		],
+		"Composure": 25.0,
+		"Aggression": 1.4,
+		"MaxRounds": 4,
+		"EarliestYearAD": -1,
+		"LatestYearAD": -1,
+		"VictoryDeedTypeID": "Deed_WonPublicDisputation",
+		"DefeatDeedTypeID": "Deed_LostPublicDisputation"
+	},
+	{
+		"Name": "Opp_SynagogueElder",
+		"OpponentID": "Opp_SynagogueElder",
+		"DisplayName": "A Synagogue Elder",
+		"Kind": "SynagogueElder",
+		"FactionID": "Faction_DiasporaSynagogues",
+		"ObjectionIDs": [
+			"Obj_CrucifiedMessiahIsAScandal",
+			"Obj_WomenWitnessesWouldNotStandInCourt",
+			"Obj_FortyYearsOfDrift",
+			"Obj_CreedIsPaulsOwnWork",
+			"Obj_AppearancesWereGriefVisions"
+		],
+		"Composure": 35.0,
+		"Aggression": 1.0,
+		"MaxRounds": 5,
+		"EarliestYearAD": -1,
+		"LatestYearAD": -1,
+		"VictoryDeedTypeID": "Deed_WonPublicDisputation",
+		"DefeatDeedTypeID": "Deed_LostPublicDisputation"
+	},
+	{
+		"Name": "Opp_SourceCriticalScribe",
+		"OpponentID": "Opp_SourceCriticalScribe",
+		"DisplayName": "A Source-Critical Scribe",
+		"Kind": "SourceCriticalScribe",
+		"FactionID": "",
+		"ObjectionIDs": [
+			"Obj_MatthewAndLukeCopiedMark",
+			"Obj_GospelsAreAnonymous",
+			"Obj_LukeWroteTooLateToHaveAsked",
+			"Obj_PapiasIsLateAndDismissed",
+			"Obj_IrenaeusAndClementDisagreeOnMark"
+		],
+		"Composure": 40.0,
+		"Aggression": 0.8,
+		"MaxRounds": 5,
+		"EarliestYearAD": -1,
+		"LatestYearAD": -1,
+		"VictoryDeedTypeID": "",
+		"DefeatDeedTypeID": ""
+	},
+	{
+		"Name": "Opp_TraditionInformant",
+		"OpponentID": "Opp_TraditionInformant",
+		"DisplayName": "A Keeper of the Tradition",
+		"Kind": "TraditionInformant",
+		"FactionID": "Faction_JerusalemChurch",
+		"ObjectionIDs": [
+			"Obj_TraditionIsUnanimousOnMatthewFirst",
+			"Obj_GospelsAreAnonymous"
+		],
+		"Composure": 30.0,
+		"Aggression": 0.7,
+		"MaxRounds": 4,
+		"EarliestYearAD": 110,
+		"LatestYearAD": -1,
+		"VictoryDeedTypeID": "",
+		"DefeatDeedTypeID": ""
+	},
+	{
+		"Name": "Opp_GnosticTeacher",
+		"OpponentID": "Opp_GnosticTeacher",
+		"DisplayName": "A Gnostic Teacher",
+		"Kind": "GnosticTeacher",
+		"FactionID": "Faction_GnosticTeachers",
+		"ObjectionIDs": [
+			"Obj_GospelsAreAnonymous",
+			"Obj_AppearancesWereGriefVisions",
+			"Obj_LongerEndingProvesTampering",
+			"Obj_IrenaeusAndClementDisagreeOnMark"
+		],
+		"Composure": 30.0,
+		"Aggression": 1.1,
+		"MaxRounds": 5,
+		"EarliestYearAD": 110,
+		"LatestYearAD": -1,
+		"VictoryDeedTypeID": "Deed_WonPublicDisputation",
+		"DefeatDeedTypeID": "Deed_LostPublicDisputation"
+	},
+	{
+		"Name": "Opp_Marcionite",
+		"OpponentID": "Opp_Marcionite",
+		"DisplayName": "A Marcionite",
+		"Kind": "Marcionite",
+		"FactionID": "Faction_Marcionites",
+		"ObjectionIDs": [
+			"Obj_LukeHasBeenEdited",
+			"Obj_LongerEndingProvesTampering",
+			"Obj_GospelsAreAnonymous"
+		],
+		"Composure": 30.0,
+		"Aggression": 1.2,
+		"MaxRounds": 4,
+		"EarliestYearAD": 140,
+		"LatestYearAD": -1,
+		"VictoryDeedTypeID": "Deed_WonPublicDisputation",
+		"DefeatDeedTypeID": "Deed_LostPublicDisputation"
+	}
+]
