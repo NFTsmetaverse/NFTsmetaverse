@@ -154,5 +154,77 @@
 		"WitnessStandingDelta": 20.0,
 		"NewsReachDays": 0,
 		"bTravelsByWordOfMouth": false
+	},
+	{
+		"Name": "Deed_ShedBloodInThePrecinct",
+		"DeedTypeID": "Deed_ShedBloodInThePrecinct",
+		"Summary": "Killed a man inside the Temple courts. Thousands saw it and the account of it will outrun any explanation.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_TempleEstablishment", "Delta": -30.0 },
+			{ "FactionID": "Faction_PhariseeParty", "Delta": -25.0 },
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": -22.0 },
+			{ "FactionID": "Faction_RomanAdministration", "Delta": -15.0 },
+			{ "FactionID": "Faction_ZealotsSicarii", "Delta": 8.0 }
+		],
+		"WitnessStandingDelta": -25.0,
+		"NewsReachDays": 0,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_ShedBloodInTheStreet",
+		"DeedTypeID": "Deed_ShedBloodInTheStreet",
+		"Summary": "Killed a man in a public place. Whatever the provocation was, what is remembered is the body.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_RomanAdministration", "Delta": -18.0 },
+			{ "FactionID": "Faction_PaganCivicCults", "Delta": -14.0 },
+			{ "FactionID": "Faction_DiasporaSynagogues", "Delta": -12.0 },
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": -14.0 },
+			{ "FactionID": "Faction_GentileBelievers", "Delta": -10.0 },
+			{ "FactionID": "Faction_ZealotsSicarii", "Delta": 5.0 }
+		],
+		"WitnessStandingDelta": -18.0,
+		"NewsReachDays": 2,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_TalkedDownACrowd",
+		"DeedTypeID": "Deed_TalkedDownACrowd",
+		"Summary": "Stood in front of a crowd that was already moving and sent it home without anyone being hurt.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": 12.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": 10.0 },
+			{ "FactionID": "Faction_GentileBelievers", "Delta": 10.0 },
+			{ "FactionID": "Faction_RomanAdministration", "Delta": 10.0 },
+			{ "FactionID": "Faction_DiasporaSynagogues", "Delta": 6.0 }
+		],
+		"WitnessStandingDelta": 15.0,
+		"NewsReachDays": 4,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_ResistedArrest",
+		"DeedTypeID": "Deed_ResistedArrest",
+		"Summary": "Fought men who had come to take him in. In this world that is a separate charge from whatever they came about.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_RomanAdministration", "Delta": -20.0 },
+			{ "FactionID": "Faction_HerodianClients", "Delta": -12.0 },
+			{ "FactionID": "Faction_TempleEstablishment", "Delta": -12.0 },
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": -8.0 },
+			{ "FactionID": "Faction_ZealotsSicarii", "Delta": 10.0 }
+		],
+		"WitnessStandingDelta": -15.0,
+		"NewsReachDays": 3,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_TalkedPastAPatrol",
+		"DeedTypeID": "Deed_TalkedPastAPatrol",
+		"Summary": "Satisfied men who had stopped him and walked on. Quiet enough that few will hear of it.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_RomanAdministration", "Delta": 3.0 }
+		],
+		"WitnessStandingDelta": 6.0,
+		"NewsReachDays": 60,
+		"bTravelsByWordOfMouth": false
 	}
 ]

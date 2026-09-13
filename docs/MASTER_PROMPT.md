@@ -289,6 +289,13 @@ adulterae*, which the game should address rather than avoid.
    in order, and the Gospel as a written document. All three are granted through
    the dialogue, so playing the scene is what yields them.
 
+**Off-queue, asked for separately:** a combat system. Built as the encounter layer
+only — `UCombatEncounterSubsystem`, `UChainAttributeSet`, `DT_CombatEncounters.json`
+and twelve automation tests — with the melee layer left for the editor and its seam
+documented. It is the first system to read Task 8's `FEraCombatTuning`, which is what
+makes Section 5's "escape and de-escalation are first-class win states" mechanical
+rather than aspirational. See `docs/COMBAT.md`.
+
 **For each task:** file list with paths, complete `.h` and `.cpp`, Blueprint
 exposure notes, and a short test plan. Ask before assuming anything about the
 existing project structure (though as of Task 1 the structure below is now

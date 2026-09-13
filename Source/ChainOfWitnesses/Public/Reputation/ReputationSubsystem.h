@@ -67,6 +67,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
 	bool GetNpcProfile(FName NpcID, FNpcProfile& OutProfile) const;
 
+	/** So other systems can lint their own content against the faction list. */
+	UFUNCTION(BlueprintPure, Category = "Reputation|Content")
+	bool IsFactionRegistered(FName FactionID) const { return Factions.Contains(FactionID); }
+
+	UFUNCTION(BlueprintPure, Category = "Reputation|Content")
+	bool IsDeedTypeRegistered(FName DeedTypeID) const { return DeedTypes.Contains(DeedTypeID); }
+
 	/** Reports deed impacts and NPC profiles naming factions nobody registered. */
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
 	void ValidateReputationContent(TArray<FString>& OutProblems) const;

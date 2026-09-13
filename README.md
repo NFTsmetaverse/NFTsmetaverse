@@ -252,6 +252,51 @@ project rests on.
 public-domain editions of the sources added as content, which is a sourcing task
 rather than a code one, and it is the last piece of Pillar 4.
 
+## Combat (off-queue)
+
+Asked for separately; not a Section 10 task. Two layers, one of which can be
+honestly written outside the editor.
+
+**Built — the encounter layer.** `UCombatEncounterSubsystem` and
+`DT_CombatEncounters.json` (twelve rows). What an encounter is, who is still
+pressing, whether talking or running is possible, how it ends and what it costs. It
+needs no world, which is why twelve automation tests cover it.
+
+**Not built — the melee layer.** Directional attacks, montages, hit detection,
+enemy behaviour trees. All of it needs animation assets and the editor; stubbing it
+would produce plausible code that has never met an asset. The seam is two functions:
+the pawn layer pushes damage in with `ApplyDamageToCombatant` /
+`ApplyDamageToPlayer` and listens on `OnCombatantDispositionChanged` /
+`OnEncounterEnded`.
+
+**Men break before they die.** Every combatant carries `Resolve` alongside `Health`,
+and the ordinary ending is that people stop, not that they die. A casualty costs
+everyone still standing a share of their resolve, multiplied by who they are:
+bandits are worst hit (×1.5), an execution party barely notices (×0.3). Killing two
+of four bandits ends it with the survivors untouched. Killing two of six men sent to
+carry out a sentence changes nothing.
+
+**Escape and de-escalation are win states, and the era says so.** This is the first
+system to read Task 8's `FEraCombatTuning`: in the first century, running and talking
+both count and incoming damage is scaled ×2.5; in the AD 1229 frame neither counts
+and a man in mail takes the same blow at ×1. One combat system, two eras, no
+duplication. Standing with the faction whose men these are is worth `0.01` per point
+against a de-escalation check — twenty points of goodwill is routinely the difference
+between being heard and not.
+
+**It travels.** Outcomes record deeds through the reputation system at the party's
+location, so a body in the Temple court reaches Antioch on the same timetable as any
+other news. The overcome deed is gated on the player actually having shed blood: a
+crowd that lost interest and went home is also "overcome", and he did none of that.
+
+`UChainAttributeSet` is the GAS foundation Section 9 asks for — Health, Resolve, and
+Damage/ResolveLoss meta-attributes with clamping in `PostGameplayEffectExecute`.
+Abilities and effects are editor assets and are not here.
+
+Full design notes, the tuning table, and the historical flags (including why a crowd
+will hear a man it has just beaten, and the genuine dispute over Sanhedrin capital
+jurisdiction) are in `docs/COMBAT.md`.
+
 ## Project layout
 
 Standard UE5 C++ project: `ChainOfWitnesses.uproject`, `Source/`, `Content/`,
@@ -269,13 +314,15 @@ Standard UE5 C++ project: `ChainOfWitnesses.uproject`, `Source/`, `Content/`,
    `DT_Dialogue_JerusalemHandoff.json` with row type `DialogueNodeRow`,
    `DT_Factions.json` with `FactionRow`, `DT_DeedTypes.json` with `DeedTypeRow`,
    `DT_TravelRoutes.json` with `TravelRouteRow`, `DT_Locations.json` with
-   `CampaignLocationRow`, and `DT_EncounterTypes.json` with `EncounterTypeRow`.
+   `CampaignLocationRow`, `DT_EncounterTypes.json` with `EncounterTypeRow`, and
+   `DT_CombatEncounters.json` with `CombatEncounterRow`.
 4. Hand the resulting assets to `UCampaignTimelineSubsystem::SetTimelineTable`,
    `UCodexSubsystem::RegisterFragmentsFromDataTable`,
    `UDialogueSubsystem::RegisterDialogueTable`, the two
    `UReputationSubsystem::Register*Table` entry points, and the three
    `UCampaignMapSubsystem::Register*Table` ones, and the two
-   `UDebateSubsystem::Register*Table` ones at startup (e.g. from your GameMode
+   `UDebateSubsystem::Register*Table` ones, and
+   `UCombatEncounterSubsystem::RegisterEncounterTable`, at startup (e.g. from your GameMode
    `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is built).
    NPCs also need `RegisterNpcProfile` before their city or faction can matter to
    what they have heard. Note that routes now register on the **map**, not on
