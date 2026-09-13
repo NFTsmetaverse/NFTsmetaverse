@@ -1,0 +1,225 @@
+[
+	{
+		"Name": "Node_Peter_Courtyard",
+		"NodeID": "Node_Peter_Courtyard",
+		"SpeakerID": "NPC_Peter",
+		"Line": "You have been asking after me by name in the lower city. That was careless. Say what you want, and keep your voice down.",
+		"EntryConditions": {
+			"EarliestYearAD": 34,
+			"LatestYearAD": 44
+		},
+		"Options": [
+			{
+				"PlayerLine": "I was on the Damascus road. I am not the man who left this city.",
+				"NextNodeID": "Node_Peter_Unconvinced"
+			},
+			{
+				"PlayerLine": "Barnabas will answer for me.",
+				"Conditions": {
+					"AcceptedVoucherIDs": ["NPC_Barnabas"]
+				},
+				"Effects": {
+					"TrustDelta": 20.0,
+					"RaiseDisclosureTo": "Acquaintance"
+				},
+				"NextNodeID": "Node_Peter_Vouched",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "Nothing. I mistook you for another man.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Unconvinced",
+		"NodeID": "Node_Peter_Unconvinced",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Men say a great deal about themselves. The ones who came for us in the spring said more than most, and they had warrants in their hands while they said it.",
+		"Options": [
+			{
+				"PlayerLine": "Ask anyone in Damascus what I have been doing since.",
+				"NextNodeID": "Node_Peter_FindVoucher"
+			},
+			{
+				"PlayerLine": "Then I have wasted your evening.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_FindVoucher",
+		"NodeID": "Node_Peter_FindVoucher",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Damascus is a long way from here and I have no way to ask it. Find a man in this city who will stand behind you and send him to me himself. Until then you are a story, and I have buried people over stories.",
+		"Options": [
+			{
+				"PlayerLine": "I will find one.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Vouched",
+		"NodeID": "Node_Peter_Vouched",
+		"SpeakerID": "NPC_Peter",
+		"Line": "He has answered for you. He came himself and would not leave until I heard him out, and it cost him standing with men whose good opinion he needs. That buys you a hearing. It does not buy it here.",
+		"Options": [
+			{
+				"PlayerLine": "Tell me now. What did you see?",
+				"Conditions": {
+					"MinimumSafety": "Private"
+				},
+				"NextNodeID": "Node_Peter_House",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "Then name a place where the crowd is thinner.",
+				"Effects": {
+					"TrustDelta": 5.0
+				},
+				"NextNodeID": "Node_Peter_Appointment"
+			},
+			{
+				"PlayerLine": "Another day, then.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Appointment",
+		"NodeID": "Node_Peter_Appointment",
+		"SpeakerID": "NPC_Peter",
+		"Line": "After dark. The upper room off the potter's street; Barnabas knows the door. Come alone, come late, and if anyone walks behind you the whole way, walk past it and try again tomorrow.",
+		"Options": [
+			{
+				"PlayerLine": "I will be there.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_House",
+		"NodeID": "Node_Peter_House",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Sit. There is bread if you want it. Say what you came to ask and do not flatter me first -- I have had enough of that from men who wanted something.",
+		"EntryConditions": {
+			"MinimumSafety": "Private",
+			"EarliestYearAD": 34,
+			"LatestYearAD": 44
+		},
+		"FallbackNodeID": "Node_Peter_NotHere",
+		"EntryEffects": {
+			"GrantsFragmentIDs": ["Frag_PaulMeetsPeterAndJames"]
+		},
+		"Options": [
+			{
+				"PlayerLine": "I want it from you, not from what is said in the porticoes. What did you see?",
+				"Conditions": {
+					"MinimumDisclosure": "Acquaintance"
+				},
+				"Effects": {
+					"TrustDelta": 10.0,
+					"RaiseDisclosureTo": "Confidant"
+				},
+				"NextNodeID": "Node_Peter_Appearances",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "There is a form of words you hand to the men you send out. I want it as you have it.",
+				"Conditions": {
+					"MinimumDisclosure": "Confidant"
+				},
+				"NextNodeID": "Node_Peter_HandedOn",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "Nothing tonight. I wanted to be sure you were a real man.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_NotHere",
+		"NodeID": "Node_Peter_NotHere",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Not here. Not in daylight, and not where the Temple keeps men on the steps to listen. You know where to find me.",
+		"Options": [
+			{
+				"PlayerLine": "After dark, then.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Appearances",
+		"NodeID": "Node_Peter_Appearances",
+		"SpeakerID": "NPC_Peter",
+		"Line": "I saw him. So did the others, and not all of us at once -- which is the part men trip over, because if we had arranged it between us we would have arranged it better than that. I have been asked these questions by people who wanted me to contradict myself. I have not yet managed it.",
+		"Options": [
+			{
+				"PlayerLine": "The women found the tomb first, and you put that in front of people. It does you no good at all.",
+				"Conditions": {
+					"RequiredFragmentIDs": ["Frag_WomenFirstAtTheTomb"],
+					"CredibleChainAnchorEventID": "Event_CrucifixionResurrection",
+					"MinimumChainStrength": 20.0
+				},
+				"NextNodeID": "Node_Peter_Embarrassment",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "Then give me the form of words.",
+				"Conditions": {
+					"MinimumDisclosure": "Confidant"
+				},
+				"NextNodeID": "Node_Peter_HandedOn",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "That is enough for tonight.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Embarrassment",
+		"NodeID": "Node_Peter_Embarrassment",
+		"SpeakerID": "NPC_Peter",
+		"Line": "No. It does us no good at all. If we were building a case we would have put men at that tomb, men whose word is taken in a court. We did not set down what would serve us. We set down what happened, and we have been explaining that detail to careful men ever since, and we will be explaining it long after I am dead.",
+		"EntryEffects": {
+			"TrustDelta": 15.0,
+			"RaiseDisclosureTo": "Insider"
+		},
+		"Options": [
+			{
+				"PlayerLine": "Then give it to me as it stands, and I will carry it as it stands.",
+				"Conditions": {
+					"MinimumDisclosure": "Confidant"
+				},
+				"NextNodeID": "Node_Peter_HandedOn"
+			},
+			{
+				"PlayerLine": "That is enough for tonight.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_HandedOn",
+		"NodeID": "Node_Peter_HandedOn",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Learn it in the order it is given. The order is fixed and the names in it are fixed, and most of the men named in it can still be found and asked -- that is the whole use of it. Do not smooth it. Do not improve it. Hand it on the way it reached you, and I will send word to James that you are not what he has been told you are.",
+		"EntryEffects": {
+			"TrustDelta": 10.0,
+			"RaiseDisclosureTo": "Insider",
+			"GrantsFragmentIDs": ["Frag_PrePaulineCreed"],
+			"VouchesForPlayerTo": ["NPC_JamesTheJust"]
+		},
+		"Options": [
+			{
+				"PlayerLine": "I will not improve it.",
+				"NextNodeID": ""
+			}
+		]
+	}
+]

@@ -224,9 +224,16 @@ adulterae*, which the game should address rather than avoid.
    One field was added beyond the model above — `RebutsFragmentIDs`, without which
    an unanswered challenge can never be answered. See README for the rationale.
 3. ⬜ Codex UI: chain-building screen (UMG), fragment inspector with real source
-   citation, challenge/response view.
-4. ⬜ Dialogue system with disclosure-state gating keyed to Codex contents and NPC
-   trust.
+   citation, challenge/response view. (`FChainScoreBreakdown` and
+   `FDialogueNodeView` are the data this screen renders — both already exist.)
+4. ✅ **Done.** Dialogue system with disclosure-state gating keyed to Codex
+   contents and NPC trust.
+   → `Source/ChainOfWitnesses/Public/Dialogue/{DialogueTypes,DialogueSubsystem}.h`,
+   `Source/ChainOfWitnesses/Private/Dialogue/DialogueSubsystem.cpp`,
+   `Content/Data/DT_Dialogue_JerusalemHandoff.json`,
+   `Source/ChainOfWitnesses/Private/Tests/DialogueSubsystemTests.cpp`.
+   Taken before Task 3 so the Codex is exercised through play rather than through
+   UMG a designer will rebuild anyway.
 5. ⬜ Faction and per-NPC reputation with memory and route-based word-of-mouth
    propagation.
 6. ⬜ Campaign map: party movement, Roman road graph, seasonal sea travel,

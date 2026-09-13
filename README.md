@@ -40,7 +40,34 @@ witness, and loses points per unanswered challenge. Every number is reported in
 which link failed. Weights live in `FCodexScoringRules` and are tunable without a
 recompile.
 
-Tasks 3–9 (Codex UI, dialogue, factions, campaign map, argumentation encounters,
+**Task 4 — dialogue with disclosure-state gating**
+
+| Path | What it is |
+|---|---|
+| `Source/ChainOfWitnesses/Public/Dialogue/DialogueTypes.h` | `FDialogueNodeRow`, `FDialogueOption`, `FDialogueConditionSet`, `FDialogueEffects`, the view structs the UI renders, and `EConversationSafety` / `EDisclosureLevel` / `EDialogueGate`. |
+| `Source/ChainOfWitnesses/Public/Dialogue/DialogueSubsystem.h`, `Private/.../DialogueSubsystem.cpp` | `UDialogueSubsystem` — dialogue content registry, conversation traversal, condition evaluation, per-NPC trust/disclosure/vouching, and the save payload. |
+| `Content/Data/DT_Dialogue_JerusalemHandoff.json` | Jerusalem, c. AD 35: Saul's first meeting with Peter (Gal 1:18–19). Ten nodes exercising every gate. |
+| `Source/ChainOfWitnesses/Private/Tests/DialogueSubsystemTests.cpp` | Automation tests for each gate, fallback traversal, hidden options, and the save round-trip. |
+
+**What gates a line.** Section 5 asks for trees where what an NPC will say depends
+on what the player already credibly knows, who vouched for him, and whether the
+conversation is safe. Those are the three axes, plus trust and the campaign year:
+
+- *Credibly knows* → the Codex. Holding fragments is the weak form; having a chain
+  that scores above a threshold is the strong one, so Task 2's Attestation Strength
+  is what actually opens doors.
+- *Vouched for* → vouches recorded between NPCs, the mechanic the early Church
+  actually ran on. A vouch can be to one person or general.
+- *Safe* → `EConversationSafety`, set per meeting by the caller. The same man says
+  different things in the Temple courtyard and behind a shut door.
+- *Era* → the campaign timeline, so no one refers to the Temple's fall in AD 50.
+
+Locked options are reported with their gate rather than silently dropped — the
+player learns what the world runs on — unless the author hides them, for lines that
+would themselves give away something unearned. Conditions are re-checked on
+selection: the view is a presentation, never the authority.
+
+Tasks 3 and 5–9 (Codex UI, factions, campaign map, argumentation encounters,
 Witness Missions, the AD 65 vertical slice) are not started — see the task queue
 in the master prompt doc.
 
@@ -55,16 +82,16 @@ Standard UE5 C++ project: `ChainOfWitnesses.uproject`, `Source/`, `Content/`,
 1. Install UE 5.4+ (this project targets `EngineAssociation: 5.4`).
 2. Right-click `ChainOfWitnesses.uproject` → *Generate Visual Studio project
    files* (or the equivalent for your platform/IDE), then open and build.
-3. In the editor's Content Browser, import both JSON files as DataTables:
-   `Content/Data/DT_CampaignEvents.json` with row type `CampaignEventRow`, and
-   `Content/Data/DT_TestimonyFragments.json` with row type
-   `TestimonyFragmentDefinition`.
-4. Hand the resulting assets to `UCampaignTimelineSubsystem::SetTimelineTable` and
-   `UCodexSubsystem::RegisterFragmentsFromDataTable` at startup (e.g. from your
-   GameMode `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is
-   built).
-5. Run the Codex tests from **Tools → Session Frontend → Automation**, filter
-   `ChainOfWitnesses.Codex`.
+3. In the editor's Content Browser, import the JSON files as DataTables:
+   `DT_CampaignEvents.json` with row type `CampaignEventRow`,
+   `DT_TestimonyFragments.json` with row type `TestimonyFragmentDefinition`, and
+   `DT_Dialogue_JerusalemHandoff.json` with row type `DialogueNodeRow`.
+4. Hand the resulting assets to `UCampaignTimelineSubsystem::SetTimelineTable`,
+   `UCodexSubsystem::RegisterFragmentsFromDataTable`, and
+   `UDialogueSubsystem::RegisterDialogueTable` at startup (e.g. from your GameMode
+   `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is built).
+5. Run the tests from **Tools → Session Frontend → Automation**, filter
+   `ChainOfWitnesses`.
 
 ## Flagged design notes (standing rule 1)
 
@@ -85,6 +112,21 @@ establishing the Neronian persecution) — plus the general point that the movem
 leadership accepted serious risk rather than recant. Task 7's debate content should
 argue the narrow version, which holds, rather than the broad one, which a
 well-prepared opponent will dismantle.
+
+**A design question the dialogue gating surfaces, and you should decide.** When a
+dialogue option requires a Codex fragment, what does that mean inside a
+first-century Witness Mission? `Frag_WomenFirstAtTheTomb` carries an
+`AttestationDateAD` of 55 — the year the written testimony enters the record — but
+the conversation with Peter is set c. AD 35. The seed content treats a required
+fragment as *the player can credibly show he already knows this*, which is coherent
+because the knowledge plainly predates the writing. That reading breaks down if
+someone authors an option requiring a second-century patristic source in a
+first-century scene: the player would be citing Papias at a man who died decades
+before Papias was born. Nothing in the code prevents it. Three options: leave it as
+an authoring rule (current state, documented in `FDialogueConditionSet`), add a
+per-conversation cutoff year that hard-fails late fragments, or treat Witness
+Missions as explicitly the frame character's reconstruction, where knowing the later
+source is fine. Worth settling before Task 9 authors the vertical slice.
 
 **One field was added beyond Section 8's data model.**
 `FTestimonyFragmentDefinition::RebutsFragmentIDs`. Section 8 specifies
