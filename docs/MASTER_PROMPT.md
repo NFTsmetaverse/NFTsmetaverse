@@ -244,10 +244,15 @@ adulterae*, which the game should address rather than avoid.
    news travel times are meaningless at year granularity; Task 6's party movement
    needs the same clock. Also added a `MinimumStanding` gate to the dialogue
    condition set (Task 4), so an NPC weighs your name as well as your rapport.
-6. ⬜ Campaign map: party movement, Roman road graph, seasonal sea travel,
-   encounter generation. (`FTravelRouteRow` and `DT_TravelRoutes.json` already
-   hold the road/sea graph and the closed-season rule; this task grows them into
-   a playable map rather than starting fresh.)
+6. ✅ **Done.** Campaign map: party movement, Roman road graph, seasonal sea
+   travel, encounter generation.
+   → `Source/ChainOfWitnesses/Public/Map/{CampaignMapTypes,CampaignMapSubsystem}.h`,
+   `Source/ChainOfWitnesses/Private/Map/CampaignMapSubsystem.cpp`,
+   `Content/Data/{DT_Locations,DT_EncounterTypes}.json` (plus `DT_TravelRoutes.json`
+   from Task 5), `Source/ChainOfWitnesses/Private/Tests/CampaignMapSubsystemTests.cpp`.
+   The travel graph moved here from `UReputationSubsystem`, which now asks the map
+   how far word has travelled: there is one road network in the game, not one per
+   system that needs it.
 7. ⬜ Argumentation encounter framework — turn structure, scoring off chain
    strength, defeat states that surface the broken link.
 8. ⬜ Witness Mission framework: era swap, controller swap, combat retuning,

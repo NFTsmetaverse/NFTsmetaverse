@@ -3,6 +3,7 @@
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Engine/DataTable.h"
 #include "Engine/GameInstance.h"
+#include "Map/CampaignMapSubsystem.h"
 
 DEFINE_LOG_CATEGORY(LogReputation);
 
@@ -16,9 +17,11 @@ void UReputationSubsystem::Deinitialize()
 	Super::Deinitialize();
 }
 
-void UReputationSubsystem::SetTimelineForTesting(UCampaignTimelineSubsystem* InTimeline)
+void UReputationSubsystem::SetDependenciesForTesting(UCampaignTimelineSubsystem* InTimeline,
+	UCampaignMapSubsystem* InMap)
 {
 	TimelineOverride = InTimeline;
+	MapOverride = InMap;
 }
 
 UCampaignTimelineSubsystem* UReputationSubsystem::GetTimeline() const
@@ -31,6 +34,21 @@ UCampaignTimelineSubsystem* UReputationSubsystem::GetTimeline() const
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
 		return GameInstance->GetSubsystem<UCampaignTimelineSubsystem>();
+	}
+
+	return nullptr;
+}
+
+UCampaignMapSubsystem* UReputationSubsystem::GetMap() const
+{
+	if (MapOverride)
+	{
+		return MapOverride;
+	}
+
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		return GameInstance->GetSubsystem<UCampaignMapSubsystem>();
 	}
 
 	return nullptr;
@@ -63,17 +81,6 @@ bool UReputationSubsystem::RegisterDeedType(const FDeedTypeRow& DeedType)
 	}
 
 	DeedTypes.Add(DeedType.DeedTypeID, DeedType);
-	return true;
-}
-
-bool UReputationSubsystem::RegisterRoute(const FTravelRouteRow& Route)
-{
-	if (Route.FromLocationID.IsNone() || Route.ToLocationID.IsNone())
-	{
-		return false;
-	}
-
-	Routes.Add(Route);
 	return true;
 }
 
@@ -120,29 +127,6 @@ int32 UReputationSubsystem::RegisterDeedTypeTable(const UDataTable* DeedTypeTabl
 	}
 
 	UE_LOG(LogReputation, Log, TEXT("Registered %d deed types."), AddedCount);
-	return AddedCount;
-}
-
-int32 UReputationSubsystem::RegisterRouteTable(const UDataTable* RouteTable)
-{
-	if (!RouteTable)
-	{
-		return 0;
-	}
-
-	TArray<FTravelRouteRow*> Rows;
-	RouteTable->GetAllRows<FTravelRouteRow>(TEXT("UReputationSubsystem::RegisterRouteTable"), Rows);
-
-	int32 AddedCount = 0;
-	for (const FTravelRouteRow* Row : Rows)
-	{
-		if (Row && RegisterRoute(*Row))
-		{
-			++AddedCount;
-		}
-	}
-
-	UE_LOG(LogReputation, Log, TEXT("Registered %d travel routes."), AddedCount);
 	return AddedCount;
 }
 
@@ -202,21 +186,6 @@ void UReputationSubsystem::ValidateReputationContent(TArray<FString>& OutProblem
 		{
 			OutProblems.Add(FString::Printf(TEXT("NPC '%s' belongs to unregistered faction '%s'."),
 				*Pair.Key.ToString(), *Pair.Value.FactionID.ToString()));
-		}
-	}
-
-	for (const FTravelRouteRow& Route : Routes)
-	{
-		if (Route.FromLocationID == Route.ToLocationID)
-		{
-			OutProblems.Add(FString::Printf(TEXT("Route at '%s' leads to itself."),
-				*Route.FromLocationID.ToString()));
-		}
-
-		if (Route.TravelDays <= 0)
-		{
-			OutProblems.Add(FString::Printf(TEXT("Route '%s' -> '%s' takes no time."),
-				*Route.FromLocationID.ToString(), *Route.ToLocationID.ToString()));
 		}
 	}
 }
@@ -328,125 +297,6 @@ float UReputationSubsystem::GetEffectiveStanding(FName NpcID) const
 	return Personal + GetFactionReputation(Profile->FactionID) * FactionWeight;
 }
 
-// --- Word of mouth ----------------------------------------------------------
-
-int32 UReputationSubsystem::ComputeLegArrival(int32 DepartureDay, const FTravelRouteRow& Route) const
-{
-	if (!Route.bIsSeaRoute)
-	{
-		return DepartureDay + Route.TravelDays;
-	}
-
-	// A misconfigured season (opens on or after it closes) would make the wrap
-	// below nonsense; treat it as open all year rather than silently stranding news.
-	if (SailingSeasonOpensDayOfYear >= SailingSeasonClosesDayOfYear)
-	{
-		return DepartureDay + Route.TravelDays;
-	}
-
-	const int32 DaysPerYear = UCampaignTimelineSubsystem::DaysPerYear;
-	const int32 DayOfYear = ((DepartureDay % DaysPerYear) + DaysPerYear) % DaysPerYear;
-
-	int32 EffectiveDeparture = DepartureDay;
-
-	if (DayOfYear >= SailingSeasonClosesDayOfYear)
-	{
-		// Shut for the winter: wait out the rest of this year, then until spring.
-		EffectiveDeparture += (DaysPerYear - DayOfYear) + SailingSeasonOpensDayOfYear;
-	}
-	else if (DayOfYear < SailingSeasonOpensDayOfYear)
-	{
-		EffectiveDeparture += (SailingSeasonOpensDayOfYear - DayOfYear);
-	}
-
-	return EffectiveDeparture + Route.TravelDays;
-}
-
-void UReputationSubsystem::PropagateNews(FName OriginLocationID, int32 OriginDay, int32 MaxTravelDays,
-	TArray<FDeedArrival>& OutArrivals) const
-{
-	OutArrivals.Reset();
-
-	if (OriginLocationID.IsNone())
-	{
-		return;
-	}
-
-	TMap<FName, int32> EarliestArrival;
-	EarliestArrival.Add(OriginLocationID, OriginDay);
-
-	TSet<FName> Settled;
-
-	// Dijkstra with a linear frontier scan. The graph is a handful of cities, and a
-	// heap would cost more in indirection than it saves. Edge cost depends on when
-	// the carrier reaches the port, but waiting for the sailing season never makes
-	// an earlier departure arrive later, so the usual argument still holds.
-	for (;;)
-	{
-		FName Current = NAME_None;
-		int32 CurrentDay = TNumericLimits<int32>::Max();
-
-		for (const TPair<FName, int32>& Entry : EarliestArrival)
-		{
-			if (!Settled.Contains(Entry.Key) && Entry.Value < CurrentDay)
-			{
-				Current = Entry.Key;
-				CurrentDay = Entry.Value;
-			}
-		}
-
-		if (Current.IsNone())
-		{
-			break;
-		}
-
-		Settled.Add(Current);
-
-		for (const FTravelRouteRow& Route : Routes)
-		{
-			FName Neighbour = NAME_None;
-			if (Route.FromLocationID == Current)
-			{
-				Neighbour = Route.ToLocationID;
-			}
-			else if (Route.bIsBidirectional && Route.ToLocationID == Current)
-			{
-				Neighbour = Route.FromLocationID;
-			}
-
-			if (Neighbour.IsNone() || Settled.Contains(Neighbour))
-			{
-				continue;
-			}
-
-			const int32 Arrival = ComputeLegArrival(CurrentDay, Route);
-
-			// The account stops being worth repeating before it gets this far.
-			if (Arrival - OriginDay > MaxTravelDays)
-			{
-				continue;
-			}
-
-			if (int32* Existing = EarliestArrival.Find(Neighbour))
-			{
-				*Existing = FMath::Min(*Existing, Arrival);
-			}
-			else
-			{
-				EarliestArrival.Add(Neighbour, Arrival);
-			}
-		}
-	}
-
-	OutArrivals.Reserve(EarliestArrival.Num());
-	for (const TPair<FName, int32>& Entry : EarliestArrival)
-	{
-		FDeedArrival& Arrival = OutArrivals.AddDefaulted_GetRef();
-		Arrival.LocationID = Entry.Key;
-		Arrival.ArrivalDay = Entry.Value;
-	}
-}
-
 // --- Deeds ------------------------------------------------------------------
 
 FName UReputationSubsystem::RecordDeed(FName DeedTypeID, FName OriginLocationID,
@@ -474,12 +324,30 @@ FName UReputationSubsystem::RecordDeed(FName DeedTypeID, FName OriginLocationID,
 
 	if (DeedType->bTravelsByWordOfMouth)
 	{
-		PropagateNews(OriginLocationID, CurrentDay, DeedType->NewsReachDays, Deed.Arrivals);
+		if (const UCampaignMapSubsystem* Map = GetMap())
+		{
+			Map->ComputeArrivalTimes(OriginLocationID, CurrentDay, DeedType->NewsReachDays, Deed.Arrivals);
+		}
+		else
+		{
+			// Without the road network nothing can be said about where word gets to,
+			// so it goes no further than the place it happened.
+			UE_LOG(LogReputation, Warning,
+				TEXT("No campaign map available; '%s' will be known only where it happened."),
+				*DeedTypeID.ToString());
+
+			if (!OriginLocationID.IsNone())
+			{
+				FTravelArrival& Here = Deed.Arrivals.AddDefaulted_GetRef();
+				Here.LocationID = OriginLocationID;
+				Here.ArrivalDay = CurrentDay;
+			}
+		}
 	}
 	else if (!OriginLocationID.IsNone())
 	{
 		// Known where it happened and nowhere else, however striking it was.
-		FDeedArrival& Here = Deed.Arrivals.AddDefaulted_GetRef();
+		FTravelArrival& Here = Deed.Arrivals.AddDefaulted_GetRef();
 		Here.LocationID = OriginLocationID;
 		Here.ArrivalDay = CurrentDay;
 	}
@@ -530,7 +398,7 @@ int32 UReputationSubsystem::GetNewsArrivalDay(FName DeedID, FName LocationID) co
 		return INDEX_NONE;
 	}
 
-	for (const FDeedArrival& Arrival : Deed->Arrivals)
+	for (const FTravelArrival& Arrival : Deed->Arrivals)
 	{
 		if (Arrival.LocationID == LocationID)
 		{

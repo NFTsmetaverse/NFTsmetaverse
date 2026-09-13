@@ -6,10 +6,11 @@ before starting new work.
 
 ## Status
 
-Tasks 1, 2, 4 and 5 of the Section 10 task queue are implemented: the historical
-timeline as data with the subsystem that gates world state off it, the Codex of
-Witnesses on top of that, dialogue gated on what the player can credibly claim,
-and a reputation system whose news travels no faster than a man on a road.
+Tasks 1, 2, 4, 5 and 6 of the Section 10 task queue are implemented: the
+historical timeline as data with the subsystem that gates world state off it, the
+Codex of Witnesses on top of that, dialogue gated on what the player can credibly
+claim, a reputation system whose news travels no faster than a man on a road, and
+the campaign map that road belongs to.
 
 Task 3 (the Codex UI) is deliberately out of order — UMG widgets are binary
 assets a designer builds in-editor, so the useful part from here is the data it
@@ -76,11 +77,10 @@ selection: the view is a presentation, never the authority.
 
 | Path | What it is |
 |---|---|
-| `Source/ChainOfWitnesses/Public/Reputation/ReputationTypes.h` | `FFactionRow` (with inter-faction attitudes), `FDeedTypeRow`, `FTravelRouteRow`, `FReputationDeed`, `FNpcProfile`, and the save payload. |
+| `Source/ChainOfWitnesses/Public/Reputation/ReputationTypes.h` | `FFactionRow` (with inter-faction attitudes), `FDeedTypeRow`, `FReputationDeed`, `FNpcProfile`, and the save payload. |
 | `Source/ChainOfWitnesses/Public/Reputation/ReputationSubsystem.h`, `Private/.../ReputationSubsystem.cpp` | `UReputationSubsystem` — faction and per-NPC standing, recorded deeds, and news propagation across the road and sea network. |
 | `Content/Data/DT_Factions.json` | The twelve Section 5 factions, each with how it reads the others. |
 | `Content/Data/DT_DeedTypes.json` | Ten acts, from sheltering believers to informing on them, with who they please and how far the account travels. |
-| `Content/Data/DT_TravelRoutes.json` | Nine locations, twelve legs, road and sea. |
 | `Source/ChainOfWitnesses/Private/Tests/ReputationSubsystemTests.cpp` | Faction bleed, propagation timing, the closed sailing season, who remembers what, save round-trip. |
 
 **How reputation moves.** Nothing sets a number directly. The player does something;
@@ -98,9 +98,42 @@ closed sailing season, which is not decoration: a deed in Jerusalem reaches Rome
 the lanes shut. Deed types that stay local never reach Rome at all, and a kept
 confidence never leaves the room.
 
-Tasks 3 and 6–9 (Codex UI, campaign map, argumentation encounters, Witness
-Missions, the AD 65 vertical slice) are not started — see the task queue in the
-master prompt doc.
+**Task 6 — the campaign map**
+
+| Path | What it is |
+|---|---|
+| `Source/ChainOfWitnesses/Public/Map/CampaignMapTypes.h` | `FCampaignLocationRow`, `FTravelRouteRow`, `FEncounterTypeRow`, `FPartyState`, `FTravelResult`, `ETravelOutcome`. |
+| `Source/ChainOfWitnesses/Public/Map/CampaignMapSubsystem.h`, `Private/.../CampaignMapSubsystem.cpp` | `UCampaignMapSubsystem` — the travel graph and its pathfinder, party movement, the sailing season, and encounter generation. |
+| `Content/Data/DT_Locations.json`, `DT_TravelRoutes.json` | Nine cities — region, port status, controlling faction, and the hub ID the timeline razes in AD 70 — and the twelve legs joining them. |
+| `Content/Data/DT_EncounterTypes.json` | Thirteen things that can happen on the road, from Sicarii to a synagogue that takes in travellers. |
+| `Source/ChainOfWitnesses/Private/Tests/CampaignMapSubsystemTests.cpp` | Pathfinding, party movement, encounter interruption, the closed season, save round-trip. |
+
+**One road network.** The graph moved here out of `UReputationSubsystem`, which now
+asks the map how far word has travelled. Both the party and the news use the same
+pathfinder and the same seasonal cost function.
+
+**Time and movement are the same thing.** `AdvanceDays` is what moves the campaign
+clock while the party is on the road, and it stops the moment something happens,
+returning the unspent days so the caller can resume after resolving it. Passing
+through a city broadcasts an event but does not halt the journey.
+
+**The sailing season is a real decision, not decoration.** Routes are costed by
+arrival time rather than distance, so a shut sea lane changes which way is fastest.
+Setting out from Jerusalem for Rome:
+
+| Departing | Waiting for the season | Sailing regardless |
+|---|---|---|
+| High summer | 27 days, via Alexandria | 27 days, via Alexandria |
+| Late October | **43 days**, one long crossing from Caesarea | **27 days**, at 8× storm risk |
+
+Nobody authored that late-October reroute — the pathfinder drops the Alexandria hop
+because the second sea leg would be caught by the closing lanes, and takes the
+single direct crossing instead. Insisting on sailing is what `Acts 27` was, and the
+risk multiplier makes the wreck the expected outcome rather than bad luck.
+
+Tasks 3, 7, 8 and 9 (Codex UI, argumentation encounters, Witness Missions, the
+AD 65 vertical slice) are not started — see the task queue in the master prompt
+doc.
 
 ## Project layout
 
@@ -118,14 +151,17 @@ Standard UE5 C++ project: `ChainOfWitnesses.uproject`, `Source/`, `Content/`,
    `DT_TestimonyFragments.json` with row type `TestimonyFragmentDefinition`, and
    `DT_Dialogue_JerusalemHandoff.json` with row type `DialogueNodeRow`,
    `DT_Factions.json` with `FactionRow`, `DT_DeedTypes.json` with `DeedTypeRow`,
-   and `DT_TravelRoutes.json` with `TravelRouteRow`.
+   `DT_TravelRoutes.json` with `TravelRouteRow`, `DT_Locations.json` with
+   `CampaignLocationRow`, and `DT_EncounterTypes.json` with `EncounterTypeRow`.
 4. Hand the resulting assets to `UCampaignTimelineSubsystem::SetTimelineTable`,
    `UCodexSubsystem::RegisterFragmentsFromDataTable`,
-   `UDialogueSubsystem::RegisterDialogueTable`, and the three
-   `UReputationSubsystem::Register*Table` entry points at startup (e.g. from your
-   GameMode `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is
-   built). NPCs also need `RegisterNpcProfile` before their city or faction can
-   matter to what they have heard.
+   `UDialogueSubsystem::RegisterDialogueTable`, the two
+   `UReputationSubsystem::Register*Table` entry points, and the three
+   `UCampaignMapSubsystem::Register*Table` ones at startup (e.g. from your GameMode
+   `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is built).
+   NPCs also need `RegisterNpcProfile` before their city or faction can matter to
+   what they have heard. Note that routes now register on the **map**, not on
+   reputation.
 5. Run the tests from **Tools → Session Frontend → Automation**, filter
    `ChainOfWitnesses`.
 

@@ -7,6 +7,7 @@
 
 class UDataTable;
 class UCampaignTimelineSubsystem;
+class UCampaignMapSubsystem;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogReputation, Log, All);
 
@@ -52,18 +53,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
 	bool RegisterDeedType(const FDeedTypeRow& DeedType);
 
-	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
-	bool RegisterRoute(const FTravelRouteRow& Route);
-
-	// Bulk wrappers over the three above. Each returns the number of rows added.
+	// Bulk wrappers over the two above. Each returns the number of rows added.
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
 	int32 RegisterFactionTable(const UDataTable* FactionTable);
 
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
 	int32 RegisterDeedTypeTable(const UDataTable* DeedTypeTable);
-
-	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
-	int32 RegisterRouteTable(const UDataTable* RouteTable);
 
 	/** Named NPCs must be profiled before their location or faction can matter. */
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
@@ -72,7 +67,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
 	bool GetNpcProfile(FName NpcID, FNpcProfile& OutProfile) const;
 
-	/** Reports routes and deed impacts naming locations or factions nobody registered. */
+	/** Reports deed impacts and NPC profiles naming factions nobody registered. */
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Content")
 	void ValidateReputationContent(TArray<FString>& OutProblems) const;
 
@@ -131,21 +126,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Reputation|Save")
 	void RestoreFromSaveData(const FReputationSaveData& SaveData);
 
-	/** Test seam; in a running game the timeline resolves from the GameInstance. */
-	void SetTimelineForTesting(UCampaignTimelineSubsystem* InTimeline);
+	/** Test seam; in a running game both resolve from the owning GameInstance. */
+	void SetDependenciesForTesting(UCampaignTimelineSubsystem* InTimeline, UCampaignMapSubsystem* InMap);
 
 	// How much an NPC's faction colours his view of the player, relative to his own
 	// dealings with him.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reputation", meta = (ClampMin = "0.0", ClampMax = "1.0"))
 	float FactionWeight = 0.5f;
-
-	// Day of year on or after which sea legs stop running, and the day they resume.
-	// Roughly 1 November and 10 March -- the mare clausum of Roman practice.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reputation", meta = (ClampMin = "0", ClampMax = "364"))
-	int32 SailingSeasonClosesDayOfYear = 304;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reputation", meta = (ClampMin = "0", ClampMax = "364"))
-	int32 SailingSeasonOpensDayOfYear = 68;
 
 	UPROPERTY(BlueprintAssignable, Category = "Reputation")
 	FOnDeedRecorded OnDeedRecorded;
@@ -155,6 +142,7 @@ public:
 
 private:
 	UCampaignTimelineSubsystem* GetTimeline() const;
+	UCampaignMapSubsystem* GetMap() const;
 	int32 GetCurrentCampaignDay() const;
 
 	/** Applies a change to one faction, then to everyone who has a view on that faction. */
@@ -165,26 +153,11 @@ private:
 
 	const FReputationDeed* FindDeed(FName DeedID) const;
 
-	/** Arrival day of a leg leaving on DepartureDay, waiting out winter if it is a sea leg. */
-	int32 ComputeLegArrival(int32 DepartureDay, const FTravelRouteRow& Route) const;
-
-	/**
-	 * Earliest arrival day at every location the account reaches within
-	 * MaxTravelDays. Time-dependent Dijkstra: the closed sailing season makes an
-	 * edge's cost depend on when you reach its start, which is still well-defined
-	 * because waiting never makes you arrive earlier.
-	 */
-	void PropagateNews(FName OriginLocationID, int32 OriginDay, int32 MaxTravelDays,
-		TArray<FDeedArrival>& OutArrivals) const;
-
 	UPROPERTY()
 	TMap<FName, FFactionRow> Factions;
 
 	UPROPERTY()
 	TMap<FName, FDeedTypeRow> DeedTypes;
-
-	UPROPERTY()
-	TArray<FTravelRouteRow> Routes;
 
 	UPROPERTY()
 	TMap<FName, FNpcProfile> NpcProfiles;
@@ -203,4 +176,7 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UCampaignTimelineSubsystem> TimelineOverride = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UCampaignMapSubsystem> MapOverride = nullptr;
 };

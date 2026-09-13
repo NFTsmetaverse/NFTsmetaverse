@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
+#include "Map/CampaignMapTypes.h"
 #include "ReputationTypes.generated.h"
 
 /** How one faction weighs the player's standing with another. */
@@ -99,37 +100,6 @@ public:
 	bool bTravelsByWordOfMouth = true;
 };
 
-/**
- * A road or sea leg between two locations. Task 6 owns the campaign map proper;
- * this is the same graph at the resolution news needs, and is meant to be the seed
- * that grows into it rather than a parallel structure.
- */
-USTRUCT(BlueprintType)
-struct CHAINOFWITNESSES_API FTravelRouteRow : public FTableRowBase
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Route")
-	FName FromLocationID;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Route")
-	FName ToLocationID;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Route", meta = (ClampMin = "1"))
-	int32 TravelDays = 1;
-
-	// Sea legs do not run in winter. Section 5: the Roman sailing season closed
-	// roughly November to March, and a message that arrives at the wrong end of
-	// October waits for spring.
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Route")
-	bool bIsSeaRoute = false;
-
-	// Almost always true. False models a leg that is only practical one way.
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Route")
-	bool bIsBidirectional = true;
-};
-
 /** Where an NPC lives and who he belongs to. */
 USTRUCT(BlueprintType)
 struct CHAINOFWITNESSES_API FNpcProfile
@@ -146,21 +116,6 @@ public:
 	// Determines which accounts have reached him.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "NPC")
 	FName HomeLocationID;
-};
-
-/** When an account of a deed reaches one place. */
-USTRUCT(BlueprintType)
-struct CHAINOFWITNESSES_API FDeedArrival
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(BlueprintReadOnly, Category = "Reputation")
-	FName LocationID;
-
-	// Absolute campaign day, matching UCampaignTimelineSubsystem::GetTotalElapsedDays.
-	UPROPERTY(BlueprintReadOnly, Category = "Reputation")
-	int32 ArrivalDay = 0;
 };
 
 /** A specific thing the player did, and how far the account of it has spread. */
@@ -194,10 +149,11 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Reputation")
 	TArray<FName> WitnessNpcIDs;
 
-	// Every place the account reaches, and when. Places beyond the deed type's
-	// NewsReachDays are absent: the story dies out before it gets there.
+	// Every place the account reaches, and when, as worked out over the map's route
+	// graph. Places beyond the deed type's NewsReachDays are absent: the story dies
+	// out before it gets there.
 	UPROPERTY(BlueprintReadOnly, Category = "Reputation")
-	TArray<FDeedArrival> Arrivals;
+	TArray<FTravelArrival> Arrivals;
 };
 
 /** Personal standing with one named NPC, as distinct from his faction's view. */

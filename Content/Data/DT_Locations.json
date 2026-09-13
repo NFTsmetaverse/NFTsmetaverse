@@ -1,0 +1,101 @@
+[
+	{
+		"Name": "Loc_Jerusalem",
+		"LocationID": "Loc_Jerusalem",
+		"DisplayName": "Jerusalem",
+		"RegionID": "Region_Judaea",
+		"bIsPort": false,
+		"ControllingFactionID": "Faction_TempleEstablishment",
+		"HubCityID": "Hub_Jerusalem",
+		"bIsRelayStation": true,
+		"DangerModifier": 1.4
+	},
+	{
+		"Name": "Loc_Caesarea",
+		"LocationID": "Loc_Caesarea",
+		"DisplayName": "Caesarea Maritima",
+		"RegionID": "Region_Judaea",
+		"bIsPort": true,
+		"ControllingFactionID": "Faction_RomanAdministration",
+		"HubCityID": "",
+		"bIsRelayStation": true,
+		"DangerModifier": 0.8
+	},
+	{
+		"Name": "Loc_Damascus",
+		"LocationID": "Loc_Damascus",
+		"DisplayName": "Damascus",
+		"RegionID": "Region_Syria",
+		"bIsPort": false,
+		"ControllingFactionID": "Faction_DiasporaSynagogues",
+		"HubCityID": "",
+		"bIsRelayStation": false,
+		"DangerModifier": 1.1
+	},
+	{
+		"Name": "Loc_Antioch",
+		"LocationID": "Loc_Antioch",
+		"DisplayName": "Antioch on the Orontes",
+		"RegionID": "Region_Syria",
+		"bIsPort": true,
+		"ControllingFactionID": "Faction_RomanAdministration",
+		"HubCityID": "Hub_Antioch",
+		"bIsRelayStation": true,
+		"DangerModifier": 0.9
+	},
+	{
+		"Name": "Loc_Ephesus",
+		"LocationID": "Loc_Ephesus",
+		"DisplayName": "Ephesus",
+		"RegionID": "Region_AsiaMinor",
+		"bIsPort": true,
+		"ControllingFactionID": "Faction_PaganCivicCults",
+		"HubCityID": "Hub_Ephesus",
+		"bIsRelayStation": true,
+		"DangerModifier": 1.0
+	},
+	{
+		"Name": "Loc_Corinth",
+		"LocationID": "Loc_Corinth",
+		"DisplayName": "Corinth",
+		"RegionID": "Region_Achaia",
+		"bIsPort": true,
+		"ControllingFactionID": "Faction_RomanAdministration",
+		"HubCityID": "",
+		"bIsRelayStation": true,
+		"DangerModifier": 0.9
+	},
+	{
+		"Name": "Loc_Thessalonica",
+		"LocationID": "Loc_Thessalonica",
+		"DisplayName": "Thessalonica",
+		"RegionID": "Region_Macedonia",
+		"bIsPort": true,
+		"ControllingFactionID": "Faction_RomanAdministration",
+		"HubCityID": "",
+		"bIsRelayStation": true,
+		"DangerModifier": 1.1
+	},
+	{
+		"Name": "Loc_Alexandria",
+		"LocationID": "Loc_Alexandria",
+		"DisplayName": "Alexandria",
+		"RegionID": "Region_Egypt",
+		"bIsPort": true,
+		"ControllingFactionID": "Faction_RomanAdministration",
+		"HubCityID": "Hub_Alexandria",
+		"bIsRelayStation": true,
+		"DangerModifier": 1.0
+	},
+	{
+		"Name": "Loc_Rome",
+		"LocationID": "Loc_Rome",
+		"DisplayName": "Rome",
+		"RegionID": "Region_Italia",
+		"bIsPort": true,
+		"ControllingFactionID": "Faction_RomanAdministration",
+		"HubCityID": "",
+		"bIsRelayStation": true,
+		"DangerModifier": 1.0
+	}
+]

@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "Campaign/CampaignTimelineSubsystem.h"
+#include "Map/CampaignMapSubsystem.h"
 #include "Reputation/ReputationSubsystem.h"
 #include "UObject/StrongObjectPtr.h"
 
@@ -23,13 +24,17 @@ namespace ReputationTestHelpers
 	struct FReputationFixture
 	{
 		TStrongObjectPtr<UReputationSubsystem> Reputation;
+		TStrongObjectPtr<UCampaignMapSubsystem> Map;
 		TStrongObjectPtr<UCampaignTimelineSubsystem> Timeline;
 
+		// The road network lives on the map; reputation asks it how far word got.
 		FReputationFixture()
 			: Reputation(NewObject<UReputationSubsystem>(GetTransientPackage()))
+			, Map(NewObject<UCampaignMapSubsystem>(GetTransientPackage()))
 			, Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
 		{
-			Reputation->SetTimelineForTesting(Timeline.Get());
+			Reputation->SetDependenciesForTesting(Timeline.Get(), Map.Get());
+			Map->SetDependenciesForTesting(Timeline.Get(), Reputation.Get());
 		}
 
 		void AddRoute(const TCHAR* From, const TCHAR* To, int32 Days, bool bSea)
@@ -40,7 +45,7 @@ namespace ReputationTestHelpers
 			Route.TravelDays = Days;
 			Route.bIsSeaRoute = bSea;
 			Route.bIsBidirectional = true;
-			Reputation->RegisterRoute(Route);
+			Map->RegisterRoute(Route);
 		}
 
 		void BuildDefaultWorld()
