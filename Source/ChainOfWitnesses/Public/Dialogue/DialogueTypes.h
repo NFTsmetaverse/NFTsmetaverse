@@ -59,6 +59,7 @@ enum class EDialogueGate : uint8
 	MissingWorldState		UMETA(DisplayName = "Has not happened yet"),
 	Unsafe					UMETA(DisplayName = "Not where he can be overheard"),
 	NoVoucher				UMETA(DisplayName = "No one has answered for you"),
+	InsufficientStanding	UMETA(DisplayName = "Your name is not good enough here"),
 	InsufficientTrust		UMETA(DisplayName = "He does not trust you that far"),
 	InsufficientDisclosure	UMETA(DisplayName = "He has not opened up that far"),
 	UnknownFragment			UMETA(DisplayName = "You cannot show that you know this"),
@@ -99,8 +100,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Codex", meta = (ClampMin = "0.0", ClampMax = "100.0"))
 	float MinimumChainStrength = 0.f;
 
+	// Conversational rapport with this NPC, built up over the tree itself.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Standing")
 	float MinimumTrust = 0.f;
+
+	// What he has heard about the player, from UReputationSubsystem: his own
+	// dealings plus his faction's view. Distinct from trust -- a man can like you
+	// and still not risk anything while your name is bad in his city.
+	//
+	// Opt-in rather than defaulted, because standing legitimately goes negative and
+	// a default threshold of zero would silently gate every authored line behind
+	// having no enemies.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Standing")
+	bool bCheckStanding = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Standing", meta = (EditCondition = "bCheckStanding"))
+	float MinimumStanding = 0.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Standing")
 	EDisclosureLevel MinimumDisclosure = EDisclosureLevel::Stranger;

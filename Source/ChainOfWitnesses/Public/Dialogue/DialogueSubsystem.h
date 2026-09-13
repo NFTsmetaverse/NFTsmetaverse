@@ -8,6 +8,7 @@
 class UDataTable;
 class UCodexSubsystem;
 class UCampaignTimelineSubsystem;
+class UReputationSubsystem;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogDialogue, Log, All);
 
@@ -130,7 +131,8 @@ public:
 	 * Test seam. In a running game both dependencies resolve from the owning
 	 * GameInstance; a standalone test has no GameInstance and injects them here.
 	 */
-	void SetDependenciesForTesting(UCodexSubsystem* InCodex, UCampaignTimelineSubsystem* InTimeline);
+	void SetDependenciesForTesting(UCodexSubsystem* InCodex, UCampaignTimelineSubsystem* InTimeline,
+		UReputationSubsystem* InReputation = nullptr);
 
 	UPROPERTY(BlueprintAssignable, Category = "Dialogue")
 	FOnConversationStarted OnConversationStarted;
@@ -150,6 +152,7 @@ public:
 private:
 	UCodexSubsystem* GetCodex() const;
 	UCampaignTimelineSubsystem* GetTimeline() const;
+	UReputationSubsystem* GetReputation() const;
 
 	FNpcDialogueState& FindOrAddNpcState(FName NpcID);
 	const FNpcDialogueState* FindNpcState(FName NpcID) const;
@@ -185,4 +188,7 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UCampaignTimelineSubsystem> TimelineOverride = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UReputationSubsystem> ReputationOverride = nullptr;
 };

@@ -44,12 +44,35 @@ public:
 
 	// Advances the in-fiction campaign clock and re-evaluates which events are
 	// active, broadcasting OnEventActivated for anything newly unlocked and
-	// OnYearAdvanced once at the end.
+	// OnYearAdvanced once at the end. Day-of-year is left unchanged -- this sets
+	// the year; AdvanceDays moves time.
 	UFUNCTION(BlueprintCallable, Category = "Campaign Timeline")
 	void AdvanceToYear(int32 NewYearAD);
 
 	UFUNCTION(BlueprintPure, Category = "Campaign Timeline")
 	int32 GetCurrentYearAD() const { return CurrentYearAD; }
+
+	// Advances the clock by days, rolling into the next year as needed, and
+	// re-evaluates world state. Act gating is annual, but news travelling the
+	// Roman roads (Task 5) and party movement (Task 6) both resolve in days --
+	// this is the same clock at finer resolution, not a second one.
+	UFUNCTION(BlueprintCallable, Category = "Campaign Timeline")
+	void AdvanceDays(int32 Days);
+
+	// 0-based; day 0 is the first day of CurrentYearAD.
+	UFUNCTION(BlueprintPure, Category = "Campaign Timeline")
+	int32 GetCurrentDayOfYear() const { return CurrentDayOfYear; }
+
+	// Days since the first day of CampaignStartYearAD. The absolute timebase that
+	// news arrival and travel times are expressed in.
+	UFUNCTION(BlueprintPure, Category = "Campaign Timeline")
+	int32 GetTotalElapsedDays() const;
+
+	UFUNCTION(BlueprintPure, Category = "Campaign Timeline")
+	int32 GetCampaignStartYearAD() const { return CampaignStartYearAD; }
+
+	/** Days per campaign year. Julian, not astronomical: the fiction does not need leap days. */
+	static constexpr int32 DaysPerYear = 365;
 
 	// Highest act whose act-defining year has been reached. Acts overlap in the
 	// source table by design (e.g. Act II begins in AD 46, before Act I's last row
@@ -88,6 +111,13 @@ private:
 
 	UPROPERTY()
 	int32 CurrentYearAD = 30;
+
+	UPROPERTY()
+	int32 CurrentDayOfYear = 0;
+
+	// AD 30, the earliest row in the Section 6 spine. The origin of the day timebase.
+	UPROPERTY()
+	int32 CampaignStartYearAD = 30;
 
 	UPROPERTY()
 	TSet<FName> ActiveEventIDs;

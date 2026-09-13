@@ -234,10 +234,20 @@ adulterae*, which the game should address rather than avoid.
    `Source/ChainOfWitnesses/Private/Tests/DialogueSubsystemTests.cpp`.
    Taken before Task 3 so the Codex is exercised through play rather than through
    UMG a designer will rebuild anyway.
-5. ⬜ Faction and per-NPC reputation with memory and route-based word-of-mouth
-   propagation.
+5. ✅ **Done.** Faction and per-NPC reputation with memory and route-based
+   word-of-mouth propagation.
+   → `Source/ChainOfWitnesses/Public/Reputation/{ReputationTypes,ReputationSubsystem}.h`,
+   `Source/ChainOfWitnesses/Private/Reputation/ReputationSubsystem.cpp`,
+   `Content/Data/{DT_Factions,DT_DeedTypes,DT_TravelRoutes}.json`,
+   `Source/ChainOfWitnesses/Private/Tests/ReputationSubsystemTests.cpp`.
+   Added a day-resolution clock to `UCampaignTimelineSubsystem` (Task 1) because
+   news travel times are meaningless at year granularity; Task 6's party movement
+   needs the same clock. Also added a `MinimumStanding` gate to the dialogue
+   condition set (Task 4), so an NPC weighs your name as well as your rapport.
 6. ⬜ Campaign map: party movement, Roman road graph, seasonal sea travel,
-   encounter generation.
+   encounter generation. (`FTravelRouteRow` and `DT_TravelRoutes.json` already
+   hold the road/sea graph and the closed-season rule; this task grows them into
+   a playable map rather than starting fresh.)
 7. ⬜ Argumentation encounter framework — turn structure, scoring off chain
    strength, defeat states that surface the broken link.
 8. ⬜ Witness Mission framework: era swap, controller swap, combat retuning,

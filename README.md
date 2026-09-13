@@ -6,9 +6,14 @@ before starting new work.
 
 ## Status
 
-Tasks 1 and 2 of the Section 10 task queue are implemented: the historical
-timeline as data with the subsystem that gates world state off it, and the Codex
-of Witnesses on top of that.
+Tasks 1, 2, 4 and 5 of the Section 10 task queue are implemented: the historical
+timeline as data with the subsystem that gates world state off it, the Codex of
+Witnesses on top of that, dialogue gated on what the player can credibly claim,
+and a reputation system whose news travels no faster than a man on a road.
+
+Task 3 (the Codex UI) is deliberately out of order — UMG widgets are binary
+assets a designer builds in-editor, so the useful part from here is the data it
+renders, which `FChainScoreBreakdown` and `FDialogueNodeView` already provide.
 
 **Task 1 — campaign timeline**
 
@@ -67,9 +72,35 @@ player learns what the world runs on — unless the author hides them, for lines
 would themselves give away something unearned. Conditions are re-checked on
 selection: the view is a presentation, never the authority.
 
-Tasks 3 and 5–9 (Codex UI, factions, campaign map, argumentation encounters,
-Witness Missions, the AD 65 vertical slice) are not started — see the task queue
-in the master prompt doc.
+**Task 5 — reputation, memory, and word of mouth**
+
+| Path | What it is |
+|---|---|
+| `Source/ChainOfWitnesses/Public/Reputation/ReputationTypes.h` | `FFactionRow` (with inter-faction attitudes), `FDeedTypeRow`, `FTravelRouteRow`, `FReputationDeed`, `FNpcProfile`, and the save payload. |
+| `Source/ChainOfWitnesses/Public/Reputation/ReputationSubsystem.h`, `Private/.../ReputationSubsystem.cpp` | `UReputationSubsystem` — faction and per-NPC standing, recorded deeds, and news propagation across the road and sea network. |
+| `Content/Data/DT_Factions.json` | The twelve Section 5 factions, each with how it reads the others. |
+| `Content/Data/DT_DeedTypes.json` | Ten acts, from sheltering believers to informing on them, with who they please and how far the account travels. |
+| `Content/Data/DT_TravelRoutes.json` | Nine locations, twelve legs, road and sea. |
+| `Source/ChainOfWitnesses/Private/Tests/ReputationSubsystemTests.cpp` | Faction bleed, propagation timing, the closed sailing season, who remembers what, save round-trip. |
+
+**How reputation moves.** Nothing sets a number directly. The player does something;
+a `FReputationDeed` records what, where, and when; the deed's authored type says
+which factions care and by how much. Each faction impact then bleeds into every
+other faction by its attitude — helping the Jerusalem church is not neutral to the
+men who run the Temple. Witnesses take the act personally, on top of the faction
+move.
+
+**How news travels.** An account leaves the place it happened and spreads over the
+route graph by time-dependent Dijkstra, and an NPC knows about a deed only once it
+has reached the city he lives in — or if he saw it himself. Sea legs wait out the
+closed sailing season, which is not decoration: a deed in Jerusalem reaches Rome in
+27 days in summer and 147 in winter, and Antioch reroutes overland via Damascus when
+the lanes shut. Deed types that stay local never reach Rome at all, and a kept
+confidence never leaves the room.
+
+Tasks 3 and 6–9 (Codex UI, campaign map, argumentation encounters, Witness
+Missions, the AD 65 vertical slice) are not started — see the task queue in the
+master prompt doc.
 
 ## Project layout
 
@@ -85,11 +116,16 @@ Standard UE5 C++ project: `ChainOfWitnesses.uproject`, `Source/`, `Content/`,
 3. In the editor's Content Browser, import the JSON files as DataTables:
    `DT_CampaignEvents.json` with row type `CampaignEventRow`,
    `DT_TestimonyFragments.json` with row type `TestimonyFragmentDefinition`, and
-   `DT_Dialogue_JerusalemHandoff.json` with row type `DialogueNodeRow`.
+   `DT_Dialogue_JerusalemHandoff.json` with row type `DialogueNodeRow`,
+   `DT_Factions.json` with `FactionRow`, `DT_DeedTypes.json` with `DeedTypeRow`,
+   and `DT_TravelRoutes.json` with `TravelRouteRow`.
 4. Hand the resulting assets to `UCampaignTimelineSubsystem::SetTimelineTable`,
-   `UCodexSubsystem::RegisterFragmentsFromDataTable`, and
-   `UDialogueSubsystem::RegisterDialogueTable` at startup (e.g. from your GameMode
-   `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is built).
+   `UCodexSubsystem::RegisterFragmentsFromDataTable`,
+   `UDialogueSubsystem::RegisterDialogueTable`, and the three
+   `UReputationSubsystem::Register*Table` entry points at startup (e.g. from your
+   GameMode `BeginPlay`, or the Mode A/B config asset once Section 3's toggle is
+   built). NPCs also need `RegisterNpcProfile` before their city or faction can
+   matter to what they have heard.
 5. Run the tests from **Tools → Session Frontend → Automation**, filter
    `ChainOfWitnesses`.
 

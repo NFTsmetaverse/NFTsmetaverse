@@ -4,6 +4,7 @@
 #include "Codex/CodexSubsystem.h"
 #include "Engine/DataTable.h"
 #include "Engine/GameInstance.h"
+#include "Reputation/ReputationSubsystem.h"
 
 DEFINE_LOG_CATEGORY(LogDialogue);
 
@@ -18,10 +19,12 @@ void UDialogueSubsystem::Deinitialize()
 	Super::Deinitialize();
 }
 
-void UDialogueSubsystem::SetDependenciesForTesting(UCodexSubsystem* InCodex, UCampaignTimelineSubsystem* InTimeline)
+void UDialogueSubsystem::SetDependenciesForTesting(UCodexSubsystem* InCodex, UCampaignTimelineSubsystem* InTimeline,
+	UReputationSubsystem* InReputation)
 {
 	CodexOverride = InCodex;
 	TimelineOverride = InTimeline;
+	ReputationOverride = InReputation;
 }
 
 UCodexSubsystem* UDialogueSubsystem::GetCodex() const
@@ -49,6 +52,21 @@ UCampaignTimelineSubsystem* UDialogueSubsystem::GetTimeline() const
 	if (UGameInstance* GameInstance = GetGameInstance())
 	{
 		return GameInstance->GetSubsystem<UCampaignTimelineSubsystem>();
+	}
+
+	return nullptr;
+}
+
+UReputationSubsystem* UDialogueSubsystem::GetReputation() const
+{
+	if (ReputationOverride)
+	{
+		return ReputationOverride;
+	}
+
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		return GameInstance->GetSubsystem<UReputationSubsystem>();
 	}
 
 	return nullptr;
@@ -338,6 +356,16 @@ bool UDialogueSubsystem::EvaluateConditions(const FDialogueConditionSet& Conditi
 		if (!bVouchedFor)
 		{
 			OutGate = EDialogueGate::NoVoucher;
+			return false;
+		}
+	}
+
+	if (Conditions.bCheckStanding)
+	{
+		const UReputationSubsystem* Reputation = GetReputation();
+		if (!Reputation || Reputation->GetEffectiveStanding(NpcID) < Conditions.MinimumStanding)
+		{
+			OutGate = EDialogueGate::InsufficientStanding;
 			return false;
 		}
 	}

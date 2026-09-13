@@ -89,6 +89,28 @@ void UCampaignTimelineSubsystem::ApplyWorldStateEffects(const FCampaignEventRow&
 	}
 }
 
+int32 UCampaignTimelineSubsystem::GetTotalElapsedDays() const
+{
+	return (CurrentYearAD - CampaignStartYearAD) * DaysPerYear + CurrentDayOfYear;
+}
+
+void UCampaignTimelineSubsystem::AdvanceDays(int32 Days)
+{
+	if (Days <= 0)
+	{
+		return;
+	}
+
+	CurrentDayOfYear += Days;
+
+	const int32 YearsRolled = CurrentDayOfYear / DaysPerYear;
+	CurrentDayOfYear %= DaysPerYear;
+
+	// Route through AdvanceToYear so a multi-year jump still activates every event
+	// it passed over, rather than only those in the year it lands in.
+	AdvanceToYear(CurrentYearAD + YearsRolled);
+}
+
 void UCampaignTimelineSubsystem::AdvanceToYear(int32 NewYearAD)
 {
 	CurrentYearAD = NewYearAD;

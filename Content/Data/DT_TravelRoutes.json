@@ -1,0 +1,98 @@
+[
+	{
+		"Name": "Route_Jerusalem_Caesarea",
+		"FromLocationID": "Loc_Jerusalem",
+		"ToLocationID": "Loc_Caesarea",
+		"TravelDays": 3,
+		"bIsSeaRoute": false,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Jerusalem_Damascus",
+		"FromLocationID": "Loc_Jerusalem",
+		"ToLocationID": "Loc_Damascus",
+		"TravelDays": 7,
+		"bIsSeaRoute": false,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Damascus_Antioch",
+		"FromLocationID": "Loc_Damascus",
+		"ToLocationID": "Loc_Antioch",
+		"TravelDays": 9,
+		"bIsSeaRoute": false,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Caesarea_Antioch",
+		"FromLocationID": "Loc_Caesarea",
+		"ToLocationID": "Loc_Antioch",
+		"TravelDays": 5,
+		"bIsSeaRoute": true,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Caesarea_Alexandria",
+		"FromLocationID": "Loc_Caesarea",
+		"ToLocationID": "Loc_Alexandria",
+		"TravelDays": 6,
+		"bIsSeaRoute": true,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Antioch_Ephesus",
+		"FromLocationID": "Loc_Antioch",
+		"ToLocationID": "Loc_Ephesus",
+		"TravelDays": 10,
+		"bIsSeaRoute": true,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Ephesus_Corinth",
+		"FromLocationID": "Loc_Ephesus",
+		"ToLocationID": "Loc_Corinth",
+		"TravelDays": 6,
+		"bIsSeaRoute": true,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Corinth_Thessalonica",
+		"FromLocationID": "Loc_Corinth",
+		"ToLocationID": "Loc_Thessalonica",
+		"TravelDays": 8,
+		"bIsSeaRoute": false,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Thessalonica_Rome",
+		"FromLocationID": "Loc_Thessalonica",
+		"ToLocationID": "Loc_Rome",
+		"TravelDays": 21,
+		"bIsSeaRoute": false,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Corinth_Rome",
+		"FromLocationID": "Loc_Corinth",
+		"ToLocationID": "Loc_Rome",
+		"TravelDays": 12,
+		"bIsSeaRoute": true,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Alexandria_Rome",
+		"FromLocationID": "Loc_Alexandria",
+		"ToLocationID": "Loc_Rome",
+		"TravelDays": 18,
+		"bIsSeaRoute": true,
+		"bIsBidirectional": true
+	},
+	{
+		"Name": "Route_Caesarea_Rome",
+		"FromLocationID": "Loc_Caesarea",
+		"ToLocationID": "Loc_Rome",
+		"TravelDays": 40,
+		"bIsSeaRoute": true,
+		"bIsBidirectional": true
+	}
+]

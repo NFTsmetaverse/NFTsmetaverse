@@ -1,0 +1,153 @@
+[
+	{
+		"Name": "Faction_JerusalemChurch",
+		"FactionID": "Faction_JerusalemChurch",
+		"DisplayName": "The Jerusalem Church",
+		"Description": "The mother congregation, led by Peter and then by James the Lord's brother. Observant of the Law, Aramaic-speaking, and under steady pressure from the Temple authorities.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_HellenistBelievers", "Multiplier": 0.6 },
+			{ "TowardFactionID": "Faction_GentileBelievers", "Multiplier": 0.4 },
+			{ "TowardFactionID": "Faction_TempleEstablishment", "Multiplier": -0.5 },
+			{ "TowardFactionID": "Faction_ZealotsSicarii", "Multiplier": -0.3 },
+			{ "TowardFactionID": "Faction_GnosticTeachers", "Multiplier": -0.8 }
+		],
+		"UnlockedByEventID": "Event_Pentecost"
+	},
+	{
+		"Name": "Faction_HellenistBelievers",
+		"FactionID": "Faction_HellenistBelievers",
+		"DisplayName": "The Hellenist Believers",
+		"Description": "Greek-speaking Jewish believers, scattered from Jerusalem after Stephen's death and the first to carry the message beyond Judaea.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_JerusalemChurch", "Multiplier": 0.6 },
+			{ "TowardFactionID": "Faction_GentileBelievers", "Multiplier": 0.7 },
+			{ "TowardFactionID": "Faction_TempleEstablishment", "Multiplier": -0.6 },
+			{ "TowardFactionID": "Faction_PhariseeParty", "Multiplier": -0.3 }
+		],
+		"UnlockedByEventID": "Event_StephenMartyred"
+	},
+	{
+		"Name": "Faction_GentileBelievers",
+		"FactionID": "Faction_GentileBelievers",
+		"DisplayName": "The Gentile Believers",
+		"Description": "Congregations of non-Jews, from Cornelius onward. Their standing in the movement is the live question of Acts 15 and of Galatians.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_HellenistBelievers", "Multiplier": 0.7 },
+			{ "TowardFactionID": "Faction_JerusalemChurch", "Multiplier": 0.4 },
+			{ "TowardFactionID": "Faction_PhariseeParty", "Multiplier": -0.4 },
+			{ "TowardFactionID": "Faction_PaganCivicCults", "Multiplier": -0.4 }
+		],
+		"UnlockedByEventID": "Event_Cornelius"
+	},
+	{
+		"Name": "Faction_PhariseeParty",
+		"FactionID": "Faction_PhariseeParty",
+		"DisplayName": "The Pharisee Party",
+		"Description": "Rigorous interpreters of the Law with wide popular support. Divided about the movement: some of its members join it, and Gamaliel counsels leaving it alone.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_TempleEstablishment", "Multiplier": -0.2 },
+			{ "TowardFactionID": "Faction_GentileBelievers", "Multiplier": -0.4 },
+			{ "TowardFactionID": "Faction_RomanAdministration", "Multiplier": -0.3 },
+			{ "TowardFactionID": "Faction_PaganCivicCults", "Multiplier": -0.7 }
+		],
+		"UnlockedByEventID": ""
+	},
+	{
+		"Name": "Faction_TempleEstablishment",
+		"FactionID": "Faction_TempleEstablishment",
+		"DisplayName": "The Temple Establishment",
+		"Description": "The chief priests and the Sadducean aristocracy who run the Temple and hold their position at Rome's pleasure. They deny the resurrection as a doctrine, which makes the movement's central claim intolerable.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_JerusalemChurch", "Multiplier": -0.7 },
+			{ "TowardFactionID": "Faction_HellenistBelievers", "Multiplier": -0.6 },
+			{ "TowardFactionID": "Faction_ZealotsSicarii", "Multiplier": -0.8 },
+			{ "TowardFactionID": "Faction_RomanAdministration", "Multiplier": 0.4 },
+			{ "TowardFactionID": "Faction_HerodianClients", "Multiplier": 0.3 }
+		],
+		"UnlockedByEventID": ""
+	},
+	{
+		"Name": "Faction_ZealotsSicarii",
+		"FactionID": "Faction_ZealotsSicarii",
+		"DisplayName": "The Zealots and Sicarii",
+		"Description": "Armed factions committed to expelling Rome, and to killing the Jews who collaborate with it. They regard the movement's refusal to take up the cause as desertion.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_RomanAdministration", "Multiplier": -0.9 },
+			{ "TowardFactionID": "Faction_TempleEstablishment", "Multiplier": -0.8 },
+			{ "TowardFactionID": "Faction_HerodianClients", "Multiplier": -0.8 }
+		],
+		"UnlockedByEventID": ""
+	},
+	{
+		"Name": "Faction_RomanAdministration",
+		"FactionID": "Faction_RomanAdministration",
+		"DisplayName": "The Roman Provincial Administration",
+		"Description": "Prefects, procurators and proconsuls, and the auxiliaries who enforce them. Indifferent to doctrine and intensely interested in public order.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_ZealotsSicarii", "Multiplier": -0.9 },
+			{ "TowardFactionID": "Faction_TempleEstablishment", "Multiplier": 0.3 },
+			{ "TowardFactionID": "Faction_HerodianClients", "Multiplier": 0.5 },
+			{ "TowardFactionID": "Faction_PaganCivicCults", "Multiplier": 0.3 }
+		],
+		"UnlockedByEventID": ""
+	},
+	{
+		"Name": "Faction_HerodianClients",
+		"FactionID": "Faction_HerodianClients",
+		"DisplayName": "The Herodian Client Rulers",
+		"Description": "Agrippa I and his successors, ruling at Rome's sufferance and needing to be seen keeping their own house in order.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_RomanAdministration", "Multiplier": 0.6 },
+			{ "TowardFactionID": "Faction_TempleEstablishment", "Multiplier": 0.3 },
+			{ "TowardFactionID": "Faction_ZealotsSicarii", "Multiplier": -0.8 }
+		],
+		"UnlockedByEventID": ""
+	},
+	{
+		"Name": "Faction_DiasporaSynagogues",
+		"FactionID": "Faction_DiasporaSynagogues",
+		"DisplayName": "The Diaspora Synagogue Communities",
+		"Description": "Jewish communities from Damascus to Rome, each with its own leadership. The first place any travelling preacher goes, and often the first place he is thrown out of.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_PhariseeParty", "Multiplier": 0.4 },
+			{ "TowardFactionID": "Faction_PaganCivicCults", "Multiplier": -0.5 },
+			{ "TowardFactionID": "Faction_GentileBelievers", "Multiplier": -0.2 }
+		],
+		"UnlockedByEventID": ""
+	},
+	{
+		"Name": "Faction_PaganCivicCults",
+		"FactionID": "Faction_PaganCivicCults",
+		"DisplayName": "The Pagan Civic Cults",
+		"Description": "Temple priesthoods, trade guilds and civic festivals across the Greek cities. Their objection is rarely theological and usually economic, as the Ephesian silversmiths demonstrate.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_RomanAdministration", "Multiplier": 0.3 },
+			{ "TowardFactionID": "Faction_GentileBelievers", "Multiplier": -0.5 },
+			{ "TowardFactionID": "Faction_DiasporaSynagogues", "Multiplier": -0.4 }
+		],
+		"UnlockedByEventID": ""
+	},
+	{
+		"Name": "Faction_GnosticTeachers",
+		"FactionID": "Faction_GnosticTeachers",
+		"DisplayName": "The Gnostic Teachers",
+		"Description": "Second-century schools offering a saving knowledge above the public account, and generally embarrassed by the claim that God took a body. Opponents in argument rather than in arms.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_JerusalemChurch", "Multiplier": -0.8 },
+			{ "TowardFactionID": "Faction_Marcionites", "Multiplier": 0.2 }
+		],
+		"UnlockedByEventID": "Event_PapiasOfHierapolis"
+	},
+	{
+		"Name": "Faction_Marcionites",
+		"FactionID": "Faction_Marcionites",
+		"DisplayName": "The Marcionites",
+		"Description": "Followers of Marcion, who cut the Hebrew scriptures away from the movement and kept an edited Luke and a shortened Paul. The first group to force the question of which writings belong.",
+		"AttitudesToward": [
+			{ "TowardFactionID": "Faction_JerusalemChurch", "Multiplier": -0.9 },
+			{ "TowardFactionID": "Faction_DiasporaSynagogues", "Multiplier": -0.9 },
+			{ "TowardFactionID": "Faction_GnosticTeachers", "Multiplier": 0.2 }
+		],
+		"UnlockedByEventID": "Event_PapiasOfHierapolis"
+	}
+]

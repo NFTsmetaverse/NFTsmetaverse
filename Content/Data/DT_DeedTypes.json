@@ -1,0 +1,132 @@
+[
+	{
+		"Name": "Deed_ShelteredBelievers",
+		"DeedTypeID": "Deed_ShelteredBelievers",
+		"Summary": "Took believers into his house during a round-up and did not give them up.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": 12.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": 10.0 },
+			{ "FactionID": "Faction_TempleEstablishment", "Delta": -8.0 }
+		],
+		"WitnessStandingDelta": 15.0,
+		"NewsReachDays": 25,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_InformedOnBelievers",
+		"DeedTypeID": "Deed_InformedOnBelievers",
+		"Summary": "Named believers to the authorities, and the arrests followed within the week.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": -35.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": -35.0 },
+			{ "FactionID": "Faction_TempleEstablishment", "Delta": 15.0 },
+			{ "FactionID": "Faction_RomanAdministration", "Delta": 5.0 }
+		],
+		"WitnessStandingDelta": -40.0,
+		"NewsReachDays": 200,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_DeliveredFamineRelief",
+		"DeedTypeID": "Deed_DeliveredFamineRelief",
+		"Summary": "Brought the collection from Antioch through to the elders in Judaea, and accounted for every coin of it.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": 20.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": 12.0 },
+			{ "FactionID": "Faction_GentileBelievers", "Delta": 8.0 }
+		],
+		"WitnessStandingDelta": 18.0,
+		"NewsReachDays": 90,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_AteWithGentiles",
+		"DeedTypeID": "Deed_AteWithGentiles",
+		"Summary": "Sat down to eat at a Gentile table in front of men who had come from James.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_GentileBelievers", "Delta": 18.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": 10.0 },
+			{ "FactionID": "Faction_PhariseeParty", "Delta": -15.0 },
+			{ "FactionID": "Faction_DiasporaSynagogues", "Delta": -10.0 }
+		],
+		"WitnessStandingDelta": 8.0,
+		"NewsReachDays": 120,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_TestifiedBeforeCouncil",
+		"DeedTypeID": "Deed_TestifiedBeforeCouncil",
+		"Summary": "Stood up in front of the council and gave his account without retracting a word of it.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": 22.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": 15.0 },
+			{ "FactionID": "Faction_TempleEstablishment", "Delta": -20.0 },
+			{ "FactionID": "Faction_PhariseeParty", "Delta": -5.0 }
+		],
+		"WitnessStandingDelta": 20.0,
+		"NewsReachDays": 200,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_RefusedImperialSacrifice",
+		"DeedTypeID": "Deed_RefusedImperialSacrifice",
+		"Summary": "Was handed the incense in front of a magistrate and would not offer it.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_GentileBelievers", "Delta": 25.0 },
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": 15.0 },
+			{ "FactionID": "Faction_RomanAdministration", "Delta": -25.0 },
+			{ "FactionID": "Faction_PaganCivicCults", "Delta": -20.0 }
+		],
+		"WitnessStandingDelta": 25.0,
+		"NewsReachDays": 400,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_DisruptedCultTrade",
+		"DeedTypeID": "Deed_DisruptedCultTrade",
+		"Summary": "Preached until the silversmiths' trade fell off, and the guild took it to the theatre.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_GentileBelievers", "Delta": 10.0 },
+			{ "FactionID": "Faction_PaganCivicCults", "Delta": -30.0 },
+			{ "FactionID": "Faction_RomanAdministration", "Delta": -12.0 }
+		],
+		"WitnessStandingDelta": 5.0,
+		"NewsReachDays": 250,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_CopiedAndCirculatedLetter",
+		"DeedTypeID": "Deed_CopiedAndCirculatedLetter",
+		"Summary": "Made a clean copy of a letter and sent it on to the next congregation at his own cost.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_GentileBelievers", "Delta": 8.0 },
+			{ "FactionID": "Faction_HellenistBelievers", "Delta": 8.0 },
+			{ "FactionID": "Faction_JerusalemChurch", "Delta": 5.0 }
+		],
+		"WitnessStandingDelta": 10.0,
+		"NewsReachDays": 150,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_PaidAnothersTempleTax",
+		"DeedTypeID": "Deed_PaidAnothersTempleTax",
+		"Summary": "Quietly covered the Temple tax for a man who could not pay it.",
+		"FactionImpacts": [
+			{ "FactionID": "Faction_TempleEstablishment", "Delta": 4.0 },
+			{ "FactionID": "Faction_PhariseeParty", "Delta": 6.0 },
+			{ "FactionID": "Faction_DiasporaSynagogues", "Delta": 4.0 }
+		],
+		"WitnessStandingDelta": 12.0,
+		"NewsReachDays": 8,
+		"bTravelsByWordOfMouth": true
+	},
+	{
+		"Name": "Deed_KeptAConfidence",
+		"DeedTypeID": "Deed_KeptAConfidence",
+		"Summary": "Was asked where a man was hiding, and said he did not know.",
+		"FactionImpacts": [],
+		"WitnessStandingDelta": 20.0,
+		"NewsReachDays": 0,
+		"bTravelsByWordOfMouth": false
+	}
+]
