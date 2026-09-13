@@ -1,0 +1,36 @@
+[
+	{
+		"Name": "Era_Frame",
+		"EraID": "Era_Frame",
+		"DisplayName": "The Crusader Levant, AD 1229",
+		"Era": "Frame",
+		"PawnClass": "",
+		"PlayerControllerClass": "",
+		"InputMappingContext": "",
+		"CombatTuning": {
+			"IncomingDamageScale": 1.0,
+			"OutgoingDamageScale": 1.0,
+			"bEscapeIsWinState": false,
+			"bDeEscalationIsWinState": false,
+			"bFormationCommandEnabled": true,
+			"TypicalEnemyCount": 12
+		}
+	},
+	{
+		"Name": "Era_FirstCentury",
+		"EraID": "Era_FirstCentury",
+		"DisplayName": "The Roman Mediterranean, AD 30-100",
+		"Era": "Witness",
+		"PawnClass": "",
+		"PlayerControllerClass": "",
+		"InputMappingContext": "",
+		"CombatTuning": {
+			"IncomingDamageScale": 2.5,
+			"OutgoingDamageScale": 1.0,
+			"bEscapeIsWinState": true,
+			"bDeEscalationIsWinState": true,
+			"bFormationCommandEnabled": false,
+			"TypicalEnemyCount": 3
+		}
+	}
+]

@@ -39,8 +39,8 @@ piece of evidence. The evidence assembles into an argument. The finished argumen
 is the finished campaign.
 
 **Frame narrative (default — see Section 3 for the alternative).** The player is a
-12th-century figure in the Crusader Levant: a literate knight, a monastic envoy, or
-a scribe attached to a military order, charged with recovering manuscripts,
+13th-century figure in the Crusader Levant (c. AD 1229 — see Section 3): a knight
+of a military order, Templar-presenting, charged with recovering manuscripts,
 relics, and patristic testimony scattered across Jerusalem, Antioch, Alexandria,
 Ephesus, Rome, and Constantinople. Recovering a source enters a **Witness
 Mission** — a fully playable first-century sequence reconstructing the event that
@@ -58,7 +58,9 @@ Support both modes at the data layer; ship one.
 
 - **Mode A (default): Dual-era.** Medieval overworld + first-century Witness
   Missions. Two character controllers, two combat tuning sets, shared quest/Codex
-  backend.
+  backend. **Decided: the frame era is c. AD 1229** — Frederick II's treaty has
+  just returned Jerusalem on terms the Templars opposed, and the Khwarazmian sack
+  of 1244 is the clock. See `docs/CHARACTER_FRAME_PROTAGONIST.md`.
 - **Mode B: First-century only.** Entire game is AD 30–100. No crusader frame.
   Overworld is the Roman Mediterranean. Combat is sparse and lethal (Zealot
   factions, bandits on the Via Egnatia, Temple guard, Roman auxiliaries, shipwreck
@@ -261,8 +263,14 @@ adulterae*, which the game should address rather than avoid.
    `Source/ChainOfWitnesses/Private/Tests/DebateSubsystemTests.cpp`.
    Every objection attacks a named link of the chain, which is what makes Task 2's
    six-link breakdown the ammunition rather than a separate score.
-8. ⬜ Witness Mission framework: era swap, controller swap, combat retuning,
-   return-to-frame transition.
+8. ✅ **Done.** Witness Mission framework: era swap, controller swap, combat
+   retuning, return-to-frame transition.
+   → `Source/ChainOfWitnesses/Public/Witness/{WitnessMissionTypes,WitnessMissionSubsystem}.h`,
+   `Source/ChainOfWitnesses/Private/Witness/WitnessMissionSubsystem.cpp`,
+   `Content/Data/{DT_Eras,DT_WitnessMissions}.json`,
+   `Source/ChainOfWitnesses/Private/Tests/WitnessMissionSubsystemTests.cpp`.
+   Added `SetDate` to `UCampaignTimelineSubsystem` (Task 1): the clock now moves in
+   both directions, since a mission jumps from 1229 back to AD 65 and out again.
 9. ⬜ Vertical slice: Rome, c. AD 65 — Peter dictates, Mark writes. Full mission,
    dialogue, and the three fragments it yields.
 

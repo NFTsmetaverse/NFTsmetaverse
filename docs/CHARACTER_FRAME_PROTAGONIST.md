@@ -63,7 +63,14 @@ completely coherent *cinematic* Templar and a perfectly legitimate art direction
 it is simply not a 12th-century one, and the frame narrative currently says 12th
 century.
 
-## Three ways to resolve it
+## Resolved: option A
+
+**The frame era is c. AD 1229.** The look stands as drawn; the narrative moved to
+meet it. The great helm is now right, the arm and torso plate remain early by about
+a century rather than two, and `UWitnessMissionSubsystem::FrameYearAD` carries the
+date as a data field. The options as they were put:
+
+### Three ways to resolve it
 
 **A. Keep the look; move the frame era to c. 1220–1250.** *(Recommended.)*
 The helm becomes exactly right. The arm and torso plate stay early, but by a
@@ -90,8 +97,7 @@ and plenty of good games do it — but it sits badly against a project whose sel
 point is that it does not fudge the record, and it is the one option that would
 give an informed player a reason to doubt the rest.
 
-My recommendation is **A**, because it keeps the image, costs a data change, and
-improves the setting.
+Chosen: **A**.
 
 ## How this connects to the systems already built
 
@@ -102,8 +108,9 @@ improves the setting.
   exactly the boundary this character sits on: the frame protagonist is one
   controller and tuning set; Peter, Mark, Luke, Paul or a companion is the other.
   The frame era's *year* is a field this task will need.
-- **The Codex.** The frame protagonist is the one assembling it. What he is allowed
-  to know — and therefore what a Witness Mission's dialogue conditions may require —
-  depends on whether a Witness Mission is a reconstruction he is performing or a
-  scene the player inhabits directly. That question is still open; see the README's
-  flagged design notes.
+- **The Codex.** The frame protagonist is the one assembling it, and a Witness
+  Mission is **a reconstruction he is performing** — decided. Everything in his
+  Codex is available inside one, including sources written after the year the scene
+  is set in, because he is the one putting it together. The scene stays honest
+  because era gating still evaluates at the mission's year: no NPC refers to
+  something that has not happened to him.

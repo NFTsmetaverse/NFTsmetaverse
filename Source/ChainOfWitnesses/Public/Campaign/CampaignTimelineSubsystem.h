@@ -59,6 +59,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Campaign Timeline")
 	void AdvanceDays(int32 Days);
 
+	// Sets the clock outright, in either direction. Events activate cumulatively
+	// and cannot be walked backwards one at a time, so moving back in time
+	// re-derives world state from scratch rather than trying to undo it. Witness
+	// Missions (Task 8) jump the clock into the first century and out again on
+	// this.
+	UFUNCTION(BlueprintCallable, Category = "Campaign Timeline")
+	void SetDate(int32 YearAD, int32 DayOfYear);
+
 	// 0-based; day 0 is the first day of CurrentYearAD.
 	UFUNCTION(BlueprintPure, Category = "Campaign Timeline")
 	int32 GetCurrentDayOfYear() const { return CurrentDayOfYear; }

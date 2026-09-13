@@ -7,12 +7,13 @@ before starting new work. Art direction for the Mode A player character is in
 
 ## Status
 
-Tasks 1, 2, 4, 5, 6 and 7 of the Section 10 task queue are implemented: the
+Tasks 1, 2, 4, 5, 6, 7 and 8 of the Section 10 task queue are implemented: the
 historical timeline as data with the subsystem that gates world state off it, the
 Codex of Witnesses on top of that, dialogue gated on what the player can credibly
 claim, a reputation system whose news travels no faster than a man on a road, the
-campaign map that road belongs to, and the debates where the Codex is finally put
-under pressure.
+campaign map that road belongs to, the debates where the Codex is put under
+pressure, and the Witness Mission framework that carries the player between the
+two eras.
 
 Task 3 (the Codex UI) is deliberately out of order — UMG widgets are binary
 assets a designer builds in-editor, so the useful part from here is the data it
@@ -162,8 +163,36 @@ returns a transcript naming the link that failed plus the fragments that would h
 met the objections that landed and which the player has not found. That list is the
 next set of missions.
 
-Tasks 3, 8 and 9 (Codex UI, Witness Missions, the AD 65 vertical slice) are not
-started — see the task queue in the master prompt doc.
+**Task 8 — the Witness Mission framework**
+
+| Path | What it is |
+|---|---|
+| `Source/ChainOfWitnesses/Public/Witness/WitnessMissionTypes.h` | `FEraDefinitionRow`, `FEraCombatTuning`, `FWitnessMissionRow`, `FFrameSnapshot`, `EGameEra`, `EStructuralMode`. |
+| `Source/ChainOfWitnesses/Public/Witness/WitnessMissionSubsystem.h`, `Private/.../WitnessMissionSubsystem.cpp` | `UWitnessMissionSubsystem` — era and mode state, mission availability, entering and leaving, and the frame snapshot. |
+| `Content/Data/DT_Eras.json` | The crusader frame and the first century, each with its pawn/controller/input references and combat tuning. |
+| `Content/Data/DT_WitnessMissions.json` | Six missions from the empty tomb to Peter dictating in Rome, each anchored to a timeline row and validated against its date range. |
+| `Source/ChainOfWitnesses/Private/Tests/WitnessMissionSubsystemTests.cpp` | Era swap, the sealed reconstruction, unlock-by-source, Mode B, knowledge carry-through, save round-trip. |
+
+**The clock is the whole trick.** Entering a mission pushes the campaign clock to
+the mission's year and the party to its location; leaving pops both back. Every
+era-gated system already built — dialogue windows, debate opponents, road
+encounters — therefore behaves correctly inside a mission without knowing missions
+exist. That needed one addition to Task 1: `SetDate`, because the clock now has to
+run backwards from 1229 to AD 65 and forwards again, and events activate
+cumulatively so going back re-derives world state rather than trying to undo it.
+
+**What this subsystem does not do** is travel or possess. Those need a World and a
+loaded map, which is GameMode work; the subsystem names the level and the classes
+and broadcasts. That separation is what lets the whole framework be tested without
+a world.
+
+**A mission is sealed.** Faction standing and NPC memory are snapshotted on entry
+and restored on return — using each subsystem's own save payload, so a mission
+unwinds through exactly the code a save file restores through. Recovered fragments
+are the one deliberate exception, and the reason for going.
+
+Tasks 3 and 9 (Codex UI, the AD 65 vertical slice) are not started — see the task
+queue in the master prompt doc.
 
 ## Project layout
 
@@ -216,20 +245,19 @@ leadership accepted serious risk rather than recant. Task 7's debate content sho
 argue the narrow version, which holds, rather than the broad one, which a
 well-prepared opponent will dismantle.
 
-**A design question the dialogue gating surfaces, and you should decide.** When a
-dialogue option requires a Codex fragment, what does that mean inside a
-first-century Witness Mission? `Frag_WomenFirstAtTheTomb` carries an
-`AttestationDateAD` of 55 — the year the written testimony enters the record — but
-the conversation with Peter is set c. AD 35. The seed content treats a required
-fragment as *the player can credibly show he already knows this*, which is coherent
-because the knowledge plainly predates the writing. That reading breaks down if
-someone authors an option requiring a second-century patristic source in a
-first-century scene: the player would be citing Papias at a man who died decades
-before Papias was born. Nothing in the code prevents it. Three options: leave it as
-an authoring rule (current state, documented in `FDialogueConditionSet`), add a
-per-conversation cutoff year that hard-fails late fragments, or treat Witness
-Missions as explicitly the frame character's reconstruction, where knowing the later
-source is fine. Worth settling before Task 9 authors the vertical slice.
+**Resolved: a Witness Mission is a reconstruction.** The question of what the
+player knows inside a first-century scene is settled in favour of the frame
+character performing the reconstruction, so his whole Codex is available there —
+including sources written long after the year he is standing in. The scene stays
+honest because era gating still evaluates at the mission's year: `EarliestYearAD`,
+`LatestYearAD` and `RequiredActiveEventIDs` all resolve to AD 65 inside an AD 65
+mission, so no NPC refers to something that has not happened to him. Recorded in
+`FDialogueConditionSet` and in the character brief.
+
+**Resolved: the frame era is c. AD 1229.** Chosen against the character reference's
+armour, which reads about a century later than a 12th-century setting would allow.
+See `docs/CHARACTER_FRAME_PROTAGONIST.md` for the audit and the reasoning; the year
+lives in `UWitnessMissionSubsystem::FrameYearAD`.
 
 **One field was added beyond Section 8's data model.**
 `FTestimonyFragmentDefinition::RebutsFragmentIDs`. Section 8 specifies

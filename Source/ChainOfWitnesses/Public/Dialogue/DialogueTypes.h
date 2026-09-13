@@ -74,12 +74,13 @@ enum class EDialogueGate : uint8
  * UDialogueSubsystem::EvaluateConditions (world facts first, then the player's
  * standing, then what he can demonstrate).
  *
- * Authoring note on RequiredFragmentIDs in a first-century Witness Mission: a
- * required fragment means the player can credibly show he already knows the thing,
- * not that he is brandishing a document. A fragment whose AttestationDateAD falls
- * after the conversation's year is still legitimate where the knowledge plainly
- * predates the writing -- but citing a second-century source at a first-century
- * NPC is not, and nothing here prevents it. Author accordingly.
+ * RequiredFragmentIDs inside a first-century Witness Mission: a Witness Mission is
+ * a reconstruction the frame character is performing, so everything his Codex holds
+ * is available to him there, including sources written long after the year he is
+ * standing in. A condition may require Papias in an AD 65 scene. What stays honest
+ * is the scene itself -- EarliestYearAD, LatestYearAD and RequiredActiveEventIDs all
+ * evaluate at the mission's year, so no NPC refers to something that has not
+ * happened to him yet.
  */
 USTRUCT(BlueprintType)
 struct CHAINOFWITNESSES_API FDialogueConditionSet

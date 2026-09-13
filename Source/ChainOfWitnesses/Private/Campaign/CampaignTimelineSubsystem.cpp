@@ -111,6 +111,20 @@ void UCampaignTimelineSubsystem::AdvanceDays(int32 Days)
 	AdvanceToYear(CurrentYearAD + YearsRolled);
 }
 
+void UCampaignTimelineSubsystem::SetDate(int32 YearAD, int32 DayOfYear)
+{
+	CurrentDayOfYear = FMath::Clamp(DayOfYear, 0, DaysPerYear - 1);
+
+	// World state here is derived from the date, not accumulated over play, so the
+	// honest way to move backwards is to throw it away and rebuild it.
+	ActiveEventIDs.Reset();
+	EstablishedHubCityIDs.Reset();
+	DestroyedHubCityIDs.Reset();
+	UnlockedFactionIDs.Reset();
+
+	AdvanceToYear(YearAD);
+}
+
 void UCampaignTimelineSubsystem::AdvanceToYear(int32 NewYearAD)
 {
 	CurrentYearAD = NewYearAD;
