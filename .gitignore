@@ -1,0 +1,25 @@
+# Unreal Engine
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+*.sln
+*.suo
+*.VC.db
+*.VC.opendb
+*.xcodeproj
+*.xcworkspace
+.vscode/
+*.opensdf
+*.sdf
+*.opendb
+
+# Editor-generated content packages are binary; keep Content/Data source assets
+# (CSV/JSON DataTable sources) but ignore compiled .uasset/.umap until the
+# project is opened in-editor and those are deliberately committed.
+Content/**/*.uasset
+Content/**/*.umap
+!Content/Data/*.json
+!Content/Data/*.csv
