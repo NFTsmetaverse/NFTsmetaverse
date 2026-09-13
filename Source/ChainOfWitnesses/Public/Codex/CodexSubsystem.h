@@ -7,6 +7,7 @@
 #include "CodexSubsystem.generated.h"
 
 class UDataTable;
+class UCampaignTimelineSubsystem;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogCodex, Log, All);
 
@@ -127,6 +128,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Codex|Save")
 	void RestoreFromSaveData(const FCodexSaveData& SaveData);
 
+	/** Test seam; in a running game the timeline resolves from the owning GameInstance. */
+	void SetTimelineForTesting(UCampaignTimelineSubsystem* InTimeline);
+
 	UPROPERTY(BlueprintAssignable, Category = "Codex")
 	FOnFragmentRecovered OnFragmentRecovered;
 
@@ -134,6 +138,8 @@ public:
 	FOnChainChanged OnChainChanged;
 
 private:
+	UCampaignTimelineSubsystem* GetTimeline() const;
+
 	FTransmissionChain* FindChain(FName AnchorEventID);
 	const FTransmissionChain* FindChain(FName AnchorEventID) const;
 
@@ -156,4 +162,7 @@ private:
 
 	UPROPERTY()
 	FCodexScoringRules ScoringRules;
+
+	UPROPERTY()
+	TObjectPtr<UCampaignTimelineSubsystem> TimelineOverride = nullptr;
 };

@@ -16,6 +16,26 @@ void UCodexSubsystem::Deinitialize()
 	Super::Deinitialize();
 }
 
+void UCodexSubsystem::SetTimelineForTesting(UCampaignTimelineSubsystem* InTimeline)
+{
+	TimelineOverride = InTimeline;
+}
+
+UCampaignTimelineSubsystem* UCodexSubsystem::GetTimeline() const
+{
+	if (TimelineOverride)
+	{
+		return TimelineOverride;
+	}
+
+	if (UGameInstance* GameInstance = GetGameInstance())
+	{
+		return GameInstance->GetSubsystem<UCampaignTimelineSubsystem>();
+	}
+
+	return nullptr;
+}
+
 // --- Registry ---------------------------------------------------------------
 
 bool UCodexSubsystem::RegisterFragmentDefinition(const FTestimonyFragmentDefinition& Definition)
@@ -165,15 +185,12 @@ bool UCodexSubsystem::CreateChain(FName AnchorEventID)
 {
 	int32 AnchorYearAD = INDEX_NONE;
 
-	if (UGameInstance* GameInstance = GetGameInstance())
+	if (const UCampaignTimelineSubsystem* Timeline = GetTimeline())
 	{
-		if (const UCampaignTimelineSubsystem* Timeline = GameInstance->GetSubsystem<UCampaignTimelineSubsystem>())
+		FCampaignEventRow Row;
+		if (Timeline->GetEventRow(AnchorEventID, Row))
 		{
-			FCampaignEventRow Row;
-			if (Timeline->GetEventRow(AnchorEventID, Row))
-			{
-				AnchorYearAD = Row.YearEarliestAD;
-			}
+			AnchorYearAD = Row.YearEarliestAD;
 		}
 	}
 

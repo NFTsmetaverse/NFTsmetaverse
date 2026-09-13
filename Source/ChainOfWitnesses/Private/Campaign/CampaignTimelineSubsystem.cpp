@@ -10,9 +10,34 @@ void UCampaignTimelineSubsystem::Deinitialize()
 	Super::Deinitialize();
 }
 
+bool UCampaignTimelineSubsystem::RegisterEvent(const FCampaignEventRow& Event)
+{
+	if (Event.EventID.IsNone() || Events.Contains(Event.EventID))
+	{
+		return false;
+	}
+
+	Events.Add(Event.EventID, Event);
+	return true;
+}
+
 void UCampaignTimelineSubsystem::SetTimelineTable(UDataTable* InTimelineTable)
 {
-	TimelineTable = InTimelineTable;
+	Events.Reset();
+
+	if (InTimelineTable)
+	{
+		TArray<FCampaignEventRow*> Rows;
+		InTimelineTable->GetAllRows<FCampaignEventRow>(TEXT("CampaignTimelineSubsystem::SetTimelineTable"), Rows);
+
+		for (const FCampaignEventRow* Row : Rows)
+		{
+			if (Row)
+			{
+				RegisterEvent(*Row);
+			}
+		}
+	}
 
 	ActiveEventIDs.Reset();
 	EstablishedHubCityIDs.Reset();
@@ -24,12 +49,7 @@ void UCampaignTimelineSubsystem::SetTimelineTable(UDataTable* InTimelineTable)
 
 bool UCampaignTimelineSubsystem::GetEventRow(FName EventID, FCampaignEventRow& OutRow) const
 {
-	if (!TimelineTable)
-	{
-		return false;
-	}
-
-	if (const FCampaignEventRow* FoundRow = TimelineTable->FindRow<FCampaignEventRow>(EventID, TEXT("CampaignTimelineSubsystem::GetEventRow")))
+	if (const FCampaignEventRow* FoundRow = Events.Find(EventID))
 	{
 		OutRow = *FoundRow;
 		return true;
@@ -129,39 +149,37 @@ void UCampaignTimelineSubsystem::AdvanceToYear(int32 NewYearAD)
 {
 	CurrentYearAD = NewYearAD;
 
-	if (!TimelineTable)
+	if (Events.Num() == 0)
 	{
 		return;
 	}
 
 	// Loop until a full pass activates nothing new, so a chain of prerequisites
-	// resolves in one call regardless of row order in the table.
+	// resolves in one call regardless of the order the rows come in.
 	bool bActivatedAnyThisPass = true;
 	while (bActivatedAnyThisPass)
 	{
 		bActivatedAnyThisPass = false;
 
-		TArray<FCampaignEventRow*> Rows;
-		TimelineTable->GetAllRows<FCampaignEventRow>(TEXT("CampaignTimelineSubsystem::AdvanceToYear"), Rows);
-
-		for (const FCampaignEventRow* Row : Rows)
+		for (const TPair<FName, FCampaignEventRow>& Pair : Events)
 		{
-			if (!Row || ActiveEventIDs.Contains(Row->EventID))
+			const FCampaignEventRow& Row = Pair.Value;
+			if (ActiveEventIDs.Contains(Row.EventID))
 			{
 				continue;
 			}
 
-			const bool bYearReached = CurrentYearAD >= Row->YearEarliestAD;
-			if (!bYearReached || !EvaluatePrerequisites(*Row))
+			const bool bYearReached = CurrentYearAD >= Row.YearEarliestAD;
+			if (!bYearReached || !EvaluatePrerequisites(Row))
 			{
 				continue;
 			}
 
-			ActiveEventIDs.Add(Row->EventID);
+			ActiveEventIDs.Add(Row.EventID);
 			bActivatedAnyThisPass = true;
 
-			ApplyWorldStateEffects(*Row);
-			OnEventActivated.Broadcast(Row->EventID);
+			ApplyWorldStateEffects(Row);
+			OnEventActivated.Broadcast(Row.EventID);
 		}
 	}
 

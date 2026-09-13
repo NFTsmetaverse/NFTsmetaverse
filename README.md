@@ -7,17 +7,22 @@ before starting new work. Art direction for the Mode A player character is in
 
 ## Status
 
-Tasks 1, 2, 4, 5, 6, 7 and 8 of the Section 10 task queue are implemented: the
+All of the Section 10 task queue except Task 3 (the Codex UI) is implemented: the
 historical timeline as data with the subsystem that gates world state off it, the
 Codex of Witnesses on top of that, dialogue gated on what the player can credibly
 claim, a reputation system whose news travels no faster than a man on a road, the
 campaign map that road belongs to, the debates where the Codex is put under
 pressure, and the Witness Mission framework that carries the player between the
-two eras.
+two eras, and the AD 65 vertical slice that runs through all of it.
 
-Task 3 (the Codex UI) is deliberately out of order — UMG widgets are binary
-assets a designer builds in-editor, so the useful part from here is the data it
-renders, which `FChainScoreBreakdown` and `FDialogueNodeView` already provide.
+Task 3 (the Codex UI) is the one left. UMG widgets are binary assets a designer
+builds in-editor, so the useful part from here is the data they render, which
+`FChainScoreBreakdown`, `FDialogueNodeView` and `FDebateObjectionView` already
+provide.
+
+**Nothing here has been compiled.** There is no UE toolchain in the environment
+this was written in. Roughly 9,000 lines of C++ and eight automation suites are
+waiting on a first build; expect real errors on the first pass.
 
 **Task 1 — campaign timeline**
 
@@ -191,8 +196,35 @@ and restored on return — using each subsystem's own save payload, so a mission
 unwinds through exactly the code a save file restores through. Recovered fragments
 are the one deliberate exception, and the reason for going.
 
-Tasks 3 and 9 (Codex UI, the AD 65 vertical slice) are not started — see the task
-queue in the master prompt doc.
+**Task 9 — the vertical slice**
+
+| Path | What it is |
+|---|---|
+| `Content/Data/DT_Dialogue_RomeAD65.json` | Rome, AD 65, after the fire. Ten nodes; the player is Mark, taking dictation. |
+| `Content/Data/DT_WitnessMissions.json` | `WM_PeterDictatesMark` — unlocked by recovering Papias' testimony, opening on `Node_Rome_Room`. |
+| `Source/ChainOfWitnesses/Private/Tests/VerticalSliceTests.cpp` | The module's end-to-end integration test: frame era → mission → conversation → three fragments → frame restored → chain scored. |
+
+**The scene.** Peter has been asked to let his preaching be written down and does
+not want to be. His objection is the one Papias himself records holding — that a
+living voice can be questioned and a book cannot. Pressing him on why the account
+does not run in sequence is what produces the admission that it does not, which is
+the slice's central fragment: the same sentence that vouches for Mark concedes a
+defect in him, and a fabricated credential does not come qualified.
+
+Asking whether his own failure in the courtyard stays in the text is the criterion
+of embarrassment, played rather than explained. He leaves it in.
+
+**The three fragments** — Peter preaching in Rome, Mark writing accurately but not
+in order, and the Gospel as a written document — are all granted through the
+dialogue, so playing the scene is what yields them rather than completing it.
+
+**What the test proves.** That the seven subsystems compose. The frame era hands
+off, the clock moves to AD 65, the persecution-gated line opens because world state
+resolves at the mission's year, disclosure earned in one exchange unlocks the next,
+the frame comes back with Peter's regard for Mark rolled back and the evidence kept,
+and the three fragments assemble into a chain that scores — weakly, with the Event
+link still empty and two objections outstanding. One evening in Rome is a start, not
+a case.
 
 ## Project layout
 

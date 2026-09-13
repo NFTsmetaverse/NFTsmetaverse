@@ -1,0 +1,210 @@
+[
+	{
+		"Name": "Node_Rome_Room",
+		"NodeID": "Node_Rome_Room",
+		"SpeakerID": "NPC_Peter",
+		"Line": "They have asked me again. Rufus and the others -- they want it written down while there is still someone to ask. I have told them what I think of books. A book cannot be questioned. You put a thing on a page and it stops being something a man has to stand behind.",
+		"EntryConditions": {
+			"MinimumSafety": "Private",
+			"EarliestYearAD": 55,
+			"LatestYearAD": 70
+		},
+		"FallbackNodeID": "Node_Rome_NotHere",
+		"EntryEffects": {
+			"GrantsFragmentIDs": ["Frag_PeterPreachingInRome"]
+		},
+		"Options": [
+			{
+				"PlayerLine": "Then stand behind it. I will write what you say and nothing you do not.",
+				"Effects": {
+					"TrustDelta": 10.0,
+					"RaiseDisclosureTo": "Acquaintance"
+				},
+				"NextNodeID": "Node_Peter_Terms"
+			},
+			{
+				"PlayerLine": "There is no one left to ask. That is what they are telling you, and they are right.",
+				"Conditions": {
+					"RequiredActiveEventIDs": ["Event_GreatFireOfRome_NeronianPersecution"]
+				},
+				"Effects": {
+					"TrustDelta": 15.0,
+					"RaiseDisclosureTo": "Acquaintance"
+				},
+				"NextNodeID": "Node_Peter_Terms",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "Then I will come back when you have decided.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Rome_NotHere",
+		"NodeID": "Node_Rome_NotHere",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Not out here. Half this quarter is watching the other half for the reward, and I am no use to anyone burned. Find me where the door shuts.",
+		"Options": [
+			{
+				"PlayerLine": "Inside, then.",
+				"NextNodeID": ""
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Terms",
+		"NodeID": "Node_Peter_Terms",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Then we do it my way. I will tell it as I have always told it -- the way it comes out when I am speaking to people who need to hear it, not the way a Greek would arrange it for a shelf. If you start tidying me, I stop.",
+		"Options": [
+			{
+				"PlayerLine": "Tell it however it comes. I will keep the order you give it.",
+				"Effects": {
+					"TrustDelta": 5.0
+				},
+				"NextNodeID": "Node_Peter_Dictates"
+			},
+			{
+				"PlayerLine": "It would carry further if it ran in sequence. Men trust a thing that runs in sequence.",
+				"NextNodeID": "Node_Peter_NotInOrder"
+			},
+			{
+				"PlayerLine": "There is a collection of the sayings going round, in the dialect. Should I follow its shape?",
+				"Conditions": {
+					"RequiredFragmentIDs": ["Frag_PapiasOnMatthewLogia"]
+				},
+				"NextNodeID": "Node_Peter_Sayings",
+				"bShowWhenLocked": true
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_NotInOrder",
+		"NodeID": "Node_Peter_NotInOrder",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Sequence. I was there, and I cannot give you sequence. Some days there were crowds and some days there were not, and what I have kept is the order it is useful in, not the order the sun came up in. If you want a man who can put it all in a line, go and find one who was not there.",
+		"EntryEffects": {
+			"TrustDelta": 15.0,
+			"RaiseDisclosureTo": "Confidant",
+			"GrantsFragmentIDs": ["Frag_MarkNotInOrder"]
+		},
+		"Options": [
+			{
+				"PlayerLine": "Then I will write it out of order and say so.",
+				"Effects": {
+					"TrustDelta": 5.0
+				},
+				"NextNodeID": "Node_Peter_Dictates"
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Sayings",
+		"NodeID": "Node_Peter_Sayings",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Matthew's people have their collection and it is a good one, but it is sayings. A saying with nothing round it can be made to mean anything by the next man who picks it up. I want what happened round them. Where he was standing, and who was arguing with him, and what it cost.",
+		"EntryEffects": {
+			"TrustDelta": 10.0,
+			"RaiseDisclosureTo": "Confidant"
+		},
+		"Options": [
+			{
+				"PlayerLine": "Then narrative, not sayings. Go on.",
+				"NextNodeID": "Node_Peter_Dictates"
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Dictates",
+		"NodeID": "Node_Peter_Dictates",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Start where it starts. No line of descent, no childhood -- begin at the river, with John, because that is where any of us first laid eyes on him. Everything before that is somebody else's to tell and I was not there for it.",
+		"Options": [
+			{
+				"PlayerLine": "The Greeks will want a beginning. A birth, a lineage, something to place him.",
+				"NextNodeID": "Node_Peter_NoBeginning"
+			},
+			{
+				"PlayerLine": "You come off badly in this. The night in the courtyard -- you want that in?",
+				"Conditions": {
+					"MinimumDisclosure": "Confidant"
+				},
+				"NextNodeID": "Node_Peter_OwnName",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "Others have told me the women found the tomb first. Does that stand?",
+				"Conditions": {
+					"RequiredFragmentIDs": ["Frag_WomenFirstAtTheTomb"]
+				},
+				"NextNodeID": "Node_Peter_Women",
+				"bShowWhenLocked": true
+			},
+			{
+				"PlayerLine": "Enough for tonight. My hand is finished.",
+				"NextNodeID": "Node_Peter_Begins"
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_NoBeginning",
+		"NodeID": "Node_Peter_NoBeginning",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Let them want it. I did not meet him as a child and I will not put my name to a childhood I did not see. If somebody else can get that from his mother's people, let them write it and let it stand next to this one.",
+		"Options": [
+			{
+				"PlayerLine": "At the river, then.",
+				"NextNodeID": "Node_Peter_Dictates"
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_OwnName",
+		"NodeID": "Node_Peter_OwnName",
+		"SpeakerID": "NPC_Peter",
+		"Line": "It happened. If I cut that out, what else comes out with it? Half the men I am telling this for were in this city when I arrived and they have heard me say it against myself for twenty years. Leave it in. Let it stand as it stands, and if I sound like a fool in it, that is because I was one.",
+		"EntryEffects": {
+			"TrustDelta": 20.0,
+			"RaiseDisclosureTo": "Insider"
+		},
+		"Options": [
+			{
+				"PlayerLine": "It stands.",
+				"NextNodeID": "Node_Peter_Dictates"
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Women",
+		"NodeID": "Node_Peter_Women",
+		"SpeakerID": "NPC_Peter",
+		"Line": "It stands. And before you ask -- no, we did not believe them, and you can put that down too. We had to go and look for ourselves, which is exactly the sort of thing a man leaves out when he is building something. I am not building anything. I am telling you what the morning was like.",
+		"EntryEffects": {
+			"TrustDelta": 15.0,
+			"RaiseDisclosureTo": "Insider"
+		},
+		"Options": [
+			{
+				"PlayerLine": "Both parts, then. Theirs and yours.",
+				"NextNodeID": "Node_Peter_Dictates"
+			}
+		]
+	},
+	{
+		"Name": "Node_Peter_Begins",
+		"NodeID": "Node_Peter_Begins",
+		"SpeakerID": "NPC_Peter",
+		"Line": "Then get it down. Not tonight -- my voice is gone and your hand is worse. But get it down, and when it is finished you will read the whole of it back to me, and I will tell you every place you have made me sound better than I was.",
+		"EntryEffects": {
+			"TrustDelta": 10.0,
+			"GrantsFragmentIDs": ["Frag_GospelOfMarkComposed"]
+		},
+		"Options": [
+			{
+				"PlayerLine": "Every place. I will keep the list.",
+				"NextNodeID": ""
+			}
+		]
+	}
+]

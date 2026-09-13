@@ -271,8 +271,15 @@ adulterae*, which the game should address rather than avoid.
    `Source/ChainOfWitnesses/Private/Tests/WitnessMissionSubsystemTests.cpp`.
    Added `SetDate` to `UCampaignTimelineSubsystem` (Task 1): the clock now moves in
    both directions, since a mission jumps from 1229 back to AD 65 and out again.
-9. ⬜ Vertical slice: Rome, c. AD 65 — Peter dictates, Mark writes. Full mission,
-   dialogue, and the three fragments it yields.
+9. ✅ **Done.** Vertical slice: Rome, c. AD 65 — Peter dictates, Mark writes.
+   → `Content/Data/DT_Dialogue_RomeAD65.json` (ten nodes),
+   `WM_PeterDictatesMark` in `DT_WitnessMissions.json`,
+   `Frag_MarkNotInOrder` added to `DT_TestimonyFragments.json`,
+   `Source/ChainOfWitnesses/Private/Tests/VerticalSliceTests.cpp` — the
+   end-to-end integration test for the whole module.
+   The three fragments: Peter preaching in Rome, Mark writing accurately but not
+   in order, and the Gospel as a written document. All three are granted through
+   the dialogue, so playing the scene is what yields them.
 
 **For each task:** file list with paths, complete `.h` and `.cpp`, Blueprint
 exposure notes, and a short test plan. Ask before assuming anything about the

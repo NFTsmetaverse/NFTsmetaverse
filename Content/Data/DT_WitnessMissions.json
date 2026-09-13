@@ -10,8 +10,13 @@
 		"EraID": "Era_FirstCentury",
 		"PlayableCharacterID": "Char_Companion",
 		"Level": "",
+		"OpeningDialogueNodeID": "",
+		"OpeningNpcID": "",
+		"OpeningSafety": "Private",
 		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": ["Frag_WomenFirstAtTheTomb"],
+		"GrantsFragmentIDs": [
+			"Frag_WomenFirstAtTheTomb"
+		],
 		"bPersistsWorldState": false
 	},
 	{
@@ -25,8 +30,13 @@
 		"EraID": "Era_FirstCentury",
 		"PlayableCharacterID": "Char_Saul",
 		"Level": "",
+		"OpeningDialogueNodeID": "",
+		"OpeningNpcID": "",
+		"OpeningSafety": "Private",
 		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": ["Frag_PaulSeesRisenChrist"],
+		"GrantsFragmentIDs": [
+			"Frag_PaulSeesRisenChrist"
+		],
 		"bPersistsWorldState": false
 	},
 	{
@@ -40,8 +50,13 @@
 		"EraID": "Era_FirstCentury",
 		"PlayableCharacterID": "Char_Saul",
 		"Level": "",
+		"OpeningDialogueNodeID": "Node_Peter_Courtyard",
+		"OpeningNpcID": "NPC_Peter",
+		"OpeningSafety": "Public",
 		"UnlockedByFragmentID": "Frag_PaulMeetsPeterAndJames",
-		"GrantsFragmentIDs": ["Frag_PrePaulineCreed"],
+		"GrantsFragmentIDs": [
+			"Frag_PrePaulineCreed"
+		],
 		"bPersistsWorldState": false
 	},
 	{
@@ -55,8 +70,13 @@
 		"EraID": "Era_FirstCentury",
 		"PlayableCharacterID": "Char_Paul",
 		"Level": "",
+		"OpeningDialogueNodeID": "",
+		"OpeningNpcID": "",
+		"OpeningSafety": "Private",
 		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": ["Frag_DelphiGallioInscription"],
+		"GrantsFragmentIDs": [
+			"Frag_DelphiGallioInscription"
+		],
 		"bPersistsWorldState": false
 	},
 	{
@@ -70,8 +90,13 @@
 		"EraID": "Era_FirstCentury",
 		"PlayableCharacterID": "Char_Luke",
 		"Level": "",
+		"OpeningDialogueNodeID": "",
+		"OpeningNpcID": "",
+		"OpeningSafety": "Private",
 		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": ["Frag_ActsWePassages"],
+		"GrantsFragmentIDs": [
+			"Frag_ActsWePassages"
+		],
 		"bPersistsWorldState": false
 	},
 	{
@@ -85,8 +110,15 @@
 		"EraID": "Era_FirstCentury",
 		"PlayableCharacterID": "Char_Mark",
 		"Level": "",
+		"OpeningDialogueNodeID": "Node_Rome_Room",
+		"OpeningNpcID": "NPC_Peter",
+		"OpeningSafety": "Private",
 		"UnlockedByFragmentID": "Frag_MarkAsPetersInterpreter",
-		"GrantsFragmentIDs": ["Frag_GospelOfMarkComposed", "Frag_PeterPreachingInRome"],
+		"GrantsFragmentIDs": [
+			"Frag_PeterPreachingInRome",
+			"Frag_MarkNotInOrder",
+			"Frag_GospelOfMarkComposed"
+		],
 		"bPersistsWorldState": false
 	}
 ]

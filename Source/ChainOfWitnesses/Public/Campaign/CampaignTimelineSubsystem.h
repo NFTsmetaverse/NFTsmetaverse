@@ -35,7 +35,10 @@ public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
 
-	// Points the subsystem at the Section 6 timeline DataTable (row struct
+	UFUNCTION(BlueprintCallable, Category = "Campaign Timeline")
+	bool RegisterEvent(const FCampaignEventRow& Event);
+
+	// Replaces the spine with the rows of a Section 6 timeline DataTable (row struct
 	// FCampaignEventRow, see Content/Data/DT_CampaignEvents.json). Call once at
 	// startup, e.g. from the GameMode or the mode-select asset that configures
 	// Mode A/Mode B. Re-evaluates world state at the current year immediately.
@@ -114,8 +117,10 @@ private:
 	bool EvaluatePrerequisites(const FCampaignEventRow& Row) const;
 	void ApplyWorldStateEffects(const FCampaignEventRow& Row);
 
+	// The spine itself. Held as rows rather than as a table reference so that events
+	// can also be registered directly, as every other subsystem in the module allows.
 	UPROPERTY()
-	TObjectPtr<UDataTable> TimelineTable = nullptr;
+	TMap<FName, FCampaignEventRow> Events;
 
 	UPROPERTY()
 	int32 CurrentYearAD = 30;

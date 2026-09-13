@@ -164,6 +164,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mission")
 	TSoftObjectPtr<UWorld> Level;
 
+	// The scene's opening conversation, in the dialogue tables. The GameMode starts
+	// it once the level is up; naming it here is what joins a mission to its script.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mission")
+	FName OpeningDialogueNodeID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mission")
+	FName OpeningNpcID;
+
+	// Where the opening conversation happens, which decides what the NPC will say
+	// in it. A room with the door shut is not the street.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mission")
+	EConversationSafety OpeningSafety = EConversationSafety::Private;
+
 	// Section 2: "when he recovers a source, the game enters a Witness Mission".
 	// This is that source. NAME_None for missions gated only by the campaign act.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mission")

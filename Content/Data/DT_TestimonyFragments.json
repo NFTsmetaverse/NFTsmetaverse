@@ -6,7 +6,10 @@
 		"SourceReference": "1 Cor 15:3-7",
 		"Tier": "Eyewitness",
 		"AttestationDateAD": 35,
-		"CorroboratedBy": ["Frag_PaulSeesRisenChrist", "Frag_PaulMeetsPeterAndJames"],
+		"CorroboratedBy": [
+			"Frag_PaulSeesRisenChrist",
+			"Frag_PaulMeetsPeterAndJames"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -19,7 +22,9 @@
 		"SourceReference": "Gal 1:18-19",
 		"Tier": "Companion",
 		"AttestationDateAD": 35,
-		"CorroboratedBy": ["Frag_PrePaulineCreed"],
+		"CorroboratedBy": [
+			"Frag_PrePaulineCreed"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -32,7 +37,9 @@
 		"SourceReference": "1 Cor 15:8; Gal 1:15-16",
 		"Tier": "Eyewitness",
 		"AttestationDateAD": 35,
-		"CorroboratedBy": ["Frag_PrePaulineCreed"],
+		"CorroboratedBy": [
+			"Frag_PrePaulineCreed"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -45,7 +52,9 @@
 		"SourceReference": "Mark 16:1-8; Matt 28:1-10; Luke 24:1-11; John 20:1-18",
 		"Tier": "Eyewitness",
 		"AttestationDateAD": 55,
-		"CorroboratedBy": ["Frag_GospelOfMarkComposed"],
+		"CorroboratedBy": [
+			"Frag_GospelOfMarkComposed"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -58,7 +67,10 @@
 		"SourceReference": "1 Pet 5:13; Papias, via Eusebius, Hist. eccl. 3.39.15",
 		"Tier": "Eyewitness",
 		"AttestationDateAD": 60,
-		"CorroboratedBy": ["Frag_MarkAsPetersInterpreter", "Frag_1Clement5"],
+		"CorroboratedBy": [
+			"Frag_MarkAsPetersInterpreter",
+			"Frag_1Clement5"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
@@ -71,11 +83,33 @@
 		"SourceReference": "Papias, via Eusebius, Hist. eccl. 3.39.15",
 		"Tier": "Companion",
 		"AttestationDateAD": 110,
-		"CorroboratedBy": ["Frag_IrenaeusOnMarkAfterPeter", "Frag_ClementOnMarkInPetersLifetime"],
-		"ChallengedBy": ["Frag_EusebiusOnPapiasJudgement"],
+		"CorroboratedBy": [
+			"Frag_IrenaeusOnMarkAfterPeter",
+			"Frag_ClementOnMarkInPetersLifetime"
+		],
+		"ChallengedBy": [
+			"Frag_EusebiusOnPapiasJudgement"
+		],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
 		"ScholarlyNote": "The load-bearing patristic claim for the whole Mark chain: Mark recorded Peter's preaching accurately but not in sequence. Papias is writing roughly two generations after the events and is himself preserved only through Eusebius, so the link is real but not short."
+	},
+	{
+		"Name": "Frag_MarkNotInOrder",
+		"FragmentID": "Frag_MarkNotInOrder",
+		"Title": "Mark wrote accurately, but not in order",
+		"SourceReference": "Papias, via Eusebius, Hist. eccl. 3.39.15",
+		"Tier": "Patristic",
+		"AttestationDateAD": 110,
+		"CorroboratedBy": [
+			"Frag_MarkAsPetersInterpreter"
+		],
+		"ChallengedBy": [
+			"Frag_EusebiusOnPapiasJudgement"
+		],
+		"RebutsFragmentIDs": [],
+		"bIsContested": false,
+		"ScholarlyNote": "The same sentence that vouches for Mark concedes a defect in him, which is why it is worth more than a clean endorsement would be. What Papias meant by order is disputed -- chronological sequence, rhetorical arrangement, or literary polish are all defended -- and the concession is made while defending Mark, not while attacking him. An apologist inventing a credential does not invent a qualified one; the natural reading is that the disorder was obvious to everyone and had to be accounted for."
 	},
 	{
 		"Name": "Frag_GospelOfMarkComposed",
@@ -84,8 +118,12 @@
 		"SourceReference": "Gospel of Mark",
 		"Tier": "Companion",
 		"AttestationDateAD": 55,
-		"CorroboratedBy": ["Frag_MarkAsPetersInterpreter"],
-		"ChallengedBy": ["Frag_LongerEndingAbsentInEarliestMSS"],
+		"CorroboratedBy": [
+			"Frag_MarkAsPetersInterpreter"
+		],
+		"ChallengedBy": [
+			"Frag_LongerEndingAbsentInEarliestMSS"
+		],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
 		"ScholarlyNote": "The first complete narrative Gospel in Greek. Its own date is disputed within roughly AD 55-70 depending on whether Irenaeus or Clement is followed on its relation to Peter's death; see the campaign timeline row for the same event."
@@ -98,7 +136,9 @@
 		"Tier": "Patristic",
 		"AttestationDateAD": 110,
 		"CorroboratedBy": [],
-		"ChallengedBy": ["Frag_EusebiusOnPapiasJudgement"],
+		"ChallengedBy": [
+			"Frag_EusebiusOnPapiasJudgement"
+		],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
 		"ScholarlyNote": "Contested on two fronts: what Papias meant by logia (sayings collection, or a full Gospel), and whether canonical Greek Matthew reads like a translation from a Semitic original -- most linguists judge that it does not. This is the pivot of the priority question, and the game's harmonisation treats the early Aramaic collection and the later Greek Gospel as two different documents."
@@ -110,8 +150,12 @@
 		"SourceReference": "Irenaeus, Adv. Haer. 3.1.1",
 		"Tier": "Patristic",
 		"AttestationDateAD": 180,
-		"CorroboratedBy": ["Frag_MarkAsPetersInterpreter"],
-		"ChallengedBy": ["Frag_ClementOnMarkInPetersLifetime"],
+		"CorroboratedBy": [
+			"Frag_MarkAsPetersInterpreter"
+		],
+		"ChallengedBy": [
+			"Frag_ClementOnMarkInPetersLifetime"
+		],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
 		"ScholarlyNote": "Places Mark's writing after the departure of Peter and Paul, which is normally read as after their deaths and so after c. AD 64-67. Directly at odds with Clement on the timing."
@@ -123,8 +167,12 @@
 		"SourceReference": "Clement of Alexandria, via Eusebius, Hist. eccl. 6.14.6-7",
 		"Tier": "Patristic",
 		"AttestationDateAD": 200,
-		"CorroboratedBy": ["Frag_MarkAsPetersInterpreter"],
-		"ChallengedBy": ["Frag_IrenaeusOnMarkAfterPeter"],
+		"CorroboratedBy": [
+			"Frag_MarkAsPetersInterpreter"
+		],
+		"ChallengedBy": [
+			"Frag_IrenaeusOnMarkAfterPeter"
+		],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
 		"ScholarlyNote": "Places the composition during Peter's lifetime at the request of his Roman hearers. Cannot be reconciled with Irenaeus without straining one of them; the honest position is that the two earliest witnesses to Mark's date disagree, and the range AD 55-70 exists because of it."
@@ -137,7 +185,9 @@
 		"Tier": "Patristic",
 		"AttestationDateAD": 320,
 		"CorroboratedBy": [],
-		"ChallengedBy": ["Frag_IrenaeusOnPapias"],
+		"ChallengedBy": [
+			"Frag_IrenaeusOnPapias"
+		],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
 		"ScholarlyNote": "The standard objection to leaning on Papias: the very writer who preserves him also judges him a man of small intelligence, on the basis of his millenarian views. A player building the Mark chain on Papias should expect to meet this in debate, and it is a fair hit -- Eusebius had the full text and we do not."
@@ -151,7 +201,9 @@
 		"AttestationDateAD": 180,
 		"CorroboratedBy": [],
 		"ChallengedBy": [],
-		"RebutsFragmentIDs": ["Frag_EusebiusOnPapiasJudgement"],
+		"RebutsFragmentIDs": [
+			"Frag_EusebiusOnPapiasJudgement"
+		],
 		"bIsContested": false,
 		"ScholarlyNote": "Answers Eusebius' dismissal with an earlier and less hostile assessment: Irenaeus, writing some 140 years before Eusebius, describes Papias as a hearer of John and a companion of Polycarp. It does not settle Papias' judgement, but it establishes that a second-century writer with closer access rated his access to the tradition highly."
 	},
@@ -162,7 +214,9 @@
 		"SourceReference": "Irenaeus, Adv. Haer. 3.11.8",
 		"Tier": "Patristic",
 		"AttestationDateAD": 180,
-		"CorroboratedBy": ["Frag_IrenaeusOnMarkAfterPeter"],
+		"CorroboratedBy": [
+			"Frag_IrenaeusOnMarkAfterPeter"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -175,7 +229,9 @@
 		"SourceReference": "Clement of Alexandria, via Eusebius, Hist. eccl. 6.14.7",
 		"Tier": "Patristic",
 		"AttestationDateAD": 200,
-		"CorroboratedBy": ["Frag_JohnEyewitnessClaim"],
+		"CorroboratedBy": [
+			"Frag_JohnEyewitnessClaim"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -188,7 +244,10 @@
 		"SourceReference": "Luke 1:1-4",
 		"Tier": "Companion",
 		"AttestationDateAD": 62,
-		"CorroboratedBy": ["Frag_ActsWePassages", "Frag_DelphiGallioInscription"],
+		"CorroboratedBy": [
+			"Frag_ActsWePassages",
+			"Frag_DelphiGallioInscription"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -201,7 +260,9 @@
 		"SourceReference": "Acts 16:10-17; 20:5-15; 21:1-18; 27:1-28:16",
 		"Tier": "Companion",
 		"AttestationDateAD": 62,
-		"CorroboratedBy": ["Frag_LukePrologueMethod"],
+		"CorroboratedBy": [
+			"Frag_LukePrologueMethod"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
@@ -214,7 +275,9 @@
 		"SourceReference": "Acts 28:30-31",
 		"Tier": "Companion",
 		"AttestationDateAD": 62,
-		"CorroboratedBy": ["Frag_ActsWePassages"],
+		"CorroboratedBy": [
+			"Frag_ActsWePassages"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
@@ -227,8 +290,12 @@
 		"SourceReference": "John 19:35; 21:24",
 		"Tier": "Eyewitness",
 		"AttestationDateAD": 90,
-		"CorroboratedBy": ["Frag_ClementOnJohnSpiritualGospel"],
-		"ChallengedBy": ["Frag_PericopeAdulteraeAbsent"],
+		"CorroboratedBy": [
+			"Frag_ClementOnJohnSpiritualGospel"
+		],
+		"ChallengedBy": [
+			"Frag_PericopeAdulteraeAbsent"
+		],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
 		"ScholarlyNote": "The Gospel asserts that its testimony comes from a named participant, but identifies him only as the disciple whom Jesus loved. Who that is, and whether the final form comes from him or from a community that preserved his testimony, is genuinely unresolved."
@@ -240,7 +307,10 @@
 		"SourceReference": "1 Clement 5",
 		"Tier": "Patristic",
 		"AttestationDateAD": 96,
-		"CorroboratedBy": ["Frag_PeterPreachingInRome", "Frag_TacitusAnnals1544"],
+		"CorroboratedBy": [
+			"Frag_PeterPreachingInRome",
+			"Frag_TacitusAnnals1544"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -253,7 +323,10 @@
 		"SourceReference": "John Rylands Library Papyrus P52 (John 18)",
 		"Tier": "Manuscript",
 		"AttestationDateAD": 125,
-		"CorroboratedBy": ["Frag_P66", "Frag_P75"],
+		"CorroboratedBy": [
+			"Frag_P66",
+			"Frag_P75"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
@@ -266,7 +339,9 @@
 		"SourceReference": "Bodmer Papyrus II (P66), Gospel of John",
 		"Tier": "Manuscript",
 		"AttestationDateAD": 200,
-		"CorroboratedBy": ["Frag_P75"],
+		"CorroboratedBy": [
+			"Frag_P75"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -279,7 +354,9 @@
 		"SourceReference": "Bodmer Papyrus XIV-XV (P75), Luke and John",
 		"Tier": "Manuscript",
 		"AttestationDateAD": 200,
-		"CorroboratedBy": ["Frag_CodexVaticanus"],
+		"CorroboratedBy": [
+			"Frag_CodexVaticanus"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -305,7 +382,10 @@
 		"SourceReference": "Codex Vaticanus (B)",
 		"Tier": "Manuscript",
 		"AttestationDateAD": 325,
-		"CorroboratedBy": ["Frag_CodexSinaiticus", "Frag_P75"],
+		"CorroboratedBy": [
+			"Frag_CodexSinaiticus",
+			"Frag_P75"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -318,7 +398,9 @@
 		"SourceReference": "Codex Sinaiticus (Aleph)",
 		"Tier": "Manuscript",
 		"AttestationDateAD": 340,
-		"CorroboratedBy": ["Frag_CodexVaticanus"],
+		"CorroboratedBy": [
+			"Frag_CodexVaticanus"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -331,7 +413,10 @@
 		"SourceReference": "Codex Sinaiticus; Codex Vaticanus (Mark 16:9-20 absent)",
 		"Tier": "Manuscript",
 		"AttestationDateAD": 325,
-		"CorroboratedBy": ["Frag_CodexVaticanus", "Frag_CodexSinaiticus"],
+		"CorroboratedBy": [
+			"Frag_CodexVaticanus",
+			"Frag_CodexSinaiticus"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -344,7 +429,10 @@
 		"SourceReference": "P66; P75; Codex Sinaiticus; Codex Vaticanus (John 7:53-8:11 absent)",
 		"Tier": "Manuscript",
 		"AttestationDateAD": 200,
-		"CorroboratedBy": ["Frag_P66", "Frag_P75"],
+		"CorroboratedBy": [
+			"Frag_P66",
+			"Frag_P75"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -357,7 +445,10 @@
 		"SourceReference": "Tacitus, Annals 15.44",
 		"Tier": "Hostile",
 		"AttestationDateAD": 116,
-		"CorroboratedBy": ["Frag_1Clement5", "Frag_PilateStone"],
+		"CorroboratedBy": [
+			"Frag_1Clement5",
+			"Frag_PilateStone"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -370,7 +461,9 @@
 		"SourceReference": "Josephus, Ant. 20.200",
 		"Tier": "Hostile",
 		"AttestationDateAD": 93,
-		"CorroboratedBy": ["Frag_PaulMeetsPeterAndJames"],
+		"CorroboratedBy": [
+			"Frag_PaulMeetsPeterAndJames"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -383,7 +476,9 @@
 		"SourceReference": "Josephus, Ant. 18.63-64",
 		"Tier": "Hostile",
 		"AttestationDateAD": 93,
-		"CorroboratedBy": ["Frag_JosephusAnt20200"],
+		"CorroboratedBy": [
+			"Frag_JosephusAnt20200"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
@@ -396,7 +491,9 @@
 		"SourceReference": "Pliny the Younger, Ep. 10.96",
 		"Tier": "Hostile",
 		"AttestationDateAD": 112,
-		"CorroboratedBy": ["Frag_TacitusAnnals1544"],
+		"CorroboratedBy": [
+			"Frag_TacitusAnnals1544"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -422,7 +519,10 @@
 		"SourceReference": "Delphi (Gallio) inscription; cf. Acts 18:12-17",
 		"Tier": "Archaeological",
 		"AttestationDateAD": 52,
-		"CorroboratedBy": ["Frag_LukePrologueMethod", "Frag_ErastusInscription"],
+		"CorroboratedBy": [
+			"Frag_LukePrologueMethod",
+			"Frag_ErastusInscription"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -435,7 +535,9 @@
 		"SourceReference": "Pilate stone, Caesarea Maritima",
 		"Tier": "Archaeological",
 		"AttestationDateAD": 30,
-		"CorroboratedBy": ["Frag_TacitusAnnals1544"],
+		"CorroboratedBy": [
+			"Frag_TacitusAnnals1544"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": false,
@@ -448,7 +550,9 @@
 		"SourceReference": "Erastus inscription, Corinth; cf. Rom 16:23",
 		"Tier": "Archaeological",
 		"AttestationDateAD": 50,
-		"CorroboratedBy": ["Frag_DelphiGallioInscription"],
+		"CorroboratedBy": [
+			"Frag_DelphiGallioInscription"
+		],
 		"ChallengedBy": [],
 		"RebutsFragmentIDs": [],
 		"bIsContested": true,
