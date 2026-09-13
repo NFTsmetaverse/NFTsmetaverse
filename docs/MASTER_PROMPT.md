@@ -225,9 +225,17 @@ adulterae*, which the game should address rather than avoid.
    `Source/ChainOfWitnesses/Private/Tests/CodexSubsystemTests.cpp`.
    One field was added beyond the model above — `RebutsFragmentIDs`, without which
    an unanswered challenge can never be answered. See README for the rationale.
-3. ⬜ Codex UI: chain-building screen (UMG), fragment inspector with real source
-   citation, challenge/response view. (`FChainScoreBreakdown` and
-   `FDialogueNodeView` are the data this screen renders — both already exist.)
+3. ✅ **Done, as far as it can be outside the editor.** Codex UI: chain-building
+   screen, fragment inspector with real source citation, challenge/response view.
+   → `Source/ChainOfWitnesses/Public/UI/{CodexViewTypes,CodexViewLibrary,CodexWidgets}.h`,
+   `Source/ChainOfWitnesses/Private/UI/*.cpp`,
+   `Source/ChainOfWitnesses/Private/Tests/CodexViewLibraryTests.cpp`,
+   and `docs/CODEX_UI.md` for the designer-facing contract.
+   UMG widgets are binary assets and cannot be authored outside the editor, so what
+   is here is the projection layer and three widget bases; the visual tree is three
+   Widget Blueprints reparented to them. Still outstanding is the sourced reader
+   that shows the actual text behind a citation, which needs public-domain editions
+   added as content rather than code.
 4. ✅ **Done.** Dialogue system with disclosure-state gating keyed to Codex
    contents and NPC trust.
    → `Source/ChainOfWitnesses/Public/Dialogue/{DialogueTypes,DialogueSubsystem}.h`,

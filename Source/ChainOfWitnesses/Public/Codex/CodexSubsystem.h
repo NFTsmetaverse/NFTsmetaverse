@@ -57,6 +57,14 @@ public:
 	bool IsFragmentRegistered(FName FragmentID) const;
 
 	/**
+	 * Every registered fragment that rebuts ChallengerID -- the inverse of
+	 * RebutsFragmentIDs. This is what lets a challenge be shown with its answer, and
+	 * what turns an unanswered one into a reading list rather than a dead end.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Codex|Registry")
+	void GetFragmentsThatRebut(FName ChallengerID, TArray<FName>& OutFragmentIDs) const;
+
+	/**
 	 * Reports authored cross-references that point at fragments no one registered.
 	 * Content check for the editor and automated tests -- a dangling ChallengedBy
 	 * would otherwise silently never be answerable.

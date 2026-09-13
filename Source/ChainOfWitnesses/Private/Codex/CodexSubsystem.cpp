@@ -108,6 +108,24 @@ bool UCodexSubsystem::IsFragmentRegistered(FName FragmentID) const
 	return FragmentRegistry.Contains(FragmentID);
 }
 
+void UCodexSubsystem::GetFragmentsThatRebut(FName ChallengerID, TArray<FName>& OutFragmentIDs) const
+{
+	OutFragmentIDs.Reset();
+
+	if (ChallengerID.IsNone())
+	{
+		return;
+	}
+
+	for (const TPair<FName, FTestimonyFragmentDefinition>& Pair : FragmentRegistry)
+	{
+		if (Pair.Value.RebutsFragmentIDs.Contains(ChallengerID))
+		{
+			OutFragmentIDs.Add(Pair.Key);
+		}
+	}
+}
+
 void UCodexSubsystem::ValidateRegistry(TArray<FName>& OutDanglingReferences) const
 {
 	OutDanglingReferences.Reset();

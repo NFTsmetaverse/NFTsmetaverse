@@ -7,22 +7,19 @@ before starting new work. Art direction for the Mode A player character is in
 
 ## Status
 
-All of the Section 10 task queue except Task 3 (the Codex UI) is implemented: the
+The whole Section 10 task queue is implemented: the
 historical timeline as data with the subsystem that gates world state off it, the
 Codex of Witnesses on top of that, dialogue gated on what the player can credibly
 claim, a reputation system whose news travels no faster than a man on a road, the
 campaign map that road belongs to, the debates where the Codex is put under
 pressure, and the Witness Mission framework that carries the player between the
-two eras, and the AD 65 vertical slice that runs through all of it.
-
-Task 3 (the Codex UI) is the one left. UMG widgets are binary assets a designer
-builds in-editor, so the useful part from here is the data they render, which
-`FChainScoreBreakdown`, `FDialogueNodeView` and `FDebateObjectionView` already
-provide.
+two eras, the AD 65 vertical slice that runs through all of it, and the Codex
+screens — as far as those can go outside the editor.
 
 **Nothing here has been compiled.** There is no UE toolchain in the environment
-this was written in. Roughly 9,000 lines of C++ and eight automation suites are
-waiting on a first build; expect real errors on the first pass.
+this was written in. Roughly 10,000 lines of C++ and ten automation suites are
+waiting on a first build; expect real errors on the first pass. That is the single
+highest-value thing to do next.
 
 **Task 1 — campaign timeline**
 
@@ -225,6 +222,35 @@ the frame comes back with Peter's regard for Mark rolled back and the evidence k
 and the three fragments assemble into a chain that scores — weakly, with the Event
 link still empty and two objections outstanding. One evening in Rome is a start, not
 a case.
+
+**Task 3 — the Codex screens**
+
+| Path | What it is |
+|---|---|
+| `Source/ChainOfWitnesses/Public/UI/CodexViewTypes.h` | `FCodexChainView`, `FCodexLinkView`, `FCodexFragmentView`, `FCodexChallengeView`, `EAttestationBand`. |
+| `Source/ChainOfWitnesses/Public/UI/CodexViewLibrary.h`, `Private/.../CodexViewLibrary.cpp` | The projection from Codex state to display-ready views, plus link names, descriptions and score bands. |
+| `Source/ChainOfWitnesses/Public/UI/CodexWidgets.h`, `Private/.../CodexWidgets.cpp` | `UCodexChainScreenBase`, `UFragmentInspectorBase`, `UChallengeResponseViewBase` — refresh plumbing and nothing else. |
+| `Source/ChainOfWitnesses/Private/Tests/CodexViewLibraryTests.cpp` | Band thresholds, year formatting, slottable-candidate filtering, and the answered/unanswerable distinction. |
+| [`docs/CODEX_UI.md`](docs/CODEX_UI.md) | What to build in UMG, and the contract with the C++. |
+
+**This one is deliberately half-finished, and says so.** UMG widgets are binary
+assets that cannot be authored outside the editor. What is here is the half a
+designer should not have to redo: what a score *means* (`EAttestationBand`, so every
+screen describes the same number the same way), what each link is *for*, which
+objections stand, and when to redraw — the bases subscribe to the Codex, so slotting
+a fragment on one screen updates another. The visual tree is three Widget Blueprints
+reparented to the bases, with no `BindWidget` properties forcing your naming.
+
+**The distinction the challenge view exists to make:** an objection the player has
+not yet found the answer to is a mission hook, and `MissingAnswers` names what to go
+looking for. An objection that *nothing in the record answers* — the longer ending
+of Mark — is a different thing, flagged separately as `bHasNoKnownAnswer`. Sending a
+player hunting for something that does not exist would undercut the one claim this
+project rests on.
+
+**Still outstanding:** the sourced reader behind each citation. It needs
+public-domain editions of the sources added as content, which is a sourcing task
+rather than a code one, and it is the last piece of Pillar 4.
 
 ## Project layout
 
