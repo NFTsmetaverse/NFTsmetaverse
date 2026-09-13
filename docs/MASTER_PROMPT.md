@@ -153,7 +153,7 @@ weigh them in the Codex.
 ## 8. Signature mechanic — the Codex of Witnesses
 
 This is what makes the game more than a Bannerlord reskin. Build it first
-(Task 10.2, not yet started as of this commit).
+(Task 10.2 — implemented; see `Source/ChainOfWitnesses/Public/Codex/`).
 
 **Data model:**
 
@@ -215,8 +215,14 @@ adulterae*, which the game should address rather than avoid.
    → `Source/ChainOfWitnesses/Public/Campaign/CampaignEventRow.h`,
    `Source/ChainOfWitnesses/{Public,Private}/Campaign/CampaignTimelineSubsystem.{h,cpp}`,
    `Content/Data/DT_CampaignEvents.json`.
-2. ⬜ `UTestimonyFragment` + `UCodexSubsystem`: fragment registry, chain assembly,
-   Attestation Strength scoring, save/load.
+2. ✅ **Done.** `UTestimonyFragment` + `UCodexSubsystem`: fragment registry, chain
+   assembly, Attestation Strength scoring, save/load.
+   → `Source/ChainOfWitnesses/Public/Codex/{TestimonyFragment,CodexTypes,CodexSubsystem}.h`,
+   `Source/ChainOfWitnesses/Private/Codex/*.cpp`,
+   `Content/Data/DT_TestimonyFragments.json`,
+   `Source/ChainOfWitnesses/Private/Tests/CodexSubsystemTests.cpp`.
+   One field was added beyond the model above — `RebutsFragmentIDs`, without which
+   an unanswered challenge can never be answered. See README for the rationale.
 3. ⬜ Codex UI: chain-building screen (UMG), fragment inspector with real source
    citation, challenge/response view.
 4. ⬜ Dialogue system with disclosure-state gating keyed to Codex contents and NPC
