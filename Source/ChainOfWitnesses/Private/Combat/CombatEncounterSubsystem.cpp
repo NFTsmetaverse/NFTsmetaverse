@@ -46,7 +46,7 @@ namespace
 		{
 		case ECrowdKind::Mob:			return -0.2f;
 		case ECrowdKind::Patrol:		return 0.2f;
-		case ECrowdKind::Guard:			return -0.2f;
+		case ECrowdKind::Guard:			return -0.35f;
 		case ECrowdKind::ExecutionParty:	return 0.3f;
 		case ECrowdKind::Bandits:		return 0.f;
 		default:				return 0.f;

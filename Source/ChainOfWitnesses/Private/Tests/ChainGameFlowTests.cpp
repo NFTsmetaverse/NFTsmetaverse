@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
@@ -50,15 +51,15 @@ namespace FlowTestHelpers
 		TStrongObjectPtr<UChainGameFlowSubsystem> Flow;
 
 		FFlowFixture()
-			: Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
-			, Codex(NewObject<UCodexSubsystem>(GetTransientPackage()))
-			, Reputation(NewObject<UReputationSubsystem>(GetTransientPackage()))
-			, Map(NewObject<UCampaignMapSubsystem>(GetTransientPackage()))
-			, Dialogue(NewObject<UDialogueSubsystem>(GetTransientPackage()))
-			, Witness(NewObject<UWitnessMissionSubsystem>(GetTransientPackage()))
-			, Debate(NewObject<UDebateSubsystem>(GetTransientPackage()))
-			, Combat(NewObject<UCombatEncounterSubsystem>(GetTransientPackage()))
-			, Flow(NewObject<UChainGameFlowSubsystem>(GetTransientPackage()))
+			: Timeline(NewObject<UCampaignTimelineSubsystem>(ChainTestOuter()))
+			, Codex(NewObject<UCodexSubsystem>(ChainTestOuter()))
+			, Reputation(NewObject<UReputationSubsystem>(ChainTestOuter()))
+			, Map(NewObject<UCampaignMapSubsystem>(ChainTestOuter()))
+			, Dialogue(NewObject<UDialogueSubsystem>(ChainTestOuter()))
+			, Witness(NewObject<UWitnessMissionSubsystem>(ChainTestOuter()))
+			, Debate(NewObject<UDebateSubsystem>(ChainTestOuter()))
+			, Combat(NewObject<UCombatEncounterSubsystem>(ChainTestOuter()))
+			, Flow(NewObject<UChainGameFlowSubsystem>(ChainTestOuter()))
 		{
 			Codex->SetTimelineForTesting(Timeline.Get());
 			Map->SetDependenciesForTesting(Timeline.Get(), Reputation.Get());

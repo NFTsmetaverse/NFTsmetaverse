@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
@@ -29,11 +30,11 @@ namespace DebateTestHelpers
 		TStrongObjectPtr<UCampaignMapSubsystem> Map;
 
 		FDebateFixture()
-			: Debate(NewObject<UDebateSubsystem>(GetTransientPackage()))
-			, Codex(NewObject<UCodexSubsystem>(GetTransientPackage()))
-			, Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
-			, Reputation(NewObject<UReputationSubsystem>(GetTransientPackage()))
-			, Map(NewObject<UCampaignMapSubsystem>(GetTransientPackage()))
+			: Debate(NewObject<UDebateSubsystem>(ChainTestOuter()))
+			, Codex(NewObject<UCodexSubsystem>(ChainTestOuter()))
+			, Timeline(NewObject<UCampaignTimelineSubsystem>(ChainTestOuter()))
+			, Reputation(NewObject<UReputationSubsystem>(ChainTestOuter()))
+			, Map(NewObject<UCampaignMapSubsystem>(ChainTestOuter()))
 		{
 			Debate->SetDependenciesForTesting(Codex.Get(), Timeline.Get(), Reputation.Get(), Map.Get());
 			Reputation->SetDependenciesForTesting(Timeline.Get(), Map.Get());

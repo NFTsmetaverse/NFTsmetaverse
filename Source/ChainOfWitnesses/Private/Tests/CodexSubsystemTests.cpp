@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Codex/CodexSubsystem.h"
 #include "UObject/StrongObjectPtr.h"
@@ -11,12 +12,13 @@ namespace CodexTestHelpers
 {
 	/**
 	 * Scoring is a pure function of the chain plus the registry, so the subsystem can
-	 * be exercised standalone -- no GameInstance, no world. Tests use
+	 * be exercised standalone -- nothing here runs a world. The outer is a bare
+	 * GameInstance only because ClassWithin demands one. Tests use
 	 * CreateChainWithAnchorYear rather than CreateChain for the same reason.
 	 */
 	UCodexSubsystem* MakeCodex()
 	{
-		return NewObject<UCodexSubsystem>(GetTransientPackage());
+		return NewObject<UCodexSubsystem>(ChainTestOuter());
 	}
 
 	FTestimonyFragmentDefinition MakeFragment(FName ID, EWitnessTier Tier, int32 AttestationDateAD)

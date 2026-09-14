@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
@@ -25,8 +26,8 @@ namespace CodexViewTestHelpers
 		TStrongObjectPtr<UCampaignTimelineSubsystem> Timeline;
 
 		FViewFixture()
-			: Codex(NewObject<UCodexSubsystem>(GetTransientPackage()))
-			, Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
+			: Codex(NewObject<UCodexSubsystem>(ChainTestOuter()))
+			, Timeline(NewObject<UCampaignTimelineSubsystem>(ChainTestOuter()))
 		{
 			Codex->SetTimelineForTesting(Timeline.Get());
 

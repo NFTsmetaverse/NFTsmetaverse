@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
@@ -28,9 +29,9 @@ namespace DialogueTestHelpers
 		TStrongObjectPtr<UCampaignTimelineSubsystem> Timeline;
 
 		FDialogueFixture()
-			: Dialogue(NewObject<UDialogueSubsystem>(GetTransientPackage()))
-			, Codex(NewObject<UCodexSubsystem>(GetTransientPackage()))
-			, Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
+			: Dialogue(NewObject<UDialogueSubsystem>(ChainTestOuter()))
+			, Codex(NewObject<UCodexSubsystem>(ChainTestOuter()))
+			, Timeline(NewObject<UCampaignTimelineSubsystem>(ChainTestOuter()))
 		{
 			Dialogue->SetDependenciesForTesting(Codex.Get(), Timeline.Get());
 			Timeline->AdvanceToYear(35);

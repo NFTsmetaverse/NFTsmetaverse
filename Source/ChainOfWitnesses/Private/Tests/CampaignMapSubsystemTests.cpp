@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Map/CampaignMapSubsystem.h"
@@ -28,9 +29,9 @@ namespace CampaignMapTestHelpers
 		TStrongObjectPtr<UReputationSubsystem> Reputation;
 
 		FMapFixture()
-			: Map(NewObject<UCampaignMapSubsystem>(GetTransientPackage()))
-			, Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
-			, Reputation(NewObject<UReputationSubsystem>(GetTransientPackage()))
+			: Map(NewObject<UCampaignMapSubsystem>(ChainTestOuter()))
+			, Timeline(NewObject<UCampaignTimelineSubsystem>(ChainTestOuter()))
+			, Reputation(NewObject<UReputationSubsystem>(ChainTestOuter()))
 		{
 			Map->SetDependenciesForTesting(Timeline.Get(), Reputation.Get());
 			Reputation->SetDependenciesForTesting(Timeline.Get(), Map.Get());

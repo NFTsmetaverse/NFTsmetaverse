@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
@@ -41,13 +42,13 @@ namespace CombatTestHelpers
 		TStrongObjectPtr<UDialogueSubsystem> Dialogue;
 
 		FCombatFixture()
-			: Combat(NewObject<UCombatEncounterSubsystem>(GetTransientPackage()))
-			, Witness(NewObject<UWitnessMissionSubsystem>(GetTransientPackage()))
-			, Reputation(NewObject<UReputationSubsystem>(GetTransientPackage()))
-			, Map(NewObject<UCampaignMapSubsystem>(GetTransientPackage()))
-			, Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
-			, Codex(NewObject<UCodexSubsystem>(GetTransientPackage()))
-			, Dialogue(NewObject<UDialogueSubsystem>(GetTransientPackage()))
+			: Combat(NewObject<UCombatEncounterSubsystem>(ChainTestOuter()))
+			, Witness(NewObject<UWitnessMissionSubsystem>(ChainTestOuter()))
+			, Reputation(NewObject<UReputationSubsystem>(ChainTestOuter()))
+			, Map(NewObject<UCampaignMapSubsystem>(ChainTestOuter()))
+			, Timeline(NewObject<UCampaignTimelineSubsystem>(ChainTestOuter()))
+			, Codex(NewObject<UCodexSubsystem>(ChainTestOuter()))
+			, Dialogue(NewObject<UDialogueSubsystem>(ChainTestOuter()))
 		{
 			Combat->SetDependenciesForTesting(Reputation.Get(), Map.Get(), Witness.Get());
 			Witness->SetDependenciesForTesting(Codex.Get(), Timeline.Get(), Reputation.Get(), Map.Get(), Dialogue.Get());

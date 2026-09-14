@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "ChainAutomationFlags.h"
+#include "ChainTestOuter.h"
 
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Map/CampaignMapSubsystem.h"
@@ -31,9 +32,9 @@ namespace ReputationTestHelpers
 
 		// The road network lives on the map; reputation asks it how far word got.
 		FReputationFixture()
-			: Reputation(NewObject<UReputationSubsystem>(GetTransientPackage()))
-			, Map(NewObject<UCampaignMapSubsystem>(GetTransientPackage()))
-			, Timeline(NewObject<UCampaignTimelineSubsystem>(GetTransientPackage()))
+			: Reputation(NewObject<UReputationSubsystem>(ChainTestOuter()))
+			, Map(NewObject<UCampaignMapSubsystem>(ChainTestOuter()))
+			, Timeline(NewObject<UCampaignTimelineSubsystem>(ChainTestOuter()))
 		{
 			Reputation->SetDependenciesForTesting(Timeline.Get(), Map.Get());
 			Map->SetDependenciesForTesting(Timeline.Get(), Reputation.Get());
