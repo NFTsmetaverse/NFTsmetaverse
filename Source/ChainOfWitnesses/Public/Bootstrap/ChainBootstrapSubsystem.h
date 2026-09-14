@@ -54,8 +54,25 @@ public:
 	bool IsContentRegistered() const { return bContentRegistered; }
 
 private:
-	/** Synchronous load. This is startup; the tables are small and nothing can run without them. */
-	static UDataTable* Load(const TSoftObjectPtr<UDataTable>& Table, const TCHAR* Label);
+	/**
+	 * The imported asset if there is one, otherwise the JSON it would have been
+	 * built from. Synchronous: this is startup, the tables are small, and nothing
+	 * can run without them.
+	 */
+	UDataTable* Load(const TSoftObjectPtr<UDataTable>& Table, const TCHAR* Label,
+		UScriptStruct* RowStruct);
+
+	/**
+	 * Builds a table in memory from Content/Data/<AssetName>.json.
+	 *
+	 * The JSON in the repository is the source of truth; a DataTable asset is a
+	 * derived artifact that only exists once somebody has opened the editor and
+	 * imported it. Reading the source directly means a fresh clone runs with no
+	 * editor work at all, which is the difference between a project you can try and
+	 * one you have to set up first.
+	 */
+	UDataTable* LoadFromJson(const FString& AssetName, const TCHAR* Label,
+		UScriptStruct* RowStruct);
 
 	/** Puts the player in the starting era and place once the content is in. */
 	void ApplyStartingState();

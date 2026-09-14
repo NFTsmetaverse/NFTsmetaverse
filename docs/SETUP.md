@@ -65,18 +65,24 @@ what is left is the category a linter cannot reach:
 Save the full build log and send it to me. Working through a compile log is
 something I can do well from here, and it is the fastest way through this step.
 
-## 3. Import the fourteen tables
+## 3. Import the fourteen tables — optional
 
-One command, from the project folder:
+**You can skip this entirely.** The bootstrap reads `Content/Data/*.json` directly
+when no DataTable asset is assigned, so a fresh clone runs with no editor work at
+all. The JSON in the repository is the source of truth; a DataTable asset is a
+derived artifact. Skip to step 5 and press Play.
+
+Import them when you want the tables editable in the editor, or for a cooked build:
 
 ```
 UnrealEditor-Cmd.exe ChainOfWitnesses.uproject -run=pythonscript -script="Tools/import_content.py"
 ```
 
-`Tools/import_content.py` imports each JSON as a DataTable with the correct row
-struct and then checks what landed — a table that imports with zero rows is
-reported as a failure, because that is exactly what choosing the wrong row struct
-looks like. Look for `ALL TABLES IMPORTED`.
+`Tools/import_content.py` creates each table with the correct row struct and checks
+what landed — a table with zero rows is reported as a failure, because that is
+exactly what choosing the wrong row struct looks like. Look for
+`ALL TABLES IMPORTED`. Once assets exist at `/Game/Data/`, they take precedence
+over the JSON.
 
 **By hand, if you prefer or the script fails.** Make a `Content/Data` folder in the
 Content Browser, drag each JSON in, and choose **DataTable** with the row struct

@@ -8,6 +8,8 @@
 #include "Dialogue/DialogueSubsystem.h"
 #include "Engine/DataTable.h"
 #include "Engine/GameInstance.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "Map/CampaignMapSubsystem.h"
 #include "Reputation/ReputationSubsystem.h"
 #include "Witness/WitnessMissionSubsystem.h"
@@ -25,25 +27,55 @@ void UChainBootstrapSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	}
 }
 
-UDataTable* UChainBootstrapSubsystem::Load(const TSoftObjectPtr<UDataTable>& Table, const TCHAR* Label)
+UDataTable* UChainBootstrapSubsystem::Load(const TSoftObjectPtr<UDataTable>& Table,
+	const TCHAR* Label, UScriptStruct* RowStruct)
 {
-	if (Table.IsNull())
+	if (!Table.IsNull())
 	{
-		// Not an error in itself -- a project part-way through being set up will
-		// have gaps -- but it is the reason a system will be empty, so say so.
+		if (UDataTable* Loaded = Table.LoadSynchronous())
+		{
+			return Loaded;
+		}
+	}
+
+	// No asset, or one that would not load. Fall back to the JSON it came from.
+	return LoadFromJson(Table.GetAssetName(), Label, RowStruct);
+}
+
+UDataTable* UChainBootstrapSubsystem::LoadFromJson(const FString& AssetName,
+	const TCHAR* Label, UScriptStruct* RowStruct)
+{
+	if (AssetName.IsEmpty() || !RowStruct)
+	{
 		UE_LOG(LogChainBootstrap, Warning,
-			TEXT("No table assigned for %s. Project Settings -> Game -> Chain of Witnesses Content."), Label);
+			TEXT("Nothing assigned for %s, and no JSON to fall back to."), Label);
 		return nullptr;
 	}
 
-	UDataTable* Loaded = Table.LoadSynchronous();
-	if (!Loaded)
+	const FString Path = FPaths::ProjectContentDir() / TEXT("Data") / (AssetName + TEXT(".json"));
+
+	FString Json;
+	if (!FFileHelper::LoadFileToString(Json, *Path))
 	{
-		UE_LOG(LogChainBootstrap, Error, TEXT("Could not load the %s table at '%s'."),
-			Label, *Table.ToString());
+		UE_LOG(LogChainBootstrap, Warning, TEXT("No %s table: no asset, and no file at '%s'."),
+			Label, *Path);
+		return nullptr;
 	}
 
-	return Loaded;
+	UDataTable* Table = NewObject<UDataTable>(this);
+	Table->RowStruct = RowStruct;
+
+	// Every problem here is a row the game will not have. They are warnings rather
+	// than a hard failure because one malformed row should not cost the other 195.
+	const TArray<FString> Problems = Table->CreateTableFromJSONString(Json);
+	for (const FString& Problem : Problems)
+	{
+		UE_LOG(LogChainBootstrap, Warning, TEXT("%s: %s"), Label, *Problem);
+	}
+
+	UE_LOG(LogChainBootstrap, Log, TEXT("Read %s from JSON: %d rows."),
+		Label, Table->GetRowMap().Num());
+	return Table;
 }
 
 int32 UChainBootstrapSubsystem::RegisterAllContent()
@@ -67,7 +99,7 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 	// that registers content before the dates are in will read year zero.
 	if (UCampaignTimelineSubsystem* Timeline = GameInstance->GetSubsystem<UCampaignTimelineSubsystem>())
 	{
-		if (UDataTable* Table = Load(Settings->CampaignEvents, TEXT("campaign events")))
+		if (UDataTable* Table = Load(Settings->CampaignEvents, TEXT("campaign events"), FCampaignEventRow::StaticStruct()))
 		{
 			Timeline->SetTimelineTable(Table);
 			Registered += Table->GetRowMap().Num();
@@ -76,7 +108,7 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 
 	if (UCodexSubsystem* Codex = GameInstance->GetSubsystem<UCodexSubsystem>())
 	{
-		if (UDataTable* Table = Load(Settings->TestimonyFragments, TEXT("testimony fragments")))
+		if (UDataTable* Table = Load(Settings->TestimonyFragments, TEXT("testimony fragments"), FTestimonyFragmentDefinition::StaticStruct()))
 		{
 			Registered += Codex->RegisterFragmentsFromDataTable(Table);
 		}
@@ -84,15 +116,15 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 
 	if (UCampaignMapSubsystem* Map = GameInstance->GetSubsystem<UCampaignMapSubsystem>())
 	{
-		if (UDataTable* Table = Load(Settings->Locations, TEXT("locations")))
+		if (UDataTable* Table = Load(Settings->Locations, TEXT("locations"), FCampaignLocationRow::StaticStruct()))
 		{
 			Registered += Map->RegisterLocationTable(Table);
 		}
-		if (UDataTable* Table = Load(Settings->TravelRoutes, TEXT("travel routes")))
+		if (UDataTable* Table = Load(Settings->TravelRoutes, TEXT("travel routes"), FTravelRouteRow::StaticStruct()))
 		{
 			Registered += Map->RegisterRouteTable(Table);
 		}
-		if (UDataTable* Table = Load(Settings->TravelEncounterTypes, TEXT("travel encounter types")))
+		if (UDataTable* Table = Load(Settings->TravelEncounterTypes, TEXT("travel encounter types"), FEncounterTypeRow::StaticStruct()))
 		{
 			Registered += Map->RegisterEncounterTypeTable(Table);
 		}
@@ -100,11 +132,11 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 
 	if (UReputationSubsystem* Reputation = GameInstance->GetSubsystem<UReputationSubsystem>())
 	{
-		if (UDataTable* Table = Load(Settings->Factions, TEXT("factions")))
+		if (UDataTable* Table = Load(Settings->Factions, TEXT("factions"), FFactionRow::StaticStruct()))
 		{
 			Registered += Reputation->RegisterFactionTable(Table);
 		}
-		if (UDataTable* Table = Load(Settings->DeedTypes, TEXT("deed types")))
+		if (UDataTable* Table = Load(Settings->DeedTypes, TEXT("deed types"), FDeedTypeRow::StaticStruct()))
 		{
 			Registered += Reputation->RegisterDeedTypeTable(Table);
 		}
@@ -114,7 +146,7 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 	{
 		for (const TSoftObjectPtr<UDataTable>& Conversation : Settings->DialogueTables)
 		{
-			if (UDataTable* Table = Load(Conversation, TEXT("dialogue")))
+			if (UDataTable* Table = Load(Conversation, TEXT("dialogue"), FDialogueNodeRow::StaticStruct()))
 			{
 				Registered += Dialogue->RegisterDialogueTable(Table);
 			}
@@ -123,11 +155,11 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 
 	if (UDebateSubsystem* Debate = GameInstance->GetSubsystem<UDebateSubsystem>())
 	{
-		if (UDataTable* Table = Load(Settings->DebateOpponents, TEXT("debate opponents")))
+		if (UDataTable* Table = Load(Settings->DebateOpponents, TEXT("debate opponents"), FDebateOpponentRow::StaticStruct()))
 		{
 			Registered += Debate->RegisterOpponentTable(Table);
 		}
-		if (UDataTable* Table = Load(Settings->DebateObjections, TEXT("debate objections")))
+		if (UDataTable* Table = Load(Settings->DebateObjections, TEXT("debate objections"), FDebateObjectionRow::StaticStruct()))
 		{
 			Registered += Debate->RegisterObjectionTable(Table);
 		}
@@ -135,11 +167,11 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 
 	if (UWitnessMissionSubsystem* Witness = GameInstance->GetSubsystem<UWitnessMissionSubsystem>())
 	{
-		if (UDataTable* Table = Load(Settings->Eras, TEXT("eras")))
+		if (UDataTable* Table = Load(Settings->Eras, TEXT("eras"), FEraDefinitionRow::StaticStruct()))
 		{
 			Registered += Witness->RegisterEraTable(Table);
 		}
-		if (UDataTable* Table = Load(Settings->WitnessMissions, TEXT("witness missions")))
+		if (UDataTable* Table = Load(Settings->WitnessMissions, TEXT("witness missions"), FWitnessMissionRow::StaticStruct()))
 		{
 			Registered += Witness->RegisterMissionTable(Table);
 		}
@@ -147,7 +179,7 @@ int32 UChainBootstrapSubsystem::RegisterAllContent()
 
 	if (UCombatEncounterSubsystem* Combat = GameInstance->GetSubsystem<UCombatEncounterSubsystem>())
 	{
-		if (UDataTable* Table = Load(Settings->CombatEncounters, TEXT("combat encounters")))
+		if (UDataTable* Table = Load(Settings->CombatEncounters, TEXT("combat encounters"), FCombatEncounterRow::StaticStruct()))
 		{
 			Registered += Combat->RegisterEncounterTable(Table);
 		}
