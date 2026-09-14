@@ -106,72 +106,80 @@ void AChainHUD::DrawHUD()
 		return;
 	}
 
-	// A backdrop, because white text on a lit scene is unreadable and this HUD is
-	// the whole interface, not an overlay on one.
-	DrawRect(FLinearColor(0.03f, 0.03f, 0.05f, 0.82f), 0.f, 0.f, Canvas->SizeX, Canvas->SizeY);
+	UFont* Font = GEngine ? GEngine->GetMediumFont() : nullptr;
+	const EChainScreen Screen = F->GetScreen();
 
-	CursorY = Margin;
+	// The codex is the one screen that earns the whole viewport: it is a document
+	// you stop and read, not something you do while watching the world.
+	if (Screen == EChainScreen::Codex)
+	{
+		DrawRect(FLinearColor(0.03f, 0.03f, 0.05f, 0.94f), 0.f, 0.f, Canvas->SizeX, Canvas->SizeY);
+		CursorY = Margin;
+		DrawCodex();
+		DrawText(TEXT("C to close"), ChainHUDPrivate::Dim,
+			Margin, Canvas->SizeY - Margin - LineHeight, Font);
+		return;
+	}
 
+	// Everything else is drawn over the game, not instead of it. A full-screen
+	// backdrop here was right when there was nothing behind it and wrong the moment
+	// there was: it hid the world it was supposed to annotate.
 	TArray<FString> Status;
 	F->GetStatusLines(Status);
+
+	const float StatusHeight = LineHeight * (Status.Num() + 1);
+	DrawRect(FLinearColor(0.02f, 0.02f, 0.04f, 0.55f), 0.f, 0.f, Canvas->SizeX, StatusHeight);
+
+	CursorY = LineHeight * 0.4f;
 	for (const FString& StatusLine : Status)
 	{
 		Line(StatusLine, ChainHUDPrivate::Heading);
 	}
-	Blank();
 
-	switch (F->GetScreen())
+	// The body sits in a band across the bottom, the way a subtitle does.
+	const float BodyTop = Canvas->SizeY * 0.58f;
+	const float FooterY = Canvas->SizeY - Margin - LineHeight;
+
+	if (Screen != EChainScreen::Campaign)
 	{
-	case EChainScreen::Codex:    DrawCodex();    break;
+		DrawRect(FLinearColor(0.02f, 0.02f, 0.04f, 0.78f),
+			0.f, BodyTop, Canvas->SizeX, Canvas->SizeY - BodyTop);
+	}
+
+	CursorY = BodyTop + LineHeight * 0.6f;
+
+	switch (Screen)
+	{
 	case EChainScreen::Combat:   DrawCombat();   break;
 	case EChainScreen::Debate:   DrawDebate();   break;
 	case EChainScreen::Dialogue: DrawDialogue(); break;
 	default:                     DrawCampaign(); break;
 	}
 
-	// The message line sits at the bottom, where it does not push the body around.
 	const FString Message = F->GetLastMessage();
-	UFont* Font = GEngine ? GEngine->GetMediumFont() : nullptr;
 	if (!Message.IsEmpty())
 	{
-		DrawText(Message, ChainHUDPrivate::Speaker, Margin, Canvas->SizeY - Margin - LineHeight * 2.f, Font);
+		DrawText(Message, ChainHUDPrivate::Speaker, Margin, FooterY - LineHeight, Font);
 	}
-	DrawText(TEXT("WASD move    E talk    1-9 speak    C codex    Esc back    Tab status    H help    ~ console"),
-		ChainHUDPrivate::Dim, Margin, Canvas->SizeY - Margin - LineHeight, Font);
+	DrawText(TEXT("WASD move    E talk    1-9 speak    C codex    Esc back    H help    ~ console"),
+		ChainHUDPrivate::Dim, Margin, FooterY, Font);
 }
 
 void AChainHUD::DrawCampaign()
 {
-	UChainGameFlowSubsystem* F = Flow();
-	if (!F)
+	const AChainCharacter* Player = Cast<AChainCharacter>(GetOwningPawn());
+	const AChainNpc* Near = Player ? Player->GetInteractable() : nullptr;
+
+	if (!Near)
 	{
 		return;
 	}
 
-	// Somebody in front of you outranks the map: that is the thing to act on.
-	const AChainCharacter* Player = Cast<AChainCharacter>(GetOwningPawn());
-	const AChainNpc* Near = Player ? Player->GetInteractable() : nullptr;
-
-	if (Near)
-	{
-		Line(FString::Printf(TEXT("%s is here."), *Near->GetLabel().ToString()),
-			ChainHUDPrivate::Speaker);
-		Blank();
-		Line(TEXT("E to speak to them."), FLinearColor::White);
-		Blank();
-	}
-	else
-	{
-		Line(TEXT("The campaign map."), ChainHUDPrivate::Heading);
-		Blank();
-		Wrapped(TEXT("Nothing is running. Walk up to someone and press E, or recover a source "
-			"and the reconstruction it belongs to opens."), ChainHUDPrivate::Dim);
-		Blank();
-	}
-
-	Line(TEXT("ChainMissions   what is open to you"), ChainHUDPrivate::Dim);
-	Line(TEXT("ChainSlice      go straight to Rome, AD 65"), ChainHUDPrivate::Dim);
-	Line(TEXT("ChainTravel <LocationID> then ChainWait <days>"), ChainHUDPrivate::Dim);
+	// Only drawn when there is somebody to talk to, so an empty road stays empty.
+	UFont* Font = GEngine ? GEngine->GetMediumFont() : nullptr;
+	const FString Prompt = FString::Printf(TEXT("%s   --   E to speak"),
+		*Near->GetLabel().ToString());
+	DrawText(Prompt, ChainHUDPrivate::Speaker, Margin, Canvas->SizeY * 0.52f, Font);
 }
 
 void AChainHUD::DrawDialogue()

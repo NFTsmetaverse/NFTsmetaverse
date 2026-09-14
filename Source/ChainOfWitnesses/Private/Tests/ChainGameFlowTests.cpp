@@ -272,6 +272,8 @@ bool FChainFlowMissionGateTest::RunTest(const FString& Parameters)
 	TestTrue(TEXT("The source is genuinely held"), Fixture.Codex->IsFragmentRecovered(KeyFragment));
 	TestTrue(TEXT("The mission is running"), Fixture.Witness->IsMissionActive());
 	TestTrue(TEXT("Standing in its year"), Fixture.Timeline->GetCurrentYearAD() == 65);
+	// No world here, so no speaker can be placed to walk to -- which is exactly
+	// when the mission has to open its own scene.
 	TestTrue(TEXT("And its scene opened with it"), Fixture.Dialogue->IsConversationActive());
 
 	TestTrue(TEXT("Completing returns to the frame"), Fixture.Flow->CompleteMission());

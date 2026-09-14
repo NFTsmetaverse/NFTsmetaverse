@@ -299,9 +299,19 @@ bool UChainGameFlowSubsystem::OpenMission(FName MissionID)
 	const FString Where = ChainFlowPrivate::LocationLabel(GetMap(), Mission.MissionLocationID);
 	const int32 Year = Timeline ? Timeline->GetCurrentYearAD() : Mission.MissionYearAD;
 
-	PlaceNpc(Mission.OpeningNpcID, Mission.OpeningDialogueNodeID, Mission.OpeningSafety);
+	// When the speaker can be put in the world, walking to them is the game and
+	// opening the scene for the player would skip it. When there is no world to put
+	// them in -- a headless run, the automation tests, console-only play -- the
+	// scene has to open directly or the mission is unreachable.
+	const AChainNpc* Placed = PlaceNpc(Mission.OpeningNpcID, Mission.OpeningDialogueNodeID,
+		Mission.OpeningSafety);
 
-	if (StartMissionOpeningScene(MissionID))
+	if (Placed)
+	{
+		Report(FString::Printf(TEXT("%s, AD %d. %s is waiting."),
+			*Where, Year, *Mission.OpeningNpcID.ToString()));
+	}
+	else if (StartMissionOpeningScene(MissionID))
 	{
 		Report(FString::Printf(TEXT("%s, AD %d. The scene opens."), *Where, Year));
 	}
