@@ -2,6 +2,10 @@
 
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
+#include "UObject/ConstructorHelpers.h"
 #include "Engine/GameInstance.h"
 #include "EngineUtils.h"
 #include "Game/ChainGameFlowSubsystem.h"
@@ -33,6 +37,44 @@ AChainCharacter::AChainCharacter()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(Boom, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Cylinder(
+		TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Sphere(
+		TEXT("/Engine/BasicShapes/Sphere.Sphere"));
+
+	PlaceholderTorso = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlaceholderTorso"));
+	PlaceholderTorso->SetupAttachment(RootComponent);
+	PlaceholderTorso->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	PlaceholderTorso->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
+	PlaceholderTorso->SetRelativeScale3D(FVector(0.45f, 0.45f, 0.75f));
+	if (Cylinder.Succeeded())
+	{
+		PlaceholderTorso->SetStaticMesh(Cylinder.Object);
+	}
+
+	PlaceholderHead = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlaceholderHead"));
+	PlaceholderHead->SetupAttachment(RootComponent);
+	PlaceholderHead->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	PlaceholderHead->SetRelativeLocation(FVector(0.f, 0.f, 70.f));
+	PlaceholderHead->SetRelativeScale3D(FVector(0.35f, 0.35f, 0.35f));
+	if (Sphere.Succeeded())
+	{
+		PlaceholderHead->SetStaticMesh(Sphere.Object);
+	}
+}
+
+void AChainCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// A real character has been assigned, so the stand-in gets out of the way.
+	const bool bHasRealMesh = GetMesh() && GetMesh()->GetSkeletalMeshAsset() != nullptr;
+	if (bHasRealMesh)
+	{
+		PlaceholderTorso->SetVisibility(false);
+		PlaceholderHead->SetVisibility(false);
+	}
 }
 
 void AChainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

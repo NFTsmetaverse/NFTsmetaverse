@@ -6,6 +6,7 @@
 
 class AChainNpc;
 class UCameraComponent;
+class UStaticMeshComponent;
 class USpringArmComponent;
 
 /**
@@ -26,6 +27,7 @@ class CHAINOFWITNESSES_API AChainCharacter : public ACharacter
 public:
 	AChainCharacter();
 
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
@@ -48,6 +50,20 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Chain|Character")
 	TObjectPtr<UCameraComponent> Camera;
+
+	/**
+	 * A body made of engine primitives, because this project owns no character art
+	 * and an invisible player is worse than an ugly one.
+	 *
+	 * Hidden automatically the moment a real skeletal mesh is assigned to the
+	 * inherited Mesh component, so dropping in a bought character costs nothing but
+	 * the assignment -- there is no placeholder left to find and delete.
+	 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Chain|Character")
+	TObjectPtr<UStaticMeshComponent> PlaceholderTorso;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Chain|Character")
+	TObjectPtr<UStaticMeshComponent> PlaceholderHead;
 
 private:
 	UPROPERTY()
