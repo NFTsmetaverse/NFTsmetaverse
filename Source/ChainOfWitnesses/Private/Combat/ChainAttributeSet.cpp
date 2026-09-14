@@ -25,7 +25,7 @@ void UChainAttributeSet::ClampAttribute(const FGameplayAttribute& Attribute, flo
 	}
 	else if (Attribute == GetMaxHealthAttribute() || Attribute == GetMaxResolveAttribute())
 	{
-		NewValue = FMath::Max(NewValue, KINDA_SMALL_NUMBER);
+		NewValue = FMath::Max(NewValue, UE_KINDA_SMALL_NUMBER);
 	}
 }
 

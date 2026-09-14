@@ -18,7 +18,10 @@ public class ChainOfWitnesses : ModuleRules
 			"GameplayTasks",
 			"UMG",
 			"Slate",
-			"SlateCore"
+			"SlateCore",
+			// UChainContentSettings: puts the content tables on a Project Settings
+			// page instead of requiring a placed asset or a Blueprint.
+			"DeveloperSettings"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

@@ -297,6 +297,23 @@ Full design notes, the tuning table, and the historical flags (including why a c
 will hear a man it has just beaten, and the genuine dispute over Sanhedrin capital
 jurisdiction) are in `docs/COMBAT.md`.
 
+## Getting it running
+
+**`docs/SETUP.md`** is the step-by-step: engine version, first build, importing the
+fourteen tables, and the one Project Settings page that wires them in. Start there.
+
+The short version: this repository *is* the Unreal project — clone it and open
+`ChainOfWitnesses.uproject`. What exists is the simulation layer. There is not yet
+a single `.uasset`: no level, no pawn, no widget. `Content/` holds JSON and nothing
+else.
+
+**Project Settings → Game → Chain of Witnesses Content** is where the imported
+DataTables are assigned. `UChainBootstrapSubsystem` registers them into every
+subsystem at startup, validates them, and logs `Registered N rows of campaign
+content`. Before that page existed nothing called the `Register*Table` entry points
+outside the tests, so every registry stayed empty forever — which looks exactly
+like working software.
+
 ## Verification
 
 ```

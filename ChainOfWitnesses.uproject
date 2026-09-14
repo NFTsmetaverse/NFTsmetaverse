@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.4",
+	"EngineAssociation": "",
 	"Category": "",
 	"Description": "Chain of Witnesses -- historical New Testament transmission campaign (Master Prompt, docs/MASTER_PROMPT.md)",
 	"Modules": [
