@@ -22,8 +22,11 @@ WHAT IT IS
   of the New Testament. What exists is the simulation layer: nine UGameInstance
   subsystems (campaign timeline, codex of testimony fragments, dialogue, reputation
   with word-of-mouth news travel, campaign map with a Roman road/sea graph, debate,
-  witness missions, combat encounters), ~13,400 lines of C++, 14 JSON DataTables
-  with 196 rows, and ~60 automation tests across nine suites.
+  witness missions, combat encounters), plus a playable layer on top of it
+  (UChainGameFlowSubsystem, AChainGameMode, AChainPlayerController, AChainHUD) that
+  makes the whole thing driveable from the keyboard with no editor-built assets.
+  ~15,500 lines of C++ in 58 files, 14 JSON DataTables with 196 rows, and 59
+  automation tests across ten suites.
 
   Read README.md and docs/SETUP.md first. docs/MASTER_PROMPT.md is the original
   design brief and is authoritative on intent.
@@ -71,6 +74,11 @@ WHAT DOES NOT EXIST YET, AND IS NOT YOUR JOB RIGHT NOW
 DONE LOOKS LIKE
   The editor opens, the module compiles, the automation tests run, and you can tell
   me which failures are mine and which are the engine's.
+
+  If you get that far and want to prove it end to end: follow docs/SETUP.md to
+  import the tables and set Default GameMode to ChainGameMode, press Play, open the
+  console and type ChainSlice. That plays the authored Rome AD 65 scene from the
+  keyboard. If that works, the project is real.
 ```
 
 ---
@@ -79,14 +87,17 @@ DONE LOOKS LIKE
 
 The next steps are in `docs/SETUP.md`: import the fourteen DataTables, assign them
 in **Project Settings → Game → Chain of Witnesses Content**, make an empty level,
-and press Play. You are looking for this in the Output Log:
+set **Default GameMode** to `ChainGameMode`, and press Play. You are looking for
+this in the Output Log:
 
 ```
 LogChainBootstrap: Registered 196 rows of campaign content.
 LogChainBootstrap: Content validated with no problems.
+LogChainFlow: Ready. Open the console (~) and type ChainHelp, or press H.
 ```
 
-That line is the whole simulation coming up.
+That is the whole simulation coming up. `ChainSlice` then plays the Rome AD 65
+scene from the keyboard.
 
 ## If you would rather not run an agent locally
 
