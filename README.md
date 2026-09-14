@@ -299,6 +299,15 @@ jurisdiction) are in `docs/COMBAT.md`.
 
 ## Getting it running
 
+Two routes, both in `docs/`:
+
+- **`docs/SETUP.md`** — doing it yourself in the editor, step by step.
+- **`docs/AGENT_HANDOFF.md`** — a ready-to-paste brief for a coding agent running
+  *locally*, on the machine with the engine installed. The code is already in git;
+  that brief is the only thing worth pasting anywhere.
+
+
+
 **`docs/SETUP.md`** is the step-by-step: engine version, first build, importing the
 fourteen tables, and the one Project Settings page that wires them in. Start there.
 
