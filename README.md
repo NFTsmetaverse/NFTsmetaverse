@@ -297,6 +297,22 @@ Full design notes, the tuning table, and the historical flags (including why a c
 will hear a man it has just beaten, and the genuine dispute over Sanhedrin capital
 jurisdiction) are in `docs/COMBAT.md`.
 
+## Verification
+
+```
+python3 Tools/verify.py
+```
+
+Three static checkers, no dependencies, no Unreal Engine. They exist because
+nothing here has been compiled: they cover the UHT reflection rules, the
+DataTable JSON against the row structs it will be imported as, and every ID one
+table names against the table that declares it — the three places this project
+can fail silently rather than loudly. `Tools/README.md` says what each one
+covers and why a clean run is only worth believing after the checker has been
+shown to bite.
+
+They are not a build, and they do not replace opening the project.
+
 ## Project layout
 
 Standard UE5 C++ project: `ChainOfWitnesses.uproject`, `Source/`, `Content/`,

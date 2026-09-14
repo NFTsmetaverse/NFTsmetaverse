@@ -23,3 +23,7 @@ Content/**/*.uasset
 Content/**/*.umap
 !Content/Data/*.json
 !Content/Data/*.csv
+
+# Python bytecode from Tools/
+__pycache__/
+*.pyc
