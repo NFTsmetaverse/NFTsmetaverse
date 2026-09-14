@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 #include "Codex/TestimonyFragment.h"
-#include "DebateTypes.generated.h"
+#include "ChainDebateTypes.generated.h"
 
 /** Who is arguing. Colours the tone; the mechanics come from his objections. */
 UENUM(BlueprintType)

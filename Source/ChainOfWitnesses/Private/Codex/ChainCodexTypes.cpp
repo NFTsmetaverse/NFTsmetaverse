@@ -1,4 +1,4 @@
-#include "Codex/CodexTypes.h"
+#include "Codex/ChainCodexTypes.h"
 
 void FTransmissionChain::InitialiseSlots()
 {

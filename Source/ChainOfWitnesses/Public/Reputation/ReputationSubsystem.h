@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Reputation/ReputationTypes.h"
+#include "Reputation/ChainReputationTypes.h"
 #include "ReputationSubsystem.generated.h"
 
 class UDataTable;

@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Codex/CodexTypes.h"
+#include "Codex/ChainCodexTypes.h"
 #include "Codex/TestimonyFragment.h"
 #include "CodexSubsystem.generated.h"
 

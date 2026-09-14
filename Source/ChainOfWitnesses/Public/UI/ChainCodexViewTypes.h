@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Codex/TestimonyFragment.h"
-#include "CodexViewTypes.generated.h"
+#include "ChainCodexViewTypes.generated.h"
 
 /**
  * How strong something is, in words rather than a number.

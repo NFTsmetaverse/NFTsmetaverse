@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "DialogueTypes.generated.h"
+#include "ChainDialogueTypes.generated.h"
 
 /**
  * Where the conversation is happening. Ordered least to most secure, and compared

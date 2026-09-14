@@ -2,8 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Debate/DebateTypes.h"
-#include "Codex/CodexTypes.h"
+#include "Debate/ChainDebateTypes.h"
+#include "Codex/ChainCodexTypes.h"
 #include "DebateSubsystem.generated.h"
 
 class UDataTable;

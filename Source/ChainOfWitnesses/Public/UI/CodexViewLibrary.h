@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "UI/CodexViewTypes.h"
+#include "UI/ChainCodexViewTypes.h"
 #include "CodexViewLibrary.generated.h"
 
 class UCodexSubsystem;

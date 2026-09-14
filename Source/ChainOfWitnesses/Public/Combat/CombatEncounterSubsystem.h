@@ -2,8 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Combat/CombatTypes.h"
-#include "Witness/WitnessMissionTypes.h"
+#include "Combat/ChainCombatTypes.h"
+#include "Witness/ChainWitnessMissionTypes.h"
 #include "CombatEncounterSubsystem.generated.h"
 
 class UDataTable;

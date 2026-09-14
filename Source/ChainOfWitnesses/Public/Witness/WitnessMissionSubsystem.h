@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Witness/WitnessMissionTypes.h"
+#include "Witness/ChainWitnessMissionTypes.h"
 #include "WitnessMissionSubsystem.generated.h"
 
 class UDataTable;

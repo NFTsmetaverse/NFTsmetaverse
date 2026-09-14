@@ -2,7 +2,7 @@
 
 #include "Codex/CodexSubsystem.h"
 #include "Combat/CombatEncounterSubsystem.h"
-#include "Combat/CombatTypes.h"
+#include "Combat/ChainCombatTypes.h"
 #include "Debate/DebateSubsystem.h"
 #include "Engine/GameInstance.h"
 #include "Game/ChainGameFlowSubsystem.h"

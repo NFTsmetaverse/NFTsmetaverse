@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "CampaignEventRow.generated.h"
+#include "ChainCampaignEventRow.generated.h"
 
 // Matches Master Prompt Section 6's three acts. Mode A (dual-era) and Mode B
 // (first-century only, Section 3) both drive world state from this same table --

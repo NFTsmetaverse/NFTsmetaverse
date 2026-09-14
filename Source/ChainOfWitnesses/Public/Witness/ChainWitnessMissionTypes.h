@@ -2,10 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "Codex/CodexTypes.h"
-#include "Dialogue/DialogueTypes.h"
-#include "Reputation/ReputationTypes.h"
-#include "WitnessMissionTypes.generated.h"
+#include "Codex/ChainCodexTypes.h"
+#include "Dialogue/ChainDialogueTypes.h"
+#include "Reputation/ChainReputationTypes.h"
+#include "ChainWitnessMissionTypes.generated.h"
 
 class APawn;
 class APlayerController;

@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "CombatTypes.generated.h"
+#include "ChainCombatTypes.generated.h"
 
 /**
  * What kind of trouble this is. The distinction does real work: a mob and a guard

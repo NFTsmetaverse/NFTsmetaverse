@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Engine/DataTable.h"
-#include "Campaign/CampaignEventRow.h"
+#include "Campaign/ChainCampaignEventRow.h"
 #include "CampaignTimelineSubsystem.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCampaignYearAdvanced, int32, NewYearAD);

@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Dialogue/DialogueTypes.h"
+#include "Dialogue/ChainDialogueTypes.h"
 #include "DialogueSubsystem.generated.h"
 
 class UDataTable;

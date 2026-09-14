@@ -2,8 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "Map/CampaignMapTypes.h"
-#include "ReputationTypes.generated.h"
+#include "Map/ChainCampaignMapTypes.h"
+#include "ChainReputationTypes.generated.h"
 
 /** How one faction weighs the player's standing with another. */
 USTRUCT(BlueprintType)

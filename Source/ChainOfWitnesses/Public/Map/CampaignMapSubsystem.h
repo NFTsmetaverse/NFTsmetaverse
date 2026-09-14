@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "Map/CampaignMapTypes.h"
+#include "Map/ChainCampaignMapTypes.h"
 #include "Math/RandomStream.h"
 #include "CampaignMapSubsystem.generated.h"
 

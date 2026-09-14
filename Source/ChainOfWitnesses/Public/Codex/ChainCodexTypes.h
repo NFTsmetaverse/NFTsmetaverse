@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Codex/TestimonyFragment.h"
-#include "CodexTypes.generated.h"
+#include "ChainCodexTypes.generated.h"
 
 /** One link's worth of slotted evidence within a chain. */
 USTRUCT(BlueprintType)

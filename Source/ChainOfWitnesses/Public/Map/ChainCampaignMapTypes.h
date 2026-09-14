@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "CampaignMapTypes.generated.h"
+#include "ChainCampaignMapTypes.generated.h"
 
 /**
  * A place on the campaign map. Locations are the nodes of the road and sea graph;

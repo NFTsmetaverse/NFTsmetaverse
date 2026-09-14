@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "UI/CodexViewTypes.h"
+#include "UI/ChainCodexViewTypes.h"
 #include "CodexWidgets.generated.h"
 
 class UCodexSubsystem;
