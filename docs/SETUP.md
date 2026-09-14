@@ -67,9 +67,21 @@ something I can do well from here, and it is the fastest way through this step.
 
 ## 3. Import the fourteen tables
 
-In the Content Browser, make a `Content/Data` folder, drag each JSON in, and choose
-**DataTable** with the row struct below. This mapping is not from memory —
-`Tools/datatable_lint.py` derives it from the headers and prints it.
+One command, from the project folder:
+
+```
+UnrealEditor-Cmd.exe ChainOfWitnesses.uproject -run=pythonscript -script="Tools/import_content.py"
+```
+
+`Tools/import_content.py` imports each JSON as a DataTable with the correct row
+struct and then checks what landed — a table that imports with zero rows is
+reported as a failure, because that is exactly what choosing the wrong row struct
+looks like. Look for `ALL TABLES IMPORTED`.
+
+**By hand, if you prefer or the script fails.** Make a `Content/Data` folder in the
+Content Browser, drag each JSON in, and choose **DataTable** with the row struct
+below. This mapping is not from memory — `Tools/datatable_lint.py` derives it from
+the headers and prints it.
 
 | File | Row struct |
 |---|---|
@@ -91,45 +103,37 @@ In the Content Browser, make a `Content/Data` folder, drag each JSON in, and cho
 If the import dialogue does not offer a struct, the module has not compiled yet —
 the row structs are C++ types and do not exist until it does.
 
-## 4. Assign them
+## 4. Assign them — already done
 
-**Project Settings → Game → Chain of Witnesses Content.** Assign each imported
-table to its slot; dialogue is a list, so add both conversations to it.
+`Config/DefaultGame.ini` ships with all fourteen assignments filled in, pointing at
+`/Game/Data/`. Import to those paths and the wiring is already there.
 
-That page is the whole wiring step. Before it existed, every subsystem in this
-project stayed empty forever: the game would open, compile, run, and have no
-factions, no fragments, no roads and no conversations, with nothing in the log to
-say why. That is the worst failure mode in the design, because it looks exactly
-like working software.
-
-You can also set where the campaign begins here. The defaults are `Era_Frame` and
-`Loc_Jerusalem` — the crusader frame, which is Mode A. Clear `StartingEraID` for
-Mode B, which starts in the first century with no frame at all.
+**Project Settings → Game → Chain of Witnesses Content** is still where you change
+them, and it writes back to that same file. Note it is `DefaultGame.ini`, not
+`DefaultEngine.ini`: the settings class is `UCLASS(config = Game)`, and a section in
+the wrong file is read by nothing.
 
 ## 5. Make something to run
 
-Still no level, so: **File → New Level → Empty Level**, save as
-`Content/Maps/L_Bootstrap`, and in **Project Settings → Maps & Modes** set:
+`GlobalDefaultGameMode` is already set to `ChainGameMode` in `DefaultEngine.ini`. It
+is a C++ class, so it needs no Blueprint and applies to any level you open —
+including an unsaved empty one. That is the point: the game runs without a single
+`.uasset` existing.
 
-- `GameDefaultMap` and `EditorStartupMap` → `L_Bootstrap`
-- **Default GameMode** → `ChainGameMode`
+So: **File → New Level → Empty Level**, and press Play. Save it as
+`Content/Maps/L_Bootstrap` and set it as `GameDefaultMap` and `EditorStartupMap` in
+**Project Settings → Maps & Modes** if you want it to open there every time.
 
-The GameMode matters as much as the level. It brings up `AChainPlayerController`
-and `AChainHUD`, which are what make the project playable without an editor-built
-interface; without it you get an empty level and a registered-but-invisible
-simulation.
-
-Press Play and watch the Output Log. You are looking for:
+Watch the Output Log for:
 
 ```
 LogChainBootstrap: Registered 196 rows of campaign content.
 LogChainBootstrap: Content validated with no problems.
-LogChainBootstrap: Began era 'Era_Frame' at 'Loc_Jerusalem'.
 LogChainFlow: Ready. Open the console (~) and type ChainHelp, or press H.
 ```
 
-That is the whole simulation coming up. If it says `Registered 0 rows`, step 4 is
-incomplete and the log says so explicitly.
+That is the whole simulation coming up. `Registered 0 rows` means step 3 did not
+take, and the log names every table it could not load.
 
 ## 5a. Actually play it
 
