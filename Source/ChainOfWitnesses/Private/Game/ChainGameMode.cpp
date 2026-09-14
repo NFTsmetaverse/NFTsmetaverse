@@ -3,18 +3,16 @@
 #include "Bootstrap/ChainBootstrapSubsystem.h"
 #include "Engine/GameInstance.h"
 #include "Game/ChainGameFlowSubsystem.h"
+#include "Game/ChainCharacter.h"
 #include "Game/ChainHUD.h"
 #include "Game/ChainPlayerController.h"
-#include "GameFramework/SpectatorPawn.h"
 
 AChainGameMode::AChainGameMode()
 {
 	PlayerControllerClass = AChainPlayerController::StaticClass();
 	HUDClass = AChainHUD::StaticClass();
 
-	// A spectator pawn rather than none: the player still needs a view, and this
-	// avoids the possess-nothing warnings that make a clean log hard to read.
-	DefaultPawnClass = ASpectatorPawn::StaticClass();
+	DefaultPawnClass = AChainCharacter::StaticClass();
 }
 
 void AChainGameMode::BeginPlay()

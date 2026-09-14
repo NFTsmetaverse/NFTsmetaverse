@@ -1,5 +1,10 @@
 #include "Game/ChainGameFlowSubsystem.h"
 
+#include "Game/ChainNpc.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
+
 #include "Bootstrap/ChainContentSettings.h"
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
@@ -159,6 +164,47 @@ void UChainGameFlowSubsystem::SetDependenciesForTesting(UCodexSubsystem* InCodex
 	ReputationOverride = InReputation;
 }
 
+AChainNpc* UChainGameFlowSubsystem::PlaceNpc(FName NpcID, FName RootNodeID,
+	EConversationSafety Safety)
+{
+	UGameInstance* GI = GetGameInstance();
+	UWorld* World = GI ? GI->GetWorld() : nullptr;
+	if (!World)
+	{
+		return nullptr;
+	}
+
+	APawn* Player = World->GetFirstPlayerController()
+		? World->GetFirstPlayerController()->GetPawn()
+		: nullptr;
+	if (!Player)
+	{
+		return nullptr;
+	}
+
+	// Three metres ahead and facing you: close enough to be obviously the thing to
+	// walk to, far enough that you are not standing inside them.
+	const FVector Where = Player->GetActorLocation() + Player->GetActorForwardVector() * 300.f;
+	const FRotator Facing = (Player->GetActorLocation() - Where).Rotation();
+
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride =
+		ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+	AChainNpc* Npc = World->SpawnActor<AChainNpc>(AChainNpc::StaticClass(), Where, Facing, Params);
+	if (!Npc)
+	{
+		return nullptr;
+	}
+
+	Npc->NpcID = NpcID;
+	Npc->RootNodeID = RootNodeID;
+	Npc->Safety = Safety;
+	Npc->DisplayName = FText::FromName(NpcID);
+	PlacedNpcs.Add(Npc);
+	return Npc;
+}
+
 void UChainGameFlowSubsystem::Report(const FString& Message)
 {
 	LastMessage = Message;
@@ -253,6 +299,8 @@ bool UChainGameFlowSubsystem::OpenMission(FName MissionID)
 	const FString Where = ChainFlowPrivate::LocationLabel(GetMap(), Mission.MissionLocationID);
 	const int32 Year = Timeline ? Timeline->GetCurrentYearAD() : Mission.MissionYearAD;
 
+	PlaceNpc(Mission.OpeningNpcID, Mission.OpeningDialogueNodeID, Mission.OpeningSafety);
+
 	if (StartMissionOpeningScene(MissionID))
 	{
 		Report(FString::Printf(TEXT("%s, AD %d. The scene opens."), *Where, Year));
@@ -308,6 +356,15 @@ bool UChainGameFlowSubsystem::CompleteMission()
 		}
 	}
 
+	for (AChainNpc* Npc : PlacedNpcs)
+	{
+		if (Npc)
+		{
+			Npc->Destroy();
+		}
+	}
+	PlacedNpcs.Reset();
+
 	const FName Finished = Witness->GetActiveMissionID();
 	if (!Witness->CompleteMission())
 	{
@@ -323,7 +380,8 @@ bool UChainGameFlowSubsystem::CompleteMission()
 
 // --- Dialogue ---------------------------------------------------------------
 
-bool UChainGameFlowSubsystem::StartConversation(FName NpcID, FName RootNodeID)
+bool UChainGameFlowSubsystem::StartConversation(FName NpcID, FName RootNodeID,
+	EConversationSafety Safety)
 {
 	UDialogueSubsystem* Dialogue = GetDialogue();
 	if (!Dialogue)
@@ -332,7 +390,7 @@ bool UChainGameFlowSubsystem::StartConversation(FName NpcID, FName RootNodeID)
 		return false;
 	}
 
-	if (!Dialogue->StartConversation(NpcID, RootNodeID, EConversationSafety::Private))
+	if (!Dialogue->StartConversation(NpcID, RootNodeID, Safety))
 	{
 		Report(FString::Printf(TEXT("%s will not open that conversation here."), *NpcID.ToString()));
 		return false;

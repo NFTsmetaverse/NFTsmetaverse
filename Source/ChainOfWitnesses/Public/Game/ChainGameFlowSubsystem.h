@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Dialogue/ChainDialogueTypes.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "ChainGameFlowSubsystem.generated.h"
 
@@ -10,6 +11,7 @@ class UCodexSubsystem;
 class UCombatEncounterSubsystem;
 class UDebateSubsystem;
 class UDialogueSubsystem;
+class AChainNpc;
 class UReputationSubsystem;
 class UWitnessMissionSubsystem;
 
@@ -86,7 +88,8 @@ public:
 	// --- Dialogue -----------------------------------------------------------
 
 	UFUNCTION(BlueprintCallable, Category = "Chain|Flow")
-	bool StartConversation(FName NpcID, FName RootNodeID);
+	bool StartConversation(FName NpcID, FName RootNodeID,
+		EConversationSafety Safety = EConversationSafety::Private);
 
 	/**
 	 * Selects a dialogue option by the index the player sees. Returns false and
@@ -148,6 +151,18 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Chain|Flow")
 	FString GetLastMessage() const { return LastMessage; }
 
+	/**
+	 * Puts a person in the world in front of the player.
+	 *
+	 * The rules have always addressed people by ID, which is correct for them and
+	 * unusable for a player, who can only walk towards someone. A mission that opens
+	 * with a conversation now also puts the speaker somewhere you can return to when
+	 * the scene ends.
+	 *
+	 * Does nothing without a world and a pawn, so the automation tests are unaffected.
+	 */
+	AChainNpc* PlaceNpc(FName NpcID, FName RootNodeID, EConversationSafety Safety);
+
 	UCodexSubsystem* GetCodex() const;
 	UDialogueSubsystem* GetDialogue() const;
 	UWitnessMissionSubsystem* GetWitness() const;
@@ -174,6 +189,10 @@ private:
 
 	UPROPERTY()
 	FString LastMessage;
+
+	/** Cleared when the mission that placed them ends. */
+	UPROPERTY()
+	TArray<TObjectPtr<AChainNpc>> PlacedNpcs;
 
 	UPROPERTY()
 	TObjectPtr<UCodexSubsystem> CodexOverride = nullptr;

@@ -126,9 +126,13 @@ is a C++ class, so it needs no Blueprint and applies to any level you open —
 including an unsaved empty one. That is the point: the game runs without a single
 `.uasset` existing.
 
-So: **File → New Level → Empty Level**, and press Play. Save it as
-`Content/Maps/L_Bootstrap` and set it as `GameDefaultMap` and `EditorStartupMap` in
-**Project Settings → Maps & Modes** if you want it to open there every time.
+So: **File → New Level → Basic**, and press Play. Use **Basic**, not **Empty** —
+Basic ships a floor, a light and a sky, and there is a character to stand on that
+floor now. An empty level has no ground and you fall through it.
+
+Save it as `Content/Maps/L_Bootstrap` and set it as `GameDefaultMap` and
+`EditorStartupMap` in **Project Settings → Maps & Modes** if you want it to open
+there every time.
 
 Watch the Output Log for:
 

@@ -9,7 +9,9 @@
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
 #include "Engine/GameInstance.h"
+#include "Game/ChainCharacter.h"
 #include "Game/ChainGameFlowSubsystem.h"
+#include "Game/ChainNpc.h"
 #include "UI/CodexViewLibrary.h"
 
 namespace ChainHUDPrivate
@@ -134,7 +136,7 @@ void AChainHUD::DrawHUD()
 	{
 		DrawText(Message, ChainHUDPrivate::Speaker, Margin, Canvas->SizeY - Margin - LineHeight * 2.f, Font);
 	}
-	DrawText(TEXT("1-9 speak    C codex    Esc back    Tab status    H help    ~ console"),
+	DrawText(TEXT("WASD move    E talk    1-9 speak    C codex    Esc back    Tab status    H help    ~ console"),
 		ChainHUDPrivate::Dim, Margin, Canvas->SizeY - Margin - LineHeight, Font);
 }
 
@@ -146,11 +148,27 @@ void AChainHUD::DrawCampaign()
 		return;
 	}
 
-	Line(TEXT("The campaign map."), ChainHUDPrivate::Heading);
-	Blank();
-	Wrapped(TEXT("Nothing is running. Recover a source and the reconstruction it belongs to opens."),
-		ChainHUDPrivate::Dim);
-	Blank();
+	// Somebody in front of you outranks the map: that is the thing to act on.
+	const AChainCharacter* Player = Cast<AChainCharacter>(GetOwningPawn());
+	const AChainNpc* Near = Player ? Player->GetInteractable() : nullptr;
+
+	if (Near)
+	{
+		Line(FString::Printf(TEXT("%s is here."), *Near->GetLabel().ToString()),
+			ChainHUDPrivate::Speaker);
+		Blank();
+		Line(TEXT("E to speak to them."), FLinearColor::White);
+		Blank();
+	}
+	else
+	{
+		Line(TEXT("The campaign map."), ChainHUDPrivate::Heading);
+		Blank();
+		Wrapped(TEXT("Nothing is running. Walk up to someone and press E, or recover a source "
+			"and the reconstruction it belongs to opens."), ChainHUDPrivate::Dim);
+		Blank();
+	}
+
 	Line(TEXT("ChainMissions   what is open to you"), ChainHUDPrivate::Dim);
 	Line(TEXT("ChainSlice      go straight to Rome, AD 65"), ChainHUDPrivate::Dim);
 	Line(TEXT("ChainTravel <LocationID> then ChainWait <days>"), ChainHUDPrivate::Dim);
