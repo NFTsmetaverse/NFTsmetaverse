@@ -77,6 +77,14 @@ def build(asset_name, struct_name, source_dir):
     factory = unreal.DataTableFactory()
     factory.set_editor_property("struct", struct)
 
+    # Confirm the struct actually took. A DataTableFactory with no row struct
+    # refuses to create anything, and it refuses silently.
+    applied = factory.get_editor_property("struct")
+    if applied is None:
+        unreal.log_error("[import] %s: factory would not accept row struct %s"
+                         % (asset_name, struct_name))
+        return 0
+
     tools = unreal.AssetToolsHelpers.get_asset_tools()
     table = tools.create_asset(asset_name, DEST, unreal.DataTable, factory)
     if table is None:
@@ -91,6 +99,13 @@ def build(asset_name, struct_name, source_dir):
 def main():
     source_dir = os.path.join(unreal.Paths.project_dir(), "Content", "Data")
     unreal.log("[import] reading from %s" % source_dir)
+
+    # Content/Data holds only JSON, which UE does not index, so /Game/Data may not
+    # exist as a package path at all -- and create_asset into a directory that is
+    # not there fails without saying so.
+    if not unreal.EditorAssetLibrary.does_directory_exist(DEST):
+        unreal.log("[import] creating %s" % DEST)
+        unreal.EditorAssetLibrary.make_directory(DEST)
 
     results = []
     for asset_name, struct_name in MAPPING:
