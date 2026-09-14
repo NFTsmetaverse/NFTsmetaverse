@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
 #include "Dialogue/DialogueSubsystem.h"
@@ -101,7 +103,7 @@ namespace WitnessTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWitnessEraSwapTest,
 	"ChainOfWitnesses.Witness.EnteringAMissionMovesTheClockAndTheControls",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FWitnessEraSwapTest::RunTest(const FString& Parameters)
 {
@@ -149,7 +151,7 @@ bool FWitnessEraSwapTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWitnessSealedMissionTest,
 	"ChainOfWitnesses.Witness.AReconstructionChangesNothingButWhatIsLearned",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FWitnessSealedMissionTest::RunTest(const FString& Parameters)
 {
@@ -204,7 +206,7 @@ bool FWitnessSealedMissionTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWitnessUnlockAndAbandonTest,
 	"ChainOfWitnesses.Witness.RecoveringTheSourceOpensTheReconstruction",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FWitnessUnlockAndAbandonTest::RunTest(const FString& Parameters)
 {
@@ -243,7 +245,7 @@ bool FWitnessUnlockAndAbandonTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWitnessModeBTest,
 	"ChainOfWitnesses.Witness.ModeBHasNoFrameToReturnTo",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FWitnessModeBTest::RunTest(const FString& Parameters)
 {
@@ -286,7 +288,7 @@ bool FWitnessModeBTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWitnessReconstructionKnowledgeTest,
 	"ChainOfWitnesses.Witness.FrameKnowledgeCarriesIntoTheReconstruction",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FWitnessReconstructionKnowledgeTest::RunTest(const FString& Parameters)
 {
@@ -325,7 +327,7 @@ bool FWitnessReconstructionKnowledgeTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWitnessSaveRoundTripTest,
 	"ChainOfWitnesses.Witness.ASaveTakenMidMissionComesBackMidMission",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FWitnessSaveRoundTripTest::RunTest(const FString& Parameters)
 {

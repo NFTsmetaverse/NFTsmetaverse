@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
 #include "Combat/CombatEncounterSubsystem.h"
@@ -157,7 +159,7 @@ using namespace CombatTestHelpers;
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatEraCapsCombatantCountTest,
 	"ChainOfWitnesses.Combat.EraCapsCombatantCountUnlessTheSizeIsThePoint",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatEraCapsCombatantCountTest::RunTest(const FString& Parameters)
 {
@@ -201,7 +203,7 @@ bool FCombatEraCapsCombatantCountTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatMenBreakBeforeTheyDieTest,
 	"ChainOfWitnesses.Combat.MenBreakBeforeTheyDie",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatMenBreakBeforeTheyDieTest::RunTest(const FString& Parameters)
 {
@@ -240,7 +242,7 @@ bool FCombatMenBreakBeforeTheyDieTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatCasualtyShockVariesByCrowdTest,
 	"ChainOfWitnesses.Combat.CasualtyShockVariesByWhoTheyAre",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatCasualtyShockVariesByCrowdTest::RunTest(const FString& Parameters)
 {
@@ -266,7 +268,7 @@ bool FCombatCasualtyShockVariesByCrowdTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatAMobBurnsItselfOutTest,
 	"ChainOfWitnesses.Combat.AMobBurnsItselfOutAndNothingElseDoes",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatAMobBurnsItselfOutTest::RunTest(const FString& Parameters)
 {
@@ -306,7 +308,7 @@ bool FCombatAMobBurnsItselfOutTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatStandingDoesTheTalkingTest,
 	"ChainOfWitnesses.Combat.StandingCountsForAsMuchAsRhetoric",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatStandingDoesTheTalkingTest::RunTest(const FString& Parameters)
 {
@@ -354,7 +356,7 @@ bool FCombatStandingDoesTheTalkingTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatDrawnSteelIsAnArgumentAgainstYouTest,
 	"ChainOfWitnesses.Combat.DrawingHardensThemAndBloodEndsTheTalking",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatDrawnSteelIsAnArgumentAgainstYouTest::RunTest(const FString& Parameters)
 {
@@ -405,7 +407,7 @@ bool FCombatDrawnSteelIsAnArgumentAgainstYouTest::RunTest(const FString& Paramet
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatNearMissPeelsOneOffTest,
 	"ChainOfWitnesses.Combat.ANearMissTakesTheLeastCommittedManOutOfIt",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatNearMissPeelsOneOffTest::RunTest(const FString& Parameters)
 {
@@ -460,7 +462,7 @@ bool FCombatNearMissPeelsOneOffTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatEscapeIsPricedByWhoTheyAreTest,
 	"ChainOfWitnesses.Combat.EscapeIsPricedByWhoTheyAreAndWhatHeIsDoing",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatEscapeIsPricedByWhoTheyAreTest::RunTest(const FString& Parameters)
 {
@@ -502,7 +504,7 @@ bool FCombatEscapeIsPricedByWhoTheyAreTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatTheEraDecidesWhatCountsTest,
 	"ChainOfWitnesses.Combat.TheEraDecidesWhetherGettingOutCounted",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatTheEraDecidesWhatCountsTest::RunTest(const FString& Parameters)
 {
@@ -549,7 +551,7 @@ bool FCombatTheEraDecidesWhatCountsTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatLethalityComesFromTheEraTest,
 	"ChainOfWitnesses.Combat.LethalityComesFromTheEraNotTheEncounter",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatLethalityComesFromTheEraTest::RunTest(const FString& Parameters)
 {
@@ -597,7 +599,7 @@ bool FCombatLethalityComesFromTheEraTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatWhatHeDidTravelsTest,
 	"ChainOfWitnesses.Combat.WhatHeDidHereTravelsTheRoads",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatWhatHeDidTravelsTest::RunTest(const FString& Parameters)
 {
@@ -666,7 +668,7 @@ bool FCombatWhatHeDidTravelsTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCombatContentValidatesTest,
 	"ChainOfWitnesses.Combat.ContentNamesOnlyThingsThatExist",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCombatContentValidatesTest::RunTest(const FString& Parameters)
 {

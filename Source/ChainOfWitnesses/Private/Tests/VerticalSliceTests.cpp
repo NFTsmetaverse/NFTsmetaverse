@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
 #include "Dialogue/DialogueSubsystem.h"
@@ -240,7 +242,7 @@ namespace SliceTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FVerticalSliceTest,
 	"ChainOfWitnesses.Slice.RomeAD65PeterDictatesAndMarkWrites",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FVerticalSliceTest::RunTest(const FString& Parameters)
 {

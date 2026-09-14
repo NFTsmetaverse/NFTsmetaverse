@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Map/CampaignMapSubsystem.h"
 #include "Reputation/ReputationSubsystem.h"
@@ -98,7 +100,7 @@ namespace ReputationTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReputationFactionBleedTest,
 	"ChainOfWitnesses.Reputation.StandingWithOneFactionMovesTheOthers",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FReputationFactionBleedTest::RunTest(const FString& Parameters)
 {
@@ -125,7 +127,7 @@ bool FReputationFactionBleedTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReputationPropagationTest,
 	"ChainOfWitnesses.Reputation.NewsTravelsAtTheSpeedOfTheRoad",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FReputationPropagationTest::RunTest(const FString& Parameters)
 {
@@ -158,7 +160,7 @@ bool FReputationPropagationTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReputationSailingSeasonTest,
 	"ChainOfWitnesses.Reputation.SeaNewsWaitsOutTheClosedSeason",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FReputationSailingSeasonTest::RunTest(const FString& Parameters)
 {
@@ -187,7 +189,7 @@ bool FReputationSailingSeasonTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReputationMemoryTest,
 	"ChainOfWitnesses.Reputation.NpcsRememberOnlyWhatReachedThem",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FReputationMemoryTest::RunTest(const FString& Parameters)
 {
@@ -244,7 +246,7 @@ bool FReputationMemoryTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReputationSaveRoundTripTest,
 	"ChainOfWitnesses.Reputation.DeedsAndStandingsSurviveReload",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FReputationSaveRoundTripTest::RunTest(const FString& Parameters)
 {

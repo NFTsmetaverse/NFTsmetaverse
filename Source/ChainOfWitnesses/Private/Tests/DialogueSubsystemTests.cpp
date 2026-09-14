@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
 #include "Dialogue/DialogueSubsystem.h"
@@ -75,7 +77,7 @@ namespace DialogueTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueSafetyGateTest,
 	"ChainOfWitnesses.Dialogue.SafetyGatesWhatHeWillSayInTheOpen",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueSafetyGateTest::RunTest(const FString& Parameters)
 {
@@ -112,7 +114,7 @@ bool FDialogueSafetyGateTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueVouchGateTest,
 	"ChainOfWitnesses.Dialogue.VouchingOpensWhatTrustAloneCannot",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueVouchGateTest::RunTest(const FString& Parameters)
 {
@@ -147,7 +149,7 @@ bool FDialogueVouchGateTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueDisclosureTest,
 	"ChainOfWitnesses.Dialogue.DisclosureRatchetsAndPersists",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueDisclosureTest::RunTest(const FString& Parameters)
 {
@@ -180,7 +182,7 @@ bool FDialogueDisclosureTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueCodexGateTest,
 	"ChainOfWitnesses.Dialogue.CodexGatesWhatThePlayerCanCrediblyClaim",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueCodexGateTest::RunTest(const FString& Parameters)
 {
@@ -223,7 +225,7 @@ bool FDialogueCodexGateTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueEraGateTest,
 	"ChainOfWitnesses.Dialogue.EraGatesAnachronism",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueEraGateTest::RunTest(const FString& Parameters)
 {
@@ -256,7 +258,7 @@ bool FDialogueEraGateTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueTraversalTest,
 	"ChainOfWitnesses.Dialogue.EntryConditionsDivertToFallback",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueTraversalTest::RunTest(const FString& Parameters)
 {
@@ -296,7 +298,7 @@ bool FDialogueTraversalTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueHiddenOptionTest,
 	"ChainOfWitnesses.Dialogue.HiddenOptionsAreOmittedNotGreyed",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueHiddenOptionTest::RunTest(const FString& Parameters)
 {
@@ -319,7 +321,7 @@ bool FDialogueHiddenOptionTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDialogueSaveRoundTripTest,
 	"ChainOfWitnesses.Dialogue.StandingSurvivesSaveAndReload",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDialogueSaveRoundTripTest::RunTest(const FString& Parameters)
 {

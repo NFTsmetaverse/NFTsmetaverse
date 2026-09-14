@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Codex/CodexSubsystem.h"
 #include "UObject/StrongObjectPtr.h"
 
@@ -44,7 +46,7 @@ namespace CodexTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexEmptyChainTest,
 	"ChainOfWitnesses.Codex.EmptyChainScoresZeroAndNamesFirstLink",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexEmptyChainTest::RunTest(const FString& Parameters)
 {
@@ -72,7 +74,7 @@ bool FCodexEmptyChainTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexProximityTest,
 	"ChainOfWitnesses.Codex.ProximityDecaysWithDistanceFromTheEvent",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexProximityTest::RunTest(const FString& Parameters)
 {
@@ -110,7 +112,7 @@ bool FCodexProximityTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexTierFitTest,
 	"ChainOfWitnesses.Codex.MismatchedTierIsPenalisedNotBlocked",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexTierFitTest::RunTest(const FString& Parameters)
 {
@@ -143,7 +145,7 @@ bool FCodexTierFitTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexHostileAndCorroborationTest,
 	"ChainOfWitnesses.Codex.HostileWitnessAndCorroborationRaiseStrength",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexHostileAndCorroborationTest::RunTest(const FString& Parameters)
 {
@@ -175,7 +177,7 @@ bool FCodexHostileAndCorroborationTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexChallengeTest,
 	"ChainOfWitnesses.Codex.UnansweredChallengeCostsUntilRebutted",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexChallengeTest::RunTest(const FString& Parameters)
 {
@@ -215,7 +217,7 @@ bool FCodexChallengeTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexSaveRoundTripTest,
 	"ChainOfWitnesses.Codex.SaveDataRoundTrips",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexSaveRoundTripTest::RunTest(const FString& Parameters)
 {

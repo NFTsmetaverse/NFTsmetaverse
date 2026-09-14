@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
 #include "Debate/DebateSubsystem.h"
@@ -89,7 +91,7 @@ namespace DebateTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDebateProbesWeakestLinkTest,
 	"ChainOfWitnesses.Debate.OpponentLeadsWithTheWeakestLink",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDebateProbesWeakestLinkTest::RunTest(const FString& Parameters)
 {
@@ -122,7 +124,7 @@ bool FDebateProbesWeakestLinkTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDebateChainIsTheAmmunitionTest,
 	"ChainOfWitnesses.Debate.ChainStrengthDecidesWhetherAnAnswerHolds",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDebateChainIsTheAmmunitionTest::RunTest(const FString& Parameters)
 {
@@ -167,7 +169,7 @@ bool FDebateChainIsTheAmmunitionTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDebateDirectCitationTest,
 	"ChainOfWitnesses.Debate.CitingTheSourceBeatsGesturingAtTheChain",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDebateDirectCitationTest::RunTest(const FString& Parameters)
 {
@@ -215,7 +217,7 @@ bool FDebateDirectCitationTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDebateUnansweredChallengeTest,
 	"ChainOfWitnesses.Debate.AnUnansweredChallengeHalvesTheLink",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDebateUnansweredChallengeTest::RunTest(const FString& Parameters)
 {
@@ -253,7 +255,7 @@ bool FDebateUnansweredChallengeTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDebateLegibleDefeatTest,
 	"ChainOfWitnesses.Debate.DefeatNamesTheLinkAndTheReadingList",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDebateLegibleDefeatTest::RunTest(const FString& Parameters)
 {
@@ -290,7 +292,7 @@ bool FDebateLegibleDefeatTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDebateEarlyWinAndEraTest,
 	"ChainOfWitnesses.Debate.ComposureBreaksEarlyAndEraGatesOpponents",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDebateEarlyWinAndEraTest::RunTest(const FString& Parameters)
 {
@@ -339,7 +341,7 @@ bool FDebateEarlyWinAndEraTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDebateRecordsDeedTest,
 	"ChainOfWitnesses.Debate.ArguingInPublicIsSomethingThePlayerDid",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FDebateRecordsDeedTest::RunTest(const FString& Parameters)
 {

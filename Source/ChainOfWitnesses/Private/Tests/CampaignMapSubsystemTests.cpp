@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Map/CampaignMapSubsystem.h"
 #include "Reputation/ReputationSubsystem.h"
@@ -79,7 +81,7 @@ namespace CampaignMapTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCampaignMapPathfindingTest,
 	"ChainOfWitnesses.Map.QuickestRouteIsByArrivalNotDistance",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCampaignMapPathfindingTest::RunTest(const FString& Parameters)
 {
@@ -115,7 +117,7 @@ bool FCampaignMapPathfindingTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCampaignMapPartyMovementTest,
 	"ChainOfWitnesses.Map.PartyMovesAndTimePassesWithIt",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCampaignMapPartyMovementTest::RunTest(const FString& Parameters)
 {
@@ -157,7 +159,7 @@ bool FCampaignMapPartyMovementTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCampaignMapEncounterTest,
 	"ChainOfWitnesses.Map.EncountersInterruptAndReportUnspentDays",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCampaignMapEncounterTest::RunTest(const FString& Parameters)
 {
@@ -189,7 +191,7 @@ bool FCampaignMapEncounterTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCampaignMapSailingSeasonTest,
 	"ChainOfWitnesses.Map.PartyWaitsOutTheClosedSeasonUnlessItInsists",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCampaignMapSailingSeasonTest::RunTest(const FString& Parameters)
 {
@@ -246,7 +248,7 @@ bool FCampaignMapSailingSeasonTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCampaignMapSaveRoundTripTest,
 	"ChainOfWitnesses.Map.PartyStateSurvivesReload",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCampaignMapSaveRoundTripTest::RunTest(const FString& Parameters)
 {

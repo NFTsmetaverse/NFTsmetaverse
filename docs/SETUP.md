@@ -13,27 +13,44 @@ steps below are the shortest honest path from that to something that runs.
 
 ## 1. Engine version
 
-`EngineAssociation` is deliberately empty, so the engine will ask which install to
-use and write the answer itself. No editing required.
+`EngineAssociation` is empty, so the engine asks which install to use and writes
+the answer itself. Nothing to edit.
 
-**But read this before you build.** Every line here was written against the UE 5.4
-API by someone with no compiler. On a newer engine you are stacking version drift
-on top of a first compile, and when an error appears you will not know which of the
-two caused it. Two options, both fine:
+**This project was written against UE 5.4 and is being opened on 5.8** — four minor
+versions and roughly two years of API drift. Build on 5.8 anyway: targeting a
+two-year-old engine for a project that has not shipped anything would be the wrong
+trade, and the drift is a one-time cost you pay now rather than later.
 
-- **Use 5.4** if you still can. Clean separation: any error is this project's fault.
-- **Use your latest** and accept that some errors will be API changes rather than
-  bugs. Tell me the exact version and I can pre-empt the known ones.
+What that means in practice is that some of the first build's errors will be
+version differences rather than mistakes in this code, and from the error text
+alone you often cannot tell which. That is expected. Send me the log and I will
+sort them into the two piles.
 
-Either way you need Visual Studio 2022 with the *Game development with C++* workload
-(Windows) or Xcode (macOS).
+Two things have already been changed for the jump:
+
+- **`Target.cs` pinned `EngineIncludeOrderVersion.Unreal5_4`.** UBT retires those
+  enum values a few releases after they ship, and `Target.cs` is C# compiled
+  *before* any C++ — a stale value fails the build at step zero with an error that
+  looks nothing like a code problem. Both targets now use `Latest`.
+- **`EAutomationTestFlags` was spelled out in all nine test suites**, 55 times. It
+  has already changed shape once in UE 5's life (namespace of integer constants →
+  enum class). It is now `CHAIN_TEST_FLAGS`, defined once in
+  `Private/Tests/ChainAutomationFlags.h`, so if 5.8 moved it again that is one edit
+  rather than fifty-five.
+
+I could not verify either against a real 5.8 install — I have no engine here, and
+5.8 is past what I know reliably. They are hedges against the failure modes I can
+reason about, not confirmed fixes.
+
+You will need Visual Studio 2022 with the *Game development with C++* workload
+(Windows) or current Xcode (macOS).
 
 ## 2. Build it, and expect errors
 
 Right-click the `.uproject` → **Generate Visual Studio project files**, open the
 solution, build. Or just double-click the `.uproject` and let it offer to rebuild.
 
-**Expect a few dozen errors on the first build.** That is the normal outcome for
+**Expect a few dozen errors on the first build, and more on 5.8 than on 5.4.** That is the normal outcome for
 13,000 lines written without a compiler, not a sign anything is badly wrong. The
 mechanical reflection rules are already checked (`python3 Tools/verify.py`), so
 what is left is the category a linter cannot reach:
@@ -42,7 +59,7 @@ what is left is the category a linter cannot reach:
 |---|---|
 | Missing engine includes | I included what the code needs; UE's own headers move between versions |
 | Signature drift | `PostGameplayEffectExecute`, `NativeConstruct`, subsystem overrides |
-| Automation test flags | `EAutomationTestFlags` changed shape after 5.4 |
+| Automation test flags | `EAutomationTestFlags` changed shape after 5.4 — now centralised in one header |
 | GAS macros | `ATTRIBUTE_ACCESSORS` and the attribute set boilerplate |
 
 Save the full build log and send it to me. Working through a compile log is

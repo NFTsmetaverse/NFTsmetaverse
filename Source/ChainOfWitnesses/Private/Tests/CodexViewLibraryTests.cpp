@@ -2,6 +2,8 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
+#include "ChainAutomationFlags.h"
+
 #include "Campaign/CampaignTimelineSubsystem.h"
 #include "Codex/CodexSubsystem.h"
 #include "UI/CodexViewLibrary.h"
@@ -82,7 +84,7 @@ namespace CodexViewTestHelpers
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexViewFormattingTest,
 	"ChainOfWitnesses.CodexUI.ScoresAndYearsReadAsWordsNotNumbers",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexViewFormattingTest::RunTest(const FString& Parameters)
 {
@@ -112,7 +114,7 @@ bool FCodexViewFormattingTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexViewFragmentTest,
 	"ChainOfWitnesses.CodexUI.TheInspectorShowsTheCitation",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexViewFragmentTest::RunTest(const FString& Parameters)
 {
@@ -143,7 +145,7 @@ bool FCodexViewFragmentTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexViewChainTest,
 	"ChainOfWitnesses.CodexUI.TheChainScreenShowsAllSixLinksAndTheWeakest",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexViewChainTest::RunTest(const FString& Parameters)
 {
@@ -193,7 +195,7 @@ bool FCodexViewChainTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexViewSlottableTest,
 	"ChainOfWitnesses.CodexUI.CandidatesForALinkExcludeWhatIsAlreadyInTheChain",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexViewSlottableTest::RunTest(const FString& Parameters)
 {
@@ -224,7 +226,7 @@ bool FCodexViewSlottableTest::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCodexViewChallengeTest,
 	"ChainOfWitnesses.CodexUI.AnUnansweredObjectionIsNotTheSameAsAnUnanswerableOne",
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+	CHAIN_TEST_FLAGS)
 
 bool FCodexViewChallengeTest::RunTest(const FString& Parameters)
 {
