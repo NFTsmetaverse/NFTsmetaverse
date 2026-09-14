@@ -109,8 +109,15 @@ Mode B, which starts in the first century with no frame at all.
 ## 5. Make something to run
 
 Still no level, so: **File → New Level → Empty Level**, save as
-`Content/Maps/L_Bootstrap`, and set it as both `GameDefaultMap` and
-`EditorStartupMap` in **Project Settings → Maps & Modes**.
+`Content/Maps/L_Bootstrap`, and in **Project Settings → Maps & Modes** set:
+
+- `GameDefaultMap` and `EditorStartupMap` → `L_Bootstrap`
+- **Default GameMode** → `ChainGameMode`
+
+The GameMode matters as much as the level. It brings up `AChainPlayerController`
+and `AChainHUD`, which are what make the project playable without an editor-built
+interface; without it you get an empty level and a registered-but-invisible
+simulation.
 
 Press Play and watch the Output Log. You are looking for:
 
@@ -118,15 +125,47 @@ Press Play and watch the Output Log. You are looking for:
 LogChainBootstrap: Registered 196 rows of campaign content.
 LogChainBootstrap: Content validated with no problems.
 LogChainBootstrap: Began era 'Era_Frame' at 'Loc_Jerusalem'.
+LogChainFlow: Ready. Open the console (~) and type ChainHelp, or press H.
 ```
 
-That line is the whole simulation coming up. If it says `Registered 0 rows`, step 4
-is incomplete and the log says so explicitly.
+That is the whole simulation coming up. If it says `Registered 0 rows`, step 4 is
+incomplete and the log says so explicitly.
+
+## 5a. Actually play it
+
+The HUD draws the current state and the keys drive it:
+
+| Key | Does |
+|---|---|
+| `1`–`9` | say the numbered line |
+| `C` | open and close the Codex |
+| `Esc` | back out one layer |
+| `Tab` | status |
+| `H` | the command list |
+| `~` | console |
+
+The fastest way to see the game work end to end is the Rome slice. Open the
+console and type:
+
+```
+ChainSlice
+```
+
+That grants the source which opens the reconstruction, drops you into Rome in
+AD 65, and opens the scene with Peter. Then play it with the number keys. Locked
+lines are shown greyed with the reason they are shut — that is the disclosure
+system working, not a bug. Press `C` as you go and the fragments appear in the
+Codex as the conversation yields them.
+
+`ChainHelp` lists everything else: `ChainTravel`, `ChainWait`, `ChainDebate`,
+`ChainFight`, `ChainRecover` and the rest. Those commands are the whole simulation
+exposed to the keyboard, which is what lets the design be judged before any art
+exists.
 
 ## 6. Run the tests
 
-**Tools → Session Frontend → Automation**, filter `ChainOfWitnesses`. Roughly sixty
-tests across eleven suites. They have never run. Some will fail, and the failures
+**Tools → Session Frontend → Automation**, filter `ChainOfWitnesses`. Fifty-nine
+tests across ten suites. They have never run. Some will fail, and the failures
 are worth reading rather than deleting — they are the first real feedback this
 design has ever had.
 
@@ -134,15 +173,15 @@ design has ever had.
 
 ## What comes after
 
-At this point the rules layer is live and nothing is visible. In rough order of
+At this point the game is playable as text and nothing is drawn. In rough order of
 value:
 
 1. **A Codex screen.** `docs/CODEX_UI.md` is a finished designer contract: three
    Widget Blueprints reparented to C++ bases, no `BindWidget` properties, one
-   event each. This is the fastest route to seeing the project's actual subject
-   on screen.
-2. **A dialogue widget** driving `UDialogueSubsystem` — the Jerusalem and Rome
-   conversations are written and playable as text today.
+   event each. `AChainHUD` already renders the same data, so this is a
+   presentation upgrade rather than new logic.
+2. **A dialogue widget** replacing the HUD's text block. The Jerusalem and Rome
+   conversations are written and playable today.
 3. **The campaign map**, which is the system with the most emergent behaviour
    already in it: news travelling the roads, the sailing season closing.
 4. **A pawn and the melee layer**, which is the biggest single piece of remaining
@@ -152,6 +191,5 @@ Be realistic about proportion: the simulation is perhaps a sixth of a finished
 game of this scope, and the remaining five sixths is art, animation, level design,
 audio and UI — the parts that need an editor, assets and, honestly, other people.
 
-A text-only prototype of steps 1–3, though, is genuinely reachable alone, and it
-is the version worth building first: it would prove the design before anyone spends
+What exists now is the text prototype that proves the design before anyone spends
 a day on a mesh.

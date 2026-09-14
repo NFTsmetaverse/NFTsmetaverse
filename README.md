@@ -16,6 +16,11 @@ pressure, and the Witness Mission framework that carries the player between the
 two eras, the AD 65 vertical slice that runs through all of it, and the Codex
 screens — as far as those can go outside the editor.
 
+On top of that sits a playable layer: a GameMode, a controller, a canvas HUD and a
+flow subsystem that knows the order things happen in. It means the project is a
+game you can press Play on and finish a scene in, not only a set of systems with
+tests. Nothing in it needs an editor-built asset.
+
 **Nothing here has been compiled.** There is no UE toolchain in the environment
 this was written in. Roughly 10,000 lines of C++ and ten automation suites are
 waiting on a first build; expect real errors on the first pass. That is the single
@@ -297,6 +302,32 @@ Full design notes, the tuning table, and the historical flags (including why a c
 will hear a man it has just beaten, and the genuine dispute over Sanhedrin capital
 jurisdiction) are in `docs/COMBAT.md`.
 
+## The playable layer (off-queue)
+
+The nine subsystems each knew a set of rules and nothing about sequence, so until
+this existed the only thing that could play the game was the vertical slice
+automation test.
+
+| Path | What it is |
+|---|---|
+| `Source/ChainOfWitnesses/Public/Game/ChainGameFlowSubsystem.h`, `Private/.../ChainGameFlowSubsystem.cpp` | `UChainGameFlowSubsystem` — the sequence, as distinct from the rules: opening a campaign, entering a mission *and* its scene, saying a line, travelling, answering an objection. The current screen is derived from subsystem state rather than stored, so it cannot disagree with what is running. |
+| `Source/ChainOfWitnesses/Public/Game/ChainGameMode.h`, `Private/.../ChainGameMode.cpp` | `AChainGameMode` — the entry point. Names the controller and HUD, and says loudly in the log when content never registered, because an empty registry and a working game look identical from a black screen. |
+| `Source/ChainOfWitnesses/Public/Game/ChainPlayerController.h`, `Private/.../ChainPlayerController.cpp` | `AChainPlayerController` — number keys pick what to say, `C` opens the Codex, `Esc` backs out. Plus the `Chain*` console commands, which reach the parts that have no key yet and take arguments. |
+| `Source/ChainOfWitnesses/Public/Game/ChainHUD.h`, `Private/.../ChainHUD.cpp` | `AChainHUD` — draws the conversation, the debate, the fight and the Codex to canvas. It reads the same view structs the eventual UMG will read, so replacing it is a presentation change, not a rewrite. |
+| `Source/ChainOfWitnesses/Private/Tests/ChainGameFlowTests.cpp` | Four tests: the screen follows what is running, locked and out-of-range lines change nothing, `Esc` unwinds one layer at a time and will not walk out of a fight, a shut mission refuses until its source is held. |
+
+Canvas and literal key bindings rather than UMG and Enhanced Input, deliberately:
+both of those need assets that exist only after someone has opened the editor and
+made them, and the whole point of this layer is that the game is playable the
+moment it compiles.
+
+```
+ChainSlice
+```
+
+grants the source that opens the Rome reconstruction, drops you into AD 65, and
+opens the scene with Peter. `ChainHelp` lists the rest.
+
 ## Getting it running
 
 Two routes, both in `docs/`:
@@ -312,9 +343,10 @@ Two routes, both in `docs/`:
 fourteen tables, and the one Project Settings page that wires them in. Start there.
 
 The short version: this repository *is* the Unreal project — clone it and open
-`ChainOfWitnesses.uproject`. What exists is the simulation layer. There is not yet
-a single `.uasset`: no level, no pawn, no widget. `Content/` holds JSON and nothing
-else.
+`ChainOfWitnesses.uproject`. What exists is the simulation and the text game on top
+of it. There is not yet a single `.uasset`: no level, no pawn, no widget. `Content/`
+holds JSON and nothing else — which is why the HUD draws to canvas and the input is
+bound to literal keys.
 
 **Project Settings → Game → Chain of Witnesses Content** is where the imported
 DataTables are assigned. `UChainBootstrapSubsystem` registers them into every

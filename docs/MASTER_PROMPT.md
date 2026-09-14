@@ -296,6 +296,20 @@ documented. It is the first system to read Task 8's `FEraCombatTuning`, which is
 makes Section 5's "escape and de-escalation are first-class win states" mechanical
 rather than aspirational. See `docs/COMBAT.md`.
 
+**Also off-queue: the playable layer.** The nine subsystems knew their rules and
+nothing about the order things happen in, so the only code that could play the game
+was the vertical slice automation test. Built `UChainGameFlowSubsystem` (the
+sequence: opening a campaign, entering a mission and its scene, travelling,
+answering an objection), plus `AChainGameMode`, `AChainPlayerController` and
+`AChainHUD`.
+→ `Source/ChainOfWitnesses/Public/Game/*.h`,
+`Source/ChainOfWitnesses/Private/Game/*.cpp`,
+`Source/ChainOfWitnesses/Private/Tests/ChainGameFlowTests.cpp`.
+Deliberately a canvas HUD with literal key bindings and `Chain*` console commands,
+not UMG and Enhanced Input: both of those need assets that only exist once someone
+has opened the editor, and the point of this layer is that the game is playable the
+moment it compiles. `ChainSlice` plays Task 9's scene end to end from the keyboard.
+
 **For each task:** file list with paths, complete `.h` and `.cpp`, Blueprint
 exposure notes, and a short test plan. Ask before assuming anything about the
 existing project structure (though as of Task 1 the structure below is now
