@@ -1,9 +1,9 @@
 """
-Imports the fourteen content tables as DataTable assets.
+Builds the fourteen content tables as DataTable assets.
 
-Run it headless:
+Run it headless, from the project folder:
 
-    UnrealEditor-Cmd.exe <project.uproject> -run=pythonscript -script="Tools/import_content.py"
+    UnrealEditor-Cmd.exe ChainOfWitnesses.uproject -run=pythonscript -script="Tools/import_content.py"
 
 or from the open editor: Tools -> Execute Python Script.
 
@@ -11,12 +11,16 @@ or from the open editor: Tools -> Execute Python Script.
 dropdown listing every struct in the project. Pick the wrong one and the table
 imports zero rows and says nothing about why -- and the failure does not surface
 until the bootstrap logs an empty registry at runtime, a long way from the mistake.
+
+**Why it builds the assets instead of importing them.** Driving CSVImportFactory
+through AssetImportTask crashes the editor outright on 5.8 (assertion in
+AssetTools, an invalid shared pointer under the factory's automated settings).
+Creating the asset with DataTableFactory and filling it with
+FillDataTableFromJSONString reaches the same end state through supported calls,
+and reports its own failures instead of taking the process down.
+
 The mapping below is the one docs/SETUP.md publishes and Tools/datatable_lint.py
 derives from the headers.
-
-It verifies what it imported rather than trusting the importer: a table that lands
-with zero rows is reported as a failure, because that is exactly what a wrong row
-struct looks like.
 """
 
 import os
@@ -44,61 +48,65 @@ DEST = "/Game/Data"
 MODULE = "/Script/ChainOfWitnesses."
 
 
-def build_task(source_dir, asset_name, struct_name):
-    json_path = os.path.abspath(os.path.join(source_dir, asset_name + ".json"))
+def row_count(table):
+    try:
+        return len(unreal.DataTableFunctionLibrary.get_data_table_row_names(table))
+    except Exception:
+        return 0
+
+
+def build(asset_name, struct_name, source_dir):
+    json_path = os.path.join(source_dir, asset_name + ".json")
     if not os.path.exists(json_path):
         unreal.log_error("[import] no such file: %s" % json_path)
-        return None
+        return 0
 
     struct = unreal.load_object(None, MODULE + struct_name)
     if struct is None:
-        unreal.log_error(
-            "[import] row struct %s not found -- has the module compiled?" % struct_name)
-        return None
-
-    factory = unreal.CSVImportFactory()
-    settings = factory.get_editor_property("automated_import_settings")
-    settings.set_editor_property("import_type", unreal.CSVImportType.ECSV_DATA_TABLE)
-    settings.set_editor_property("import_row_struct", struct)
-
-    task = unreal.AssetImportTask()
-    task.set_editor_property("filename", json_path)
-    task.set_editor_property("destination_path", DEST)
-    task.set_editor_property("destination_name", asset_name)
-    task.set_editor_property("automated", True)
-    task.set_editor_property("replace_existing", True)
-    task.set_editor_property("save", True)
-    task.set_editor_property("factory", factory)
-    return task
-
-
-def verify(asset_name):
-    """A table that imported with no rows is a wrong row struct, not a success."""
-    path = "%s/%s.%s" % (DEST, asset_name, asset_name)
-    table = unreal.load_object(None, path)
-    if table is None:
+        unreal.log_error("[import] row struct %s not found -- has the module compiled?"
+                         % struct_name)
         return 0
-    return len(unreal.DataTableFunctionLibrary.get_data_table_row_names(table))
+
+    with open(json_path, "r", encoding="utf-8") as handle:
+        json_text = handle.read()
+
+    asset_path = "%s/%s" % (DEST, asset_name)
+    if unreal.EditorAssetLibrary.does_asset_exist(asset_path):
+        unreal.EditorAssetLibrary.delete_asset(asset_path)
+
+    factory = unreal.DataTableFactory()
+    factory.set_editor_property("struct", struct)
+
+    tools = unreal.AssetToolsHelpers.get_asset_tools()
+    table = tools.create_asset(asset_name, DEST, unreal.DataTable, factory)
+    if table is None:
+        unreal.log_error("[import] could not create asset %s" % asset_path)
+        return 0
+
+    unreal.DataTableFunctionLibrary.fill_data_table_from_json_string(table, json_text)
+    unreal.EditorAssetLibrary.save_asset(asset_path)
+    return row_count(table)
 
 
 def main():
     source_dir = os.path.join(unreal.Paths.project_dir(), "Content", "Data")
-    tools = unreal.AssetToolsHelpers.get_asset_tools()
+    unreal.log("[import] reading from %s" % source_dir)
 
-    tasks = []
+    results = []
     for asset_name, struct_name in MAPPING:
-        task = build_task(source_dir, asset_name, struct_name)
-        if task is not None:
-            tasks.append(task)
-
-    if tasks:
-        tools.import_asset_tasks(tasks)
+        try:
+            rows = build(asset_name, struct_name, source_dir)
+        except Exception as error:
+            unreal.log_error("[import] %s raised: %s" % (asset_name, error))
+            rows = 0
+        results.append((asset_name, struct_name, rows))
 
     unreal.log("[import] ---- results ----")
-    total, failed = 0, []
-    for asset_name, struct_name in MAPPING:
-        rows = verify(asset_name)
+    total = 0
+    failed = []
+    for asset_name, struct_name, rows in results:
         total += rows
+        # A table with no rows is a wrong row struct, not a success.
         if rows == 0:
             failed.append(asset_name)
             unreal.log_error("[import] %-32s FAILED (0 rows, struct %s)"
