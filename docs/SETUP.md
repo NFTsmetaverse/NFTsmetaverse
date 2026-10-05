@@ -6,7 +6,7 @@ config and the content.
 
 What you have is the simulation layer — the rules, the content and the tests.
 What does not exist yet is a single `.uasset`: no level, no pawn, no widget, no
-mesh, no animation. `Content/` holds fifteen JSON files and nothing else. The
+mesh, no animation. `Content/` holds sixteen JSON files and nothing else. The
 steps below are the shortest honest path from that to something that runs.
 
 ---
