@@ -123,5 +123,27 @@
       "Frag_GospelOfMarkComposed"
     ],
     "bPersistsWorldState": false
+  },
+  {
+    "Name": "WM_JerusalemCouncil",
+    "MissionID": "WM_JerusalemCouncil",
+    "DisplayName": "The Question Put to the House",
+    "AnchorEventID": "Event_CouncilOfJerusalem",
+    "MissionYearAD": 49,
+    "MissionDayOfYear": 260,
+    "MissionLocationID": "Loc_Jerusalem",
+    "EraID": "Era_FirstCentury",
+    "PlayableCharacterID": "Char_Paul",
+    "Level": "",
+    "OpeningDialogueNodeID": "Node_Council_Assembly",
+    "OpeningNpcID": "NPC_JamesTheJust",
+    "OpeningSafety": "Public",
+    "UnlockedByFragmentID": "Frag_JosephusAnt20200",
+    "GrantsFragmentIDs": [
+      "Frag_JamesLeadsTheMotherChurch",
+      "Frag_ApostolicDecree",
+      "Frag_PillarsAtJerusalem"
+    ],
+    "bPersistsWorldState": false
   }
 ]

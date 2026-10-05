@@ -1,5 +1,5 @@
 """
-Builds the fourteen content tables as DataTable assets.
+Builds the fifteen content tables as DataTable assets.
 
 Run it headless, from the project folder:
 
@@ -7,7 +7,7 @@ Run it headless, from the project folder:
 
 or from the open editor: Tools -> Execute Python Script.
 
-**Why this exists.** Doing it by hand is fourteen drag-and-drops, each ending in a
+**Why this exists.** Doing it by hand is fifteen drag-and-drops, each ending in a
 dropdown listing every struct in the project. Pick the wrong one and the table
 imports zero rows and says nothing about why -- and the failure does not surface
 until the bootstrap logs an empty registry at runtime, a long way from the mistake.
@@ -37,6 +37,7 @@ MAPPING = [
     ("DT_DeedTypes",                 "DeedTypeRow"),
     ("DT_Dialogue_JerusalemHandoff", "DialogueNodeRow"),
     ("DT_Dialogue_RomeAD65",         "DialogueNodeRow"),
+    ("DT_Dialogue_JerusalemCouncil", "DialogueNodeRow"),
     ("DT_DebateOpponents",           "DebateOpponentRow"),
     ("DT_DebateObjections",          "DebateObjectionRow"),
     ("DT_Eras",                      "EraDefinitionRow"),

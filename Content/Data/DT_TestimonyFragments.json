@@ -711,5 +711,21 @@
     "RebutsFragmentIDs": [],
     "bIsContested": true,
     "ScholarlyNote": "Eusebius reports that the Jerusalem congregation left the city for Pella in the Decapolis before the war closed on it. The tradition is attested only in fourth-century writers, though Hegesippus may stand behind Eusebius. It is genuinely disputed: some read it as an apologetic construction explaining why the mother church survived the destruction that overtook the Temple, others accept a historical core on the grounds that a flight east is what a non-combatant sect would actually do. The player should hold it loosely."
+  },
+  {
+    "Name": "Frag_ApostolicDecree",
+    "FragmentID": "Frag_ApostolicDecree",
+    "Title": "The apostolic decree",
+    "SourceReference": "Acts 15:19-29; 21:25",
+    "Tier": "Companion",
+    "AttestationDateAD": 62,
+    "CorroboratedBy": [
+      "Frag_JamesLeadsTheMotherChurch",
+      "Frag_PillarsAtJerusalem"
+    ],
+    "ChallengedBy": [],
+    "RebutsFragmentIDs": [],
+    "bIsContested": true,
+    "ScholarlyNote": "James's ruling, and the letter sent north with it, is the earliest recorded decision of the congregations acting together. It carries a real difficulty that should not be hidden: Paul never cites it. Writing to Corinth about food offered to idols he argues from conscience and from freedom rather than from a ruling he had himself carried, which some read as evidence that Acts has tidied a messier settlement, and others as Paul declining to win an argument by authority. The four abstentions are themselves disputed -- whether they are Levitical purity requirements for Gentiles living among Jews, or a renunciation of pagan cult practice."
   }
 ]

@@ -1,0 +1,246 @@
+[
+  {
+    "Name": "Node_Council_Assembly",
+    "NodeID": "Node_Council_Assembly",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "You have come a long way to be told what you already believe. Sit down. The men from Judaea say your Gentiles must be circumcised and keep the law of Moses or they are not saved. They are not fools, and they are not few. Before I give judgement this house will hear you, and it will hear Simon, and it will hear them.",
+    "EntryConditions": {
+      "EarliestYearAD": 48,
+      "LatestYearAD": 50
+    },
+    "FallbackNodeID": "Node_Council_NotYet",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_JamesLeadsTheMotherChurch"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Let Simon speak first. He was at Caesarea. I was not.",
+        "Effects": {
+          "TrustDelta": 12.0,
+          "RaiseDisclosureTo": "Acquaintance"
+        },
+        "NextNodeID": "Node_Council_PeterSpeaks"
+      },
+      {
+        "PlayerLine": "Then hear what was done among them, and not what I did.",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Council_PhariseeDemand"
+      },
+      {
+        "PlayerLine": "Give the judgement you have already written and spare the afternoon.",
+        "Effects": {
+          "TrustDelta": -12.0
+        },
+        "NextNodeID": "Node_Council_PhariseeDemand"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_PhariseeDemand",
+    "NodeID": "Node_Council_PhariseeDemand",
+    "SpeakerID": "NPC_PhariseeBeliever",
+    "Line": "The covenant was not offered on terms a man may choose from. It was given whole. You ask us to receive as brothers men who keep none of it -- who eat what they like, who have not been marked, whose fathers were not at Sinai. If the law may be set aside for them, tell us plainly what it was ever for.",
+    "Options": [
+      {
+        "PlayerLine": "Abraham was reckoned righteous before he was circumcised, not after.",
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Council_PeterSpeaks"
+      },
+      {
+        "PlayerLine": "Ask Simon what happened in the house of the centurion at Caesarea.",
+        "Conditions": {
+          "RequiredActiveEventIDs": [
+            "Event_Cornelius"
+          ]
+        },
+        "Effects": {
+          "TrustDelta": 14.0,
+          "RaiseDisclosureTo": "Acquaintance"
+        },
+        "NextNodeID": "Node_Council_PeterSpeaks",
+        "bShowWhenLocked": true
+      },
+      {
+        "PlayerLine": "Nothing is set aside. You are asking a question the answer has already overtaken.",
+        "NextNodeID": "Node_Council_PeterSpeaks"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_PeterSpeaks",
+    "NodeID": "Node_Council_PeterSpeaks",
+    "SpeakerID": "NPC_Peter",
+    "Line": "I did not go to that house willingly and this room knows it. I went because I was sent, and while I was still speaking the thing happened to them that happened to us at the beginning, and no man present laid a hand on it or asked them anything first. I have carried the law my whole life and I have not carried it well. Neither did my fathers. Why would we fasten on their necks what broke ours?",
+    "Options": [
+      {
+        "PlayerLine": "Then say what you are willing to stand behind when you are back in Antioch.",
+        "Effects": {
+          "TrustDelta": 10.0
+        },
+        "NextNodeID": "Node_Council_SignsReported"
+      },
+      {
+        "PlayerLine": "Barnabas and I can tell them what we saw in Galatia.",
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Council_SignsReported"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_SignsReported",
+    "NodeID": "Node_Council_SignsReported",
+    "SpeakerID": "NPC_Barnabas",
+    "Line": "We did not go looking for them. We went to the synagogues first in every town, and in every town we were put out of them, and the Gentiles who had been standing at the back followed us into the street. We did not decide this. We reported it. The house may do with it what it likes.",
+    "Options": [
+      {
+        "PlayerLine": "That is the whole of it. James may give judgement.",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Council_JamesJudgement"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_JamesJudgement",
+    "NodeID": "Node_Council_JamesJudgement",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "Simon has told us how God first visited the Gentiles to take a people for his name, and the words of the prophets agree with it -- Amos says the fallen tent of David is raised so that the rest of mankind may seek the Lord. So my judgement is this: we do not trouble them. We write to them to abstain from what has been offered to idols, from blood, from what is strangled, and from sexual immorality. Moses has been read in every city for generations and will go on being read. That is enough.",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_ApostolicDecree"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Four things. Is that a fence, or a floor?",
+        "Conditions": {
+          "MinimumDisclosure": "Acquaintance"
+        },
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Council_PressAuthority",
+        "bShowWhenLocked": true
+      },
+      {
+        "PlayerLine": "Then it is settled, and I will carry it north.",
+        "NextNodeID": "Node_Council_Letter"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_PressAuthority",
+    "NodeID": "Node_Council_PressAuthority",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "You want to know whether I have bound you. I have not. I have kept a table where two kinds of men can eat without one of them being made unclean by the other, which is a smaller thing than you were arguing for and a harder thing to hold. Whether it holds in Antioch when I am not in the room is not in my gift. You will find that out yourself.",
+    "Options": [
+      {
+        "PlayerLine": "It will not hold. But I would rather be given it honestly than promised more.",
+        "Effects": {
+          "TrustDelta": 15.0,
+          "RaiseDisclosureTo": "Confidant"
+        },
+        "NextNodeID": "Node_Council_RightHand"
+      },
+      {
+        "PlayerLine": "Then give me something I can show them that is not your opinion.",
+        "Effects": {
+          "TrustDelta": 4.0
+        },
+        "NextNodeID": "Node_Council_Letter"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_RightHand",
+    "NodeID": "Node_Council_RightHand",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "Then take my hand on it, and Simon's, and John's. Not as a favour. We are reckoned pillars in this city, and what a pillar is for is to be seen holding something up. Let it be seen that we held this.",
+    "EntryConditions": {
+      "MinimumDisclosure": "Confidant"
+    },
+    "FallbackNodeID": "Node_Council_Letter",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_PillarsAtJerusalem"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Is there nothing you want in return?",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Council_RememberThePoor"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_RememberThePoor",
+    "NodeID": "Node_Council_RememberThePoor",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "One thing. Remember the poor. I do not mean the poor in general, I mean the ones in this city, who sold what they had in the first years on the understanding that it would not be long, and who have been eating other people's charity ever since. You are going to places with money in them. Do not forget the house you came from.",
+    "Options": [
+      {
+        "PlayerLine": "I was already eager to do it. I will keep doing it.",
+        "Effects": {
+          "TrustDelta": 18.0,
+          "RaiseDisclosureTo": "Insider"
+        },
+        "NextNodeID": "Node_Council_Letter"
+      },
+      {
+        "PlayerLine": "I will carry what I can and promise no more than that.",
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Council_Letter"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_Letter",
+    "NodeID": "Node_Council_Letter",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "It will be written out and sent with men of our own, so that it does not arrive as your account of what we said. Judas called Barsabbas, and Silas. They can say it in their own mouths. A letter carried by the man it favours is worth nothing, and you of all people should want that.",
+    "Options": [
+      {
+        "PlayerLine": "Send them. I would rather it came from here than from me.",
+        "Effects": {
+          "TrustDelta": 10.0
+        },
+        "NextNodeID": "Node_Council_Depart"
+      },
+      {
+        "PlayerLine": "Silas can stay with me afterwards, if he will.",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Council_Depart"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Council_Depart",
+    "NodeID": "Node_Council_Depart",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "Go north then. And understand what you are carrying: not a permission, a position. If it is overturned in ten years it will be overturned by men who were in this room, and they will say the thing was never decided. Make sure there are enough of you who remember that it was.",
+    "Options": []
+  },
+  {
+    "Name": "Node_Council_NotYet",
+    "NodeID": "Node_Council_NotYet",
+    "SpeakerID": "NPC_JamesTheJust",
+    "Line": "Not today. The house is not gathered and the question is not before it. Come back when there is something to decide.",
+    "Options": []
+  }
+]
