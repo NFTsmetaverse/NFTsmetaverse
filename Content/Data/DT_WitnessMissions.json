@@ -1,124 +1,127 @@
 [
-	{
-		"Name": "WM_EmptyTomb",
-		"MissionID": "WM_EmptyTomb",
-		"DisplayName": "The First Morning",
-		"AnchorEventID": "Event_CrucifixionResurrection",
-		"MissionYearAD": 30,
-		"MissionDayOfYear": 104,
-		"MissionLocationID": "Loc_Jerusalem",
-		"EraID": "Era_FirstCentury",
-		"PlayableCharacterID": "Char_Companion",
-		"Level": "",
-		"OpeningDialogueNodeID": "",
-		"OpeningNpcID": "",
-		"OpeningSafety": "Private",
-		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": [
-			"Frag_WomenFirstAtTheTomb"
-		],
-		"bPersistsWorldState": false
-	},
-	{
-		"Name": "WM_DamascusRoad",
-		"MissionID": "WM_DamascusRoad",
-		"DisplayName": "The Damascus Road",
-		"AnchorEventID": "Event_SaulConversion",
-		"MissionYearAD": 35,
-		"MissionDayOfYear": 150,
-		"MissionLocationID": "Loc_Damascus",
-		"EraID": "Era_FirstCentury",
-		"PlayableCharacterID": "Char_Saul",
-		"Level": "",
-		"OpeningDialogueNodeID": "",
-		"OpeningNpcID": "",
-		"OpeningSafety": "Private",
-		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": [
-			"Frag_PaulSeesRisenChrist"
-		],
-		"bPersistsWorldState": false
-	},
-	{
-		"Name": "WM_JerusalemHandoff",
-		"MissionID": "WM_JerusalemHandoff",
-		"DisplayName": "Fifteen Days With Peter",
-		"AnchorEventID": "Event_PaulFirstJerusalemVisit",
-		"MissionYearAD": 35,
-		"MissionDayOfYear": 250,
-		"MissionLocationID": "Loc_Jerusalem",
-		"EraID": "Era_FirstCentury",
-		"PlayableCharacterID": "Char_Saul",
-		"Level": "",
-		"OpeningDialogueNodeID": "Node_Peter_Courtyard",
-		"OpeningNpcID": "NPC_Peter",
-		"OpeningSafety": "Public",
-		"UnlockedByFragmentID": "Frag_PaulMeetsPeterAndJames",
-		"GrantsFragmentIDs": [
-			"Frag_PrePaulineCreed"
-		],
-		"bPersistsWorldState": false
-	},
-	{
-		"Name": "WM_GallioTribunal",
-		"MissionID": "WM_GallioTribunal",
-		"DisplayName": "Before the Proconsul",
-		"AnchorEventID": "Event_GallioInscription",
-		"MissionYearAD": 52,
-		"MissionDayOfYear": 180,
-		"MissionLocationID": "Loc_Corinth",
-		"EraID": "Era_FirstCentury",
-		"PlayableCharacterID": "Char_Paul",
-		"Level": "",
-		"OpeningDialogueNodeID": "",
-		"OpeningNpcID": "",
-		"OpeningSafety": "Private",
-		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": [
-			"Frag_DelphiGallioInscription"
-		],
-		"bPersistsWorldState": false
-	},
-	{
-		"Name": "WM_MaltaShipwreck",
-		"MissionID": "WM_MaltaShipwreck",
-		"DisplayName": "Sailing Too Late",
-		"AnchorEventID": "Event_VoyageToRome_MaltaShipwreck",
-		"MissionYearAD": 59,
-		"MissionDayOfYear": 290,
-		"MissionLocationID": "Loc_Caesarea",
-		"EraID": "Era_FirstCentury",
-		"PlayableCharacterID": "Char_Luke",
-		"Level": "",
-		"OpeningDialogueNodeID": "",
-		"OpeningNpcID": "",
-		"OpeningSafety": "Private",
-		"UnlockedByFragmentID": "",
-		"GrantsFragmentIDs": [
-			"Frag_ActsWePassages"
-		],
-		"bPersistsWorldState": false
-	},
-	{
-		"Name": "WM_PeterDictatesMark",
-		"MissionID": "WM_PeterDictatesMark",
-		"DisplayName": "Rome, After the Fire",
-		"AnchorEventID": "Event_MarkWrittenInRome",
-		"MissionYearAD": 65,
-		"MissionDayOfYear": 150,
-		"MissionLocationID": "Loc_Rome",
-		"EraID": "Era_FirstCentury",
-		"PlayableCharacterID": "Char_Mark",
-		"Level": "",
-		"OpeningDialogueNodeID": "Node_Rome_Room",
-		"OpeningNpcID": "NPC_Peter",
-		"OpeningSafety": "Private",
-		"UnlockedByFragmentID": "Frag_MarkAsPetersInterpreter",
-		"GrantsFragmentIDs": [
-			"Frag_PeterPreachingInRome",
-			"Frag_MarkNotInOrder",
-			"Frag_GospelOfMarkComposed"
-		],
-		"bPersistsWorldState": false
-	}
+  {
+    "Name": "WM_EmptyTomb",
+    "MissionID": "WM_EmptyTomb",
+    "DisplayName": "The First Morning",
+    "AnchorEventID": "Event_CrucifixionResurrection",
+    "MissionYearAD": 30,
+    "MissionDayOfYear": 104,
+    "MissionLocationID": "Loc_Jerusalem",
+    "EraID": "Era_FirstCentury",
+    "PlayableCharacterID": "Char_Companion",
+    "Level": "",
+    "OpeningDialogueNodeID": "",
+    "OpeningNpcID": "",
+    "OpeningSafety": "Private",
+    "UnlockedByFragmentID": "",
+    "GrantsFragmentIDs": [
+      "Frag_WomenFirstAtTheTomb"
+    ],
+    "bPersistsWorldState": false
+  },
+  {
+    "Name": "WM_DamascusRoad",
+    "MissionID": "WM_DamascusRoad",
+    "DisplayName": "The Damascus Road",
+    "AnchorEventID": "Event_SaulConversion",
+    "MissionYearAD": 35,
+    "MissionDayOfYear": 150,
+    "MissionLocationID": "Loc_Damascus",
+    "EraID": "Era_FirstCentury",
+    "PlayableCharacterID": "Char_Saul",
+    "Level": "",
+    "OpeningDialogueNodeID": "",
+    "OpeningNpcID": "",
+    "OpeningSafety": "Private",
+    "UnlockedByFragmentID": "",
+    "GrantsFragmentIDs": [
+      "Frag_PaulSeesRisenChrist"
+    ],
+    "bPersistsWorldState": false
+  },
+  {
+    "Name": "WM_JerusalemHandoff",
+    "MissionID": "WM_JerusalemHandoff",
+    "DisplayName": "Fifteen Days With Peter",
+    "AnchorEventID": "Event_PaulFirstJerusalemVisit",
+    "MissionYearAD": 35,
+    "MissionDayOfYear": 250,
+    "MissionLocationID": "Loc_Jerusalem",
+    "EraID": "Era_FirstCentury",
+    "PlayableCharacterID": "Char_Saul",
+    "Level": "",
+    "OpeningDialogueNodeID": "Node_Peter_Courtyard",
+    "OpeningNpcID": "NPC_Peter",
+    "OpeningSafety": "Public",
+    "UnlockedByFragmentID": "Frag_PaulMeetsPeterAndJames",
+    "GrantsFragmentIDs": [
+      "Frag_PrePaulineCreed",
+      "Frag_JamesSawTheRisenChrist",
+      "Frag_TwelveWitnessCriterion",
+      "Frag_PublicPreachingInJerusalem"
+    ],
+    "bPersistsWorldState": false
+  },
+  {
+    "Name": "WM_GallioTribunal",
+    "MissionID": "WM_GallioTribunal",
+    "DisplayName": "Before the Proconsul",
+    "AnchorEventID": "Event_GallioInscription",
+    "MissionYearAD": 52,
+    "MissionDayOfYear": 180,
+    "MissionLocationID": "Loc_Corinth",
+    "EraID": "Era_FirstCentury",
+    "PlayableCharacterID": "Char_Paul",
+    "Level": "",
+    "OpeningDialogueNodeID": "",
+    "OpeningNpcID": "",
+    "OpeningSafety": "Private",
+    "UnlockedByFragmentID": "",
+    "GrantsFragmentIDs": [
+      "Frag_DelphiGallioInscription"
+    ],
+    "bPersistsWorldState": false
+  },
+  {
+    "Name": "WM_MaltaShipwreck",
+    "MissionID": "WM_MaltaShipwreck",
+    "DisplayName": "Sailing Too Late",
+    "AnchorEventID": "Event_VoyageToRome_MaltaShipwreck",
+    "MissionYearAD": 59,
+    "MissionDayOfYear": 290,
+    "MissionLocationID": "Loc_Caesarea",
+    "EraID": "Era_FirstCentury",
+    "PlayableCharacterID": "Char_Luke",
+    "Level": "",
+    "OpeningDialogueNodeID": "",
+    "OpeningNpcID": "",
+    "OpeningSafety": "Private",
+    "UnlockedByFragmentID": "",
+    "GrantsFragmentIDs": [
+      "Frag_ActsWePassages"
+    ],
+    "bPersistsWorldState": false
+  },
+  {
+    "Name": "WM_PeterDictatesMark",
+    "MissionID": "WM_PeterDictatesMark",
+    "DisplayName": "Rome, After the Fire",
+    "AnchorEventID": "Event_MarkWrittenInRome",
+    "MissionYearAD": 65,
+    "MissionDayOfYear": 150,
+    "MissionLocationID": "Loc_Rome",
+    "EraID": "Era_FirstCentury",
+    "PlayableCharacterID": "Char_Mark",
+    "Level": "",
+    "OpeningDialogueNodeID": "Node_Rome_Room",
+    "OpeningNpcID": "NPC_Peter",
+    "OpeningSafety": "Private",
+    "UnlockedByFragmentID": "Frag_MarkAsPetersInterpreter",
+    "GrantsFragmentIDs": [
+      "Frag_PeterPreachingInRome",
+      "Frag_MarkNotInOrder",
+      "Frag_GospelOfMarkComposed"
+    ],
+    "bPersistsWorldState": false
+  }
 ]
