@@ -2,7 +2,7 @@
   {
     "Name": "WM_EmptyTomb",
     "MissionID": "WM_EmptyTomb",
-    "DisplayName": "The First Morning",
+    "DisplayName": "What You Saw Yourself",
     "AnchorEventID": "Event_CrucifixionResurrection",
     "MissionYearAD": 30,
     "MissionDayOfYear": 104,
@@ -10,12 +10,18 @@
     "EraID": "Era_FirstCentury",
     "PlayableCharacterID": "Char_Companion",
     "Level": "",
-    "OpeningDialogueNodeID": "",
-    "OpeningNpcID": "",
-    "OpeningSafety": "Private",
+    "OpeningDialogueNodeID": "Node_Passion_Road",
+    "OpeningNpcID": "NPC_SimonOfCyrene",
+    "OpeningSafety": "Guarded",
     "UnlockedByFragmentID": "",
     "GrantsFragmentIDs": [
-      "Frag_WomenFirstAtTheTomb"
+      "Frag_SimonOfCyreneNamedSons",
+      "Frag_CrucifiedUnderPilate",
+      "Frag_BurialByJosephOfArimathea",
+      "Frag_WomenFirstAtTheTomb",
+      "Frag_WitnessesDisagreeOnTheMessenger",
+      "Frag_GalileeOrJerusalem",
+      "Frag_DisciplesFledThenProclaimed"
     ],
     "bPersistsWorldState": false
   },

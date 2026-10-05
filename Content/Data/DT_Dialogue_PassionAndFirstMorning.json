@@ -1,0 +1,428 @@
+[
+  {
+    "Name": "Node_Passion_Road",
+    "NodeID": "Node_Passion_Road",
+    "SpeakerID": "NPC_SimonOfCyrene",
+    "Line": "Get back. I am not with them -- do you understand me? I came in for the feast. I was standing where you are standing and the soldier put his hand on my shoulder and now I am carrying this, and if I put it down they will put me on it. Walk somewhere else. Whatever this is, it is not mine.",
+    "EntryConditions": {
+      "EarliestYearAD": 30,
+      "LatestYearAD": 33
+    },
+    "FallbackNodeID": "Node_Passion_NotYet",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_SimonOfCyreneNamedSons"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Take the weight on your shoulder, not your arms. I will walk beside you.",
+        "Effects": {
+          "TrustDelta": 14.0,
+          "RaiseDisclosureTo": "Acquaintance"
+        },
+        "NextNodeID": "Node_Passion_WhyYou"
+      },
+      {
+        "PlayerLine": "Why you? There are three hundred men on this road.",
+        "Effects": {
+          "TrustDelta": 5.0
+        },
+        "NextNodeID": "Node_Passion_WhyYou"
+      },
+      {
+        "PlayerLine": "Say nothing and keep pace with the crowd.",
+        "NextNodeID": "Node_Passion_Golgotha"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_WhyYou",
+    "NodeID": "Node_Passion_WhyYou",
+    "SpeakerID": "NPC_SimonOfCyrene",
+    "Line": "Because I am from Cyrene and I do not sound like them, and because I was at the front. That is all it takes. I have two boys at my sister's house in this city. If anyone asks after me, their names are Alexander and Rufus, and they are to be told their father was pressed, not arrested. Say it back to me so I know you have it.",
+    "Options": [
+      {
+        "PlayerLine": "Alexander and Rufus. Pressed, not arrested. I have it.",
+        "Effects": {
+          "TrustDelta": 16.0
+        },
+        "NextNodeID": "Node_Passion_Golgotha"
+      },
+      {
+        "PlayerLine": "I will remember. Though I do not know that anyone will ask.",
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Passion_Golgotha"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Golgotha",
+    "NodeID": "Node_Passion_Golgotha",
+    "SpeakerID": "NPC_RomanSoldier",
+    "Line": "That is far enough. You can stand there, you can stand further, you cannot stand here. Nobody is being moved on today who keeps their mouth shut, so keep it shut. Three of them. We will be here until they are finished and then we will go and eat.",
+    "Options": [
+      {
+        "PlayerLine": "What does the board above him say?",
+        "NextNodeID": "Node_Passion_Titulus"
+      },
+      {
+        "PlayerLine": "Who ordered this?",
+        "NextNodeID": "Node_Passion_WhoOrdered"
+      },
+      {
+        "PlayerLine": "Stand where the women are standing, and watch.",
+        "Effects": {
+          "TrustDelta": 4.0
+        },
+        "NextNodeID": "Node_Passion_Hours"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Titulus",
+    "NodeID": "Node_Passion_Titulus",
+    "SpeakerID": "NPC_RomanSoldier",
+    "Line": "The charge. It is always the charge -- that is the whole point of the board, so the next man reads it on his way past and decides to be somebody else. The prefect wrote that one himself and the priests came out to argue about the wording, which I have never seen before and do not expect to see again.",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_CrucifiedUnderPilate"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "They argued about the wording?",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Passion_WhoOrdered"
+      },
+      {
+        "PlayerLine": "Say nothing, and watch.",
+        "NextNodeID": "Node_Passion_Hours"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_WhoOrdered",
+    "NodeID": "Node_Passion_WhoOrdered",
+    "SpeakerID": "NPC_RomanSoldier",
+    "Line": "Pilate. It is always Pilate, he is the only man in this province who can. The council brought him up at dawn and the prefect did not want him, and took him anyway, and here we are. You may write that down if you like. It is not a secret. There is a crowd of several thousand on that road who watched the whole thing.",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_CrucifiedUnderPilate"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Stand where the women are standing, and watch.",
+        "Effects": {
+          "TrustDelta": 4.0
+        },
+        "NextNodeID": "Node_Passion_Hours"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Hours",
+    "NodeID": "Node_Passion_Hours",
+    "SpeakerID": "NPC_RomanSoldier",
+    "Line": "You are still here. Most of them have gone -- it is slower than people expect and there is nothing to see after the first hour. The women have not moved. They have been standing at that distance since the third hour and they have not come closer and they have not gone home. I have done this a long time. Usually everyone goes home.",
+    "Options": [
+      {
+        "PlayerLine": "Where will the bodies go?",
+        "NextNodeID": "Node_Passion_Taken"
+      },
+      {
+        "PlayerLine": "Stay until it is over.",
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Passion_Taken"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Taken",
+    "NodeID": "Node_Passion_Taken",
+    "SpeakerID": "NPC_RomanSoldier",
+    "Line": "Normally? A pit. That is the point of it -- the shame is meant to go on after. But there is a man up at the praetorium asking for that one by name, and he is on the council, and the prefect has said yes. I have not seen that before either. It is the Sabbath at sundown, so whatever they do they are doing it fast.",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_BurialByJosephOfArimathea"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Follow them. See where they put him.",
+        "Effects": {
+          "TrustDelta": 10.0,
+          "RaiseDisclosureTo": "Acquaintance"
+        },
+        "NextNodeID": "Node_Passion_Tomb"
+      },
+      {
+        "PlayerLine": "A councillor. One of the men who brought him up at dawn?",
+        "NextNodeID": "Node_Passion_Tomb"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Tomb",
+    "NodeID": "Node_Passion_Tomb",
+    "SpeakerID": "NPC_RomanSoldier",
+    "Line": "A new tomb, cut in the rock, in a garden a short walk from here -- his own, they are saying. They are wrapping him in a hurry because of the hour. Those women followed and stood at the entrance until the stone was rolled across, and then they went. They watched the whole thing. They know exactly which one it is.",
+    "Options": [
+      {
+        "PlayerLine": "So do I now.",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Passion_FirstMorning"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_FirstMorning",
+    "NodeID": "Node_Passion_FirstMorning",
+    "SpeakerID": "NPC_MaryMagdalene",
+    "Line": "It is open. The stone is moved and he is not in it. Do not look at me like that -- I am not confused and I am not hysterical, I watched them put him in there on Friday with my own eyes and I went back this morning to finish what we could not finish before the Sabbath, and the tomb is open and he is not in it. And there was someone there. And they spoke to us.",
+    "FallbackNodeID": "Node_Passion_NotYet",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_WomenFirstAtTheTomb"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Someone. How many were there?",
+        "NextNodeID": "Node_Passion_HowMany"
+      },
+      {
+        "PlayerLine": "Are you certain it was the same tomb?",
+        "NextNodeID": "Node_Passion_RightTomb"
+      },
+      {
+        "PlayerLine": "What did they say to you?",
+        "NextNodeID": "Node_Passion_WhatTold"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_RightTomb",
+    "NodeID": "Node_Passion_RightTomb",
+    "SpeakerID": "NPC_MaryMagdalene",
+    "Line": "I stood at the entrance on Friday until the stone was across it. I know which garden, I know which face of the rock, I know what the cloth looked like going in. You may ask Joanna, you may ask the other Mary, we were all three of us standing there. If you think a woman cannot find a tomb she watched being closed, then say that plainly and I will go and tell someone else.",
+    "Options": [
+      {
+        "PlayerLine": "I do not think that. I am asking what anyone will ask you.",
+        "Effects": {
+          "TrustDelta": 12.0,
+          "RaiseDisclosureTo": "Confidant"
+        },
+        "NextNodeID": "Node_Passion_HowMany"
+      },
+      {
+        "PlayerLine": "Then tell me what they said.",
+        "Effects": {
+          "TrustDelta": 4.0
+        },
+        "NextNodeID": "Node_Passion_WhatTold"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_HowMany",
+    "NodeID": "Node_Passion_HowMany",
+    "SpeakerID": "NPC_MaryMagdalene",
+    "Line": "One. I say one. Joanna says there were two of them standing, and the other Mary will not say a number at all, only that the light of it frightened her and she looked at the ground. We have been arguing about it on the way here, which I know is how it sounds. I can tell you what I saw. I cannot tell you what she saw.",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_WitnessesDisagreeOnTheMessenger"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Then say one. Say what you saw and let her say hers.",
+        "Effects": {
+          "TrustDelta": 14.0
+        },
+        "NextNodeID": "Node_Passion_WhatTold"
+      },
+      {
+        "PlayerLine": "You should agree a number before you tell the others.",
+        "Effects": {
+          "TrustDelta": -10.0
+        },
+        "NextNodeID": "Node_Passion_WhatTold"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_WhatTold",
+    "NodeID": "Node_Passion_WhatTold",
+    "SpeakerID": "NPC_MaryMagdalene",
+    "Line": "That he is not there. That he is raised. And then something about Galilee -- that he goes ahead of them there, and Peter was named, Peter specifically. Though Joanna heard it the other way, as a reminder: that he told us this in Galilee, back when we were still in Galilee, and we did not understand him. I have turned it over the whole way here and I cannot make the two into one sentence.",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_GalileeOrJerusalem"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "Then report both. Do not choose one because it is tidier.",
+        "Effects": {
+          "TrustDelta": 18.0,
+          "RaiseDisclosureTo": "Confidant"
+        },
+        "NextNodeID": "Node_Passion_TheArgument"
+      },
+      {
+        "PlayerLine": "Tell them Galilee. That is what you heard first.",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Passion_TheArgument"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_TheArgument",
+    "NodeID": "Node_Passion_TheArgument",
+    "SpeakerID": "NPC_Peter",
+    "Line": "North, then. Or we stay. Half this room says the message was north and half says we were told to wait here, and both halves heard it from the same three women an hour ago. I have not slept. I am not the man to decide it and everyone keeps looking at me as though I am.",
+    "Options": [
+      {
+        "PlayerLine": "Why are they looking at you?",
+        "NextNodeID": "Node_Passion_PeterDoubts"
+      },
+      {
+        "PlayerLine": "Go north. The message named you.",
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Passion_Galilee"
+      },
+      {
+        "PlayerLine": "Stay. Whatever this is, it ends in this city, not in a fishing village.",
+        "Effects": {
+          "TrustDelta": 6.0
+        },
+        "NextNodeID": "Node_Passion_Galilee"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_PeterDoubts",
+    "NodeID": "Node_Passion_PeterDoubts",
+    "SpeakerID": "NPC_Peter",
+    "Line": "Because of what I did in the courtyard, and because they are too kind to say it, and because the message named me anyway, which is worse. If you want to know whether I believe her -- I ran. I ran at the arrest with all the rest of them. A man who ran does not get to be the one who decides what it meant. Ask John. He stayed.",
+    "Options": [
+      {
+        "PlayerLine": "A man who ran is exactly who I would believe about this.",
+        "Effects": {
+          "TrustDelta": 20.0,
+          "RaiseDisclosureTo": "Confidant"
+        },
+        "NextNodeID": "Node_Passion_Galilee"
+      },
+      {
+        "PlayerLine": "Then go north and settle it with your own eyes.",
+        "Effects": {
+          "TrustDelta": 10.0
+        },
+        "NextNodeID": "Node_Passion_Galilee"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Galilee",
+    "NodeID": "Node_Passion_Galilee",
+    "SpeakerID": "NPC_Peter",
+    "Line": "You followed us the whole way up. Most people went home. Sit down then -- it is the same lake and the same boats and nothing here has changed at all, which is the strangest part of it. We came north arguing and we are going back south not arguing. I will not try to put into your mouth what I cannot put into my own.",
+    "EntryConditions": {
+      "MinimumDisclosure": "Acquaintance"
+    },
+    "FallbackNodeID": "Node_Passion_Depart",
+    "EntryEffects": {
+      "GrantsFragmentIDs": [
+        "Frag_DisciplesFledThenProclaimed"
+      ]
+    },
+    "Options": [
+      {
+        "PlayerLine": "What changed?",
+        "Conditions": {
+          "MinimumDisclosure": "Confidant"
+        },
+        "NextNodeID": "Node_Passion_WhatChanged",
+        "bShowWhenLocked": true
+      },
+      {
+        "PlayerLine": "What will you do now?",
+        "NextNodeID": "Node_Passion_Commission"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_WhatChanged",
+    "NodeID": "Node_Passion_WhatChanged",
+    "SpeakerID": "NPC_JohnZebedee",
+    "Line": "He will not answer that and I will. Nothing was argued and nobody was persuaded. We were a group of men who had scattered, and then we were not, and the thing in between is the part you are asking for and the part none of us can hand you. What I can hand you is what came after: not one of us has gone back to the boats. Judge it by that, since you were not there for the other.",
+    "Options": [
+      {
+        "PlayerLine": "That is an honest answer. I would rather have it than a better one.",
+        "Effects": {
+          "TrustDelta": 16.0,
+          "RaiseDisclosureTo": "Insider"
+        },
+        "NextNodeID": "Node_Passion_Commission"
+      },
+      {
+        "PlayerLine": "Men have believed stranger things after a death.",
+        "Effects": {
+          "TrustDelta": 4.0
+        },
+        "NextNodeID": "Node_Passion_Commission"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Commission",
+    "NodeID": "Node_Passion_Commission",
+    "SpeakerID": "NPC_Peter",
+    "Line": "Jerusalem. We say it there, out loud, at the feast, where the council is and the prefect is and the tomb is a half hour's walk from the steps we will be standing on. If we are wrong, that is the one place on earth where someone can walk out and prove it before we finish speaking. That is the point. If we meant to be believed anywhere else we would go anywhere else.",
+    "Options": [
+      {
+        "PlayerLine": "Then I will come with you, and I will write down what I saw.",
+        "Effects": {
+          "TrustDelta": 15.0
+        },
+        "NextNodeID": "Node_Passion_Depart"
+      },
+      {
+        "PlayerLine": "They will kill you for it.",
+        "Effects": {
+          "TrustDelta": 8.0
+        },
+        "NextNodeID": "Node_Passion_Depart"
+      }
+    ]
+  },
+  {
+    "Name": "Node_Passion_Depart",
+    "NodeID": "Node_Passion_Depart",
+    "SpeakerID": "NPC_Peter",
+    "Line": "Write it down then, and write down the parts that do not fit. The women disagreeing on the number. Me in the courtyard. Us running. Leave all of it in. A clean account of this would be worth nothing in fifty years and I would rather be doubted for the truth than believed for a tidied one.",
+    "Options": []
+  },
+  {
+    "Name": "Node_Passion_NotYet",
+    "NodeID": "Node_Passion_NotYet",
+    "SpeakerID": "NPC_MaryMagdalene",
+    "Line": "Not now. Whatever you have come to ask, it is not the hour for it.",
+    "Options": []
+  }
+]

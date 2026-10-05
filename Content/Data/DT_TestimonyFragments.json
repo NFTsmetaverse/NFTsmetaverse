@@ -727,5 +727,90 @@
     "RebutsFragmentIDs": [],
     "bIsContested": true,
     "ScholarlyNote": "James's ruling, and the letter sent north with it, is the earliest recorded decision of the congregations acting together. It carries a real difficulty that should not be hidden: Paul never cites it. Writing to Corinth about food offered to idols he argues from conscience and from freedom rather than from a ruling he had himself carried, which some read as evidence that Acts has tidied a messier settlement, and others as Paul declining to win an argument by authority. The four abstentions are themselves disputed -- whether they are Levitical purity requirements for Gentiles living among Jews, or a renunciation of pagan cult practice."
+  },
+  {
+    "Name": "Frag_CrucifiedUnderPilate",
+    "FragmentID": "Frag_CrucifiedUnderPilate",
+    "Title": "A public execution under a named prefect",
+    "SourceReference": "Mark 15:15-39; Matt 27:26-54; Luke 23:24-47; John 19:16-30",
+    "Tier": "Eyewitness",
+    "AttestationDateAD": 55,
+    "CorroboratedBy": [
+      "Frag_TacitusAnnals1544",
+      "Frag_PilateStone"
+    ],
+    "ChallengedBy": [],
+    "RebutsFragmentIDs": [],
+    "bIsContested": false,
+    "ScholarlyNote": "The execution is placed under a Roman prefect whose term and name are independently fixed, outside a known city wall, at a festival when the city was full. Tacitus, writing as a hostile source, records the same execution under the same official. A movement inventing its founder's death had no reason to site it at the most publicly verifiable moment in the Judaean calendar."
+  },
+  {
+    "Name": "Frag_SimonOfCyreneNamedSons",
+    "FragmentID": "Frag_SimonOfCyreneNamedSons",
+    "Title": "Simon of Cyrene, and the sons Mark names",
+    "SourceReference": "Mark 15:21; cf. Rom 16:13",
+    "Tier": "Companion",
+    "AttestationDateAD": 55,
+    "CorroboratedBy": [],
+    "ChallengedBy": [],
+    "RebutsFragmentIDs": [],
+    "bIsContested": false,
+    "ScholarlyNote": "Mark names the man pressed into carrying the crossbeam, and then names his two sons -- Alexander and Rufus -- without explaining who they are. The usual reading is that they were known to the congregation Mark wrote for, which makes the detail a pointer to living people who could be asked. A Rufus is greeted in Romans 16:13; whether it is the same man is not demonstrable, only possible."
+  },
+  {
+    "Name": "Frag_BurialByJosephOfArimathea",
+    "FragmentID": "Frag_BurialByJosephOfArimathea",
+    "Title": "The body claimed by a member of the council",
+    "SourceReference": "Mark 15:42-47; Matt 27:57-61; Luke 23:50-56; John 19:38-42",
+    "Tier": "Eyewitness",
+    "AttestationDateAD": 55,
+    "CorroboratedBy": [
+      "Frag_WomenFirstAtTheTomb"
+    ],
+    "ChallengedBy": [],
+    "RebutsFragmentIDs": [],
+    "bIsContested": false,
+    "ScholarlyNote": "All four accounts have the body claimed by a named member of the very council that had sought the execution, and buried in a known tomb rather than the common grave an executed man would normally receive. This is awkward testimony for the movement: it credits the decisive act to the opposing party. It also makes the later claim checkable, since a named man and a known tomb can both be visited."
+  },
+  {
+    "Name": "Frag_WitnessesDisagreeOnTheMessenger",
+    "FragmentID": "Frag_WitnessesDisagreeOnTheMessenger",
+    "Title": "The accounts differ on who was at the tomb",
+    "SourceReference": "Mark 16:5; Matt 28:2-5; Luke 24:4; John 20:12",
+    "Tier": "Eyewitness",
+    "AttestationDateAD": 55,
+    "CorroboratedBy": [],
+    "ChallengedBy": [],
+    "RebutsFragmentIDs": [],
+    "bIsContested": true,
+    "ScholarlyNote": "One young man in white, an angel, two men, two angels -- the four accounts do not agree on how many figures were at the tomb or how they are described. This is a real divergence and should be held as one. It is also the ordinary signature of independent reports of a confused morning: what varies is number and description, what does not vary is that the tomb was open, the body was gone, and women found it first. Testimony that agreed in every particular would be the more suspicious result."
+  },
+  {
+    "Name": "Frag_GalileeOrJerusalem",
+    "FragmentID": "Frag_GalileeOrJerusalem",
+    "Title": "Galilee or Jerusalem: where the appearances happened",
+    "SourceReference": "Mark 16:7; Matt 28:7,10,16-20; Luke 24:13-49; Acts 1:4; John 20-21",
+    "Tier": "Eyewitness",
+    "AttestationDateAD": 55,
+    "CorroboratedBy": [],
+    "ChallengedBy": [],
+    "RebutsFragmentIDs": [],
+    "bIsContested": true,
+    "ScholarlyNote": "Mark and Matthew send the disciples north to Galilee and place the commissioning there. Luke keeps the appearances in and around Jerusalem and Acts has them expressly told to remain in the city. John records both, in that order. Harmonisations exist and some are reasonable, but the tension is genuine and the player should know it is there before an opponent raises it. What all four share is that the disciples who had scattered were, within a short time, proclaiming publicly in Jerusalem -- which is the datum that needs explaining whatever route they took to it."
+  },
+  {
+    "Name": "Frag_DisciplesFledThenProclaimed",
+    "FragmentID": "Frag_DisciplesFledThenProclaimed",
+    "Title": "They ran, and then they did not",
+    "SourceReference": "Mark 14:50, 66-72; Acts 2:14-36; 4:13; 5:28-29",
+    "Tier": "Eyewitness",
+    "AttestationDateAD": 55,
+    "CorroboratedBy": [
+      "Frag_PublicPreachingInJerusalem"
+    ],
+    "ChallengedBy": [],
+    "RebutsFragmentIDs": [],
+    "bIsContested": false,
+    "ScholarlyNote": "The same sources that make the disciples the movement's authorities also record that they abandoned him at the arrest and that their leading figure denied knowing him. Weeks later those men are proclaiming publicly in the city that killed him, under the authorities that killed him. The flight is not a detail a movement would invent about its own founders, and the reversal is the thing every account of the origin -- believing or sceptical -- has to find some way to explain."
   }
 ]

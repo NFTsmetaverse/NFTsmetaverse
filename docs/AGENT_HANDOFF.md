@@ -25,7 +25,7 @@ WHAT IT IS
   witness missions, combat encounters), plus a playable layer on top of it
   (UChainGameFlowSubsystem, AChainGameMode, AChainPlayerController, AChainHUD) that
   makes the whole thing driveable from the keyboard with no editor-built assets.
-  ~15,500 lines of C++ in 58 files, 15 JSON DataTables with 230 rows, and 59
+  ~15,500 lines of C++ in 58 files, 16 JSON DataTables with 257 rows, and 59
   automation tests across ten suites.
 
   Read README.md and docs/SETUP.md first. docs/MASTER_PROMPT.md is the original
@@ -85,13 +85,13 @@ DONE LOOKS LIKE
 
 ## After it compiles
 
-The next steps are in `docs/SETUP.md`: import the fifteen DataTables, assign them
+The next steps are in `docs/SETUP.md`: import the sixteen DataTables, assign them
 in **Project Settings → Game → Chain of Witnesses Content**, make an empty level,
 set **Default GameMode** to `ChainGameMode`, and press Play. You are looking for
 this in the Output Log:
 
 ```
-LogChainBootstrap: Registered 230 rows of campaign content.
+LogChainBootstrap: Registered 257 rows of campaign content.
 LogChainBootstrap: Content validated with no problems.
 LogChainFlow: Ready. Open the console (~) and type ChainHelp, or press H.
 ```

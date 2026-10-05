@@ -1,5 +1,24 @@
 [
   {
+    "Name": "Event_BurialByJosephOfArimathea",
+    "EventID": "Event_BurialByJosephOfArimathea",
+    "EventTitle": "The Body Claimed and Buried",
+    "Act": "Act1_JerusalemChurch",
+    "YearEarliestAD": 30,
+    "YearLatestAD": 33,
+    "bDatingIsDisputed": true,
+    "DatingDisputeNote": "Follows the crucifixion, whose year is itself disputed between AD 30 and 33.",
+    "SourceReference": "Mark 15:42-47; Matt 27:57-61; Luke 23:50-56; John 19:38-42",
+    "DesignUse": "Fixes the location of the body in named, checkable custody. Everything the empty tomb claim means depends on this beat being established first.",
+    "WorldStateEffects": [],
+    "AffectedHubCityID": "",
+    "UnlockedFactionIDs": [],
+    "PrerequisiteEventIDs": [
+      "Event_CrucifixionResurrection"
+    ],
+    "bTriggersWitnessMission": false
+  },
+  {
     "Name": "Event_CrucifixionResurrection",
     "EventID": "Event_CrucifixionResurrection",
     "EventTitle": "Crucifixion, Resurrection Appearances, Ascension",
@@ -17,6 +36,27 @@
     "UnlockedFactionIDs": [],
     "PrerequisiteEventIDs": [],
     "bTriggersWitnessMission": true
+  },
+  {
+    "Name": "Event_GalileeAppearances",
+    "EventID": "Event_GalileeAppearances",
+    "EventTitle": "The Appearances and Where They Happened",
+    "Act": "Act1_JerusalemChurch",
+    "YearEarliestAD": 30,
+    "YearLatestAD": 33,
+    "bDatingIsDisputed": true,
+    "DatingDisputeNote": "Not the date but the place is disputed. Mark 16:7 and Matt 28:7,10,16 send the disciples to Galilee. Luke 24 keeps the appearances in and around Jerusalem and Acts 1:4 has them told to remain there. John has both, Jerusalem in chapter 20 and Galilee in chapter 21. The game presents the divergence rather than harmonising it.",
+    "SourceReference": "Mark 16:7; Matt 28:16-20; Luke 24:13-49; John 20-21; 1 Cor 15:5-7",
+    "DesignUse": "The prologue's closing beat and the player's first lesson: the sources agree on the core and differ on the periphery.",
+    "WorldStateEffects": [
+      "SetPiece"
+    ],
+    "AffectedHubCityID": "",
+    "UnlockedFactionIDs": [],
+    "PrerequisiteEventIDs": [
+      "Event_BurialByJosephOfArimathea"
+    ],
+    "bTriggersWitnessMission": false
   },
   {
     "Name": "Event_Pentecost",

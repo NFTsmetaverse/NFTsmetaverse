@@ -8,7 +8,7 @@ python3 Tools/verify.py
 
 No dependencies beyond a Python 3 interpreter, and no Unreal Engine. That is
 the whole point: there was no UE toolchain in the environment this was written
-in, so roughly 15,500 lines of C++ and fifteen DataTables have never been
+in, so roughly 15,500 lines of C++ and sixteen DataTables have never been
 through UnrealHeaderTool, a compiler, or the DataTable importer. These cover
 the failures that can be found without them.
 

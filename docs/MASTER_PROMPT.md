@@ -310,6 +310,29 @@ not UMG and Enhanced Input: both of those need assets that only exist once someo
 has opened the editor, and the point of this layer is that the game is playable the
 moment it compiles. `ChainSlice` plays Task 9's scene end to end from the keyboard.
 
+**Also off-queue: the Jerusalem church, and the prologue.** The Codex was almost
+entirely Gospels and manuscripts -- the written end of the chain -- while the
+congregation that held the testimony before any of it was written had nothing.
+Added ten events covering its life from the eyewitness criterion through the flight
+to Pella, eleven fragments, and the Council of Jerusalem as a playable scene.
+→ `Content/Data/DT_Dialogue_JerusalemCouncil.json`, `WM_JerusalemCouncil`.
+
+Then the prologue the whole campaign has been assuming: the player enters AD 30-33
+as an unnamed follower and witnesses the execution, the burial, the first morning
+and the Galilee aftermath.
+→ `Content/Data/DT_Dialogue_PassionAndFirstMorning.json` (nineteen nodes), rebuilt
+`WM_EmptyTomb`, six fragments.
+
+Two rules decided its shape. Section 4 forbids invented scripture, so no words are
+put in the mouth of Jesus or of the messenger at the tomb: the player stands in the
+crowd, and what is rendered as dialogue is the people around the events -- Simon of
+Cyrene, a soldier on the cordon, the women returning, Peter and John -- where
+original dialogue is explicitly allowed. Section 11 forbids silently picking a side
+in a genuine dispute, so the Galilee-or-Jerusalem divergence is not harmonised: Mary
+reports both versions because she heard both, the group argues about it on screen,
+and it becomes a contested fragment. The player's first lesson is the one the game
+is about.
+
 **For each task:** file list with paths, complete `.h` and `.cpp`, Blueprint
 exposure notes, and a short test plan. Ask before assuming anything about the
 existing project structure (though as of Task 1 the structure below is now

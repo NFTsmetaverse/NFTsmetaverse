@@ -65,7 +65,7 @@ what is left is the category a linter cannot reach:
 Save the full build log and send it to me. Working through a compile log is
 something I can do well from here, and it is the fastest way through this step.
 
-## 3. Import the fifteen tables — optional
+## 3. Import the sixteen tables — optional
 
 **You can skip this entirely.** The bootstrap reads `Content/Data/*.json` directly
 when no DataTable asset is assigned, so a fresh clone runs with no editor work at
@@ -111,7 +111,7 @@ the row structs are C++ types and do not exist until it does.
 
 ## 4. Assign them — already done
 
-`Config/DefaultGame.ini` ships with all fifteen assignments filled in, pointing at
+`Config/DefaultGame.ini` ships with all sixteen assignments filled in, pointing at
 `/Game/Data/`. Import to those paths and the wiring is already there.
 
 **Project Settings → Game → Chain of Witnesses Content** is still where you change
@@ -137,7 +137,7 @@ there every time.
 Watch the Output Log for:
 
 ```
-LogChainBootstrap: Registered 230 rows of campaign content.
+LogChainBootstrap: Registered 257 rows of campaign content.
 LogChainBootstrap: Content validated with no problems.
 LogChainFlow: Ready. Open the console (~) and type ChainHelp, or press H.
 ```

@@ -340,7 +340,7 @@ Two routes, both in `docs/`:
 
 
 **`docs/SETUP.md`** is the step-by-step: engine version, first build, importing the
-fifteen tables, and the one Project Settings page that wires them in. Start there.
+sixteen tables, and the one Project Settings page that wires them in. Start there.
 
 The short version: this repository *is* the Unreal project — clone it and open
 `ChainOfWitnesses.uproject`. What exists is the simulation and the text game on top
